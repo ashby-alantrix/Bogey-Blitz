@@ -16,9 +16,11 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     [SerializeField] private Transform rightLane;
 
     private Vector3 targetPosition = Vector3.zero;
+    private bool isChangingLane = false;
 
     private InputController inputController;
     private BogeyCollisionHandler bogeyCollisionHandler;
+    public BogeyCollisionHandler BogeyCollisionHandler => bogeyCollisionHandler;
 
     private EnvironmentSpawnManager environmentSpawnManager;
     public EnvironmentSpawnManager EnvironmentSpawnManager => environmentSpawnManager;
@@ -32,18 +34,22 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
-        
+
         Debug.Log($"initialized input controller: {inputController}");
     }
 
     public void UpdateMovement(Vector2 swipeDelta)
     {
+        if (isChangingLane) return;
+        
         if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
         {
+            isChangingLane = true;
             MoveRight();
         }
         else if (swipeDelta.x < 0 && transform.position.x > leftBound.position.x)
         {
+            isChangingLane = true;
             MoveLeft();
         }
     }
@@ -52,14 +58,14 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         targetPosition = transform.position + (Vector3.left * laneWidth) + (Vector3.forward * 3f);
 
-        transform.DOMove(targetPosition, 0.2f);
+        transform.DOMove(targetPosition, 0.2f).OnComplete(() => isChangingLane = false);
     }
 
     public void MoveRight()
     {
         targetPosition = transform.position + (Vector3.right * laneWidth) + (Vector3.forward * 3f);
 
-        transform.DOMove(targetPosition, 0.2f);
+        transform.DOMove(targetPosition, 0.2f).OnComplete(() => isChangingLane = false);
 
         Debug.Log($"Target position: {targetPosition}");
     }

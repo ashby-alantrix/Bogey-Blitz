@@ -3,9 +3,11 @@ using UnityEngine;
 public class BogeyCollisionHandler : MonoBehaviour
 {
     private BogeyController bogeyController;
+    private BoxCollider boxCollider;
 
     private void Start()
     {
+        boxCollider = GetComponent<BoxCollider>();
         bogeyController = GetComponent<BogeyController>();
     }
 
@@ -26,5 +28,10 @@ public class BogeyCollisionHandler : MonoBehaviour
 
             break;
         }
+    }
+
+    public void ToggleColliderState(bool state)
+    {
+        boxCollider.enabled = state;
     }
 }

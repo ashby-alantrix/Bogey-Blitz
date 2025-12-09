@@ -30,6 +30,13 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         if (!bogeyController) return;
 
+    // #if UNITY_EDITOR
+    //     if (Input.GetKeyDown(KeyCode.A))
+    //         bogeyController.MoveLeft();
+    //     else if (Input.GetKeyDown(KeyCode.D))
+    //         bogeyController.MoveRight();
+    // #endif
+    //     return;
         DetectSwipe();
     }
 

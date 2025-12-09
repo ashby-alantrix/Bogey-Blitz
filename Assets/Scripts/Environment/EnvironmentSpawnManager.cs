@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
@@ -12,10 +13,11 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     [SerializeField] private GameObject prefab;
     [SerializeField] private int initialSpawnCount = 14;
-    [SerializeField] private float blockOffsetZ = 15;
+    [SerializeField] private float blockOffsetZ = 5;
 
     private BogeyController bogeyController;
     private Queue<Transform> environmentBlocksQueue = new Queue<Transform>();
+    private Dictionary<string, EnvironmentBlock> environmentBlocksDict = new Dictionary<string, EnvironmentBlock>();
 
     private Transform prevEnvironmentBlock = null;
     private Transform currentEnvironmentBlock = null;
@@ -28,15 +30,22 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         float zOffsetSum = 0;
         for (int i=0; i<testPrefabCount; i++)
         {
-            zOffsetSum += blockOffsetZ;
             var instance = Instantiate(testPrefab, new Vector3(testPrefab.transform.position.x, testPrefab.transform.position.y, zOffsetSum), Quaternion.identity);
             instance.transform.SetParent(planesParent);
-            instance.name = $"Plane {i + 1}";
+            instance.name = $"Rail {i + 1}";
+
+            var block = instance.GetComponent<EnvironmentBlock>();
+            environmentBlocksDict.Add(instance.name, block);
+            block.Init(i + 1);
+
+            zOffsetSum += blockOffsetZ;
         }
     }
 
     private void Awake()
     {
+        CreateTestBlocks();
+
         foreach (Transform transformObj in planesParent)
         {
             environmentBlocksQueue.Enqueue(transformObj);
@@ -53,16 +62,28 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         bogeyController = InterfaceManager.Instance?.GetInterfaceInstance<BogeyController>();
     }
 
-    public void SetEnvironmentBlocks(Transform block)
+    public void SetEnvironmentBlocks(Transform newBlock)
     {
-        Debug.Log($"SetEnvironmentBlocks :: before prevEnvironmentBlock: {prevEnvironmentBlock}");
-        Debug.Log($"SetEnvironmentBlocks :: before currentEnvironmentBlock: {currentEnvironmentBlock}");
+        Debug.Log($"SetEnvironmentBlocks :: before prevEnvironmentBlock: {prevEnvironmentBlock?.name}");
+        Debug.Log($"SetEnvironmentBlocks :: before currentEnvironmentBlock: {currentEnvironmentBlock?.name}");
+
+        if (currentEnvironmentBlock != null && environmentBlocksDict[newBlock.name].ID != environmentBlocksDict[currentEnvironmentBlock.name].ID + 1 || 
+            environmentBlocksDict[newBlock.name].ID == 1 && environmentBlocksDict[currentEnvironmentBlock.name].ID == environmentBlocksDict.Count)
+        {
+            return;
+        }
+
+        // if (!string.IsNullOrWhiteSpace(prevEnvironmentBlock?.name) && !string.IsNullOrWhiteSpace(currentEnvironmentBlock?.name) 
+        //     &&  (prevEnvironmentBlock.name.Equals(currentEnvironmentBlock.name) || currentEnvironmentBlock.name.Equals(newBlock.name))) 
+        // {
+        //     return;
+        // }
 
         prevEnvironmentBlock = currentEnvironmentBlock;
-        currentEnvironmentBlock = block;
+        currentEnvironmentBlock = newBlock;
 
-        Debug.Log($"SetEnvironmentBlocks :: after prevEnvironmentBlock: {prevEnvironmentBlock}");
-        Debug.Log($"SetEnvironmentBlocks :: after currentEnvironmentBlock: {currentEnvironmentBlock}");
+        Debug.Log($"SetEnvironmentBlocks :: after prevEnvironmentBlock: {prevEnvironmentBlock?.name}");
+        Debug.Log($"SetEnvironmentBlocks :: after currentEnvironmentBlock: {currentEnvironmentBlock.name}");
 
         if (prevEnvironmentBlock != null)
         {
@@ -75,9 +96,9 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         }
     }
 
-    // OnTrigger
     private void SendBlockTowardsEnd()
     {
+        Debug.Log($"SetEnvironmentBlocks :: after :: SendBlockTowardsEnd");
         var dequeuedElement = environmentBlocksQueue.Dequeue();
         var offsetZ = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
 
@@ -85,16 +106,14 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         environmentBlocksQueue.Enqueue(dequeuedElement);
     }
 
+
     private void Update()
     {
         if (!bogeyController) return;
 
-        if (bogeyController.transform.position.z > 202.5f)
+        if (bogeyController.transform.position.z > 110f)
         {
-            lastSavedZOffset = bogeyController.transform.position.z - currentEnvironmentBlock.transform.position.z;
-            Debug.Log($"Resetting world origin: {lastSavedZOffset}");
-            bogeyController.transform.position = new Vector3(bogeyController.transform.position.x, bogeyController.transform.position.y, Mathf.Abs(lastSavedZOffset));
-
+            bogeyController.BogeyCollisionHandler.ToggleColliderState(false);
             float blockPosZ = 0;
 
             foreach (var block in environmentBlocksQueue)
@@ -102,6 +121,10 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
                 block.position = new Vector3(block.position.x, block.position.y, blockPosZ);
                 blockPosZ += blockOffsetZ;
             }
+
+            bogeyController.transform.position = new Vector3(bogeyController.transform.position.x, bogeyController.transform.position.y, Mathf.Abs(lastSavedZOffset));
+            bogeyController.BogeyCollisionHandler.ToggleColliderState(true);
+            Debug.Log($"Resetting world origin: {lastSavedZOffset}");
         }
     }
 }
