@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
-    [SerializeField] private Transform leftBound;
-    [SerializeField] private Transform rightBound;
-
     // Finger finger;
 
     private float laneWidth;
@@ -56,16 +53,7 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
                         isSwiping = false;
                         Vector2 swipeDelta = currentTouchPosition - startTouchPosition;
                         Debug.Log($"swipeDelta.x: {swipeDelta.x}");
-                        Debug.Log($"transform.position.x < rightBound.position.x: {transform.position.x} :: {rightBound.position.x}");
-
-                        if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
-                        {
-                            bogeyController.MoveRight();
-                        }
-                        else if (swipeDelta.x < 0 && transform.position.x > leftBound.position.x)
-                        {   
-                            bogeyController.MoveLeft();
-                        }
+                        bogeyController.UpdateMovement(swipeDelta);
                     }
                     break;
             }

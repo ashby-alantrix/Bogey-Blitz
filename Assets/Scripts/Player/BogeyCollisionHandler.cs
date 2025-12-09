@@ -2,17 +2,25 @@ using UnityEngine;
 
 public class BogeyCollisionHandler : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private BogeyController bogeyController;
+
+    private void Start()
     {
-        CheckBlockEvent(other.tag);
+        bogeyController = GetComponent<BogeyController>();
     }
 
-    private void CheckBlockEvent(string tag)
+    private void OnTriggerEnter(Collider other)
     {
-        switch (tag)
+        Debug.Log($"Checking block event: {other.tag}");
+        CheckBlockEvent(other);
+    }
+
+    private void CheckBlockEvent(Collider other)
+    {
+        switch (other.tag)
         {
             case BogeyBlitz_Constants.STRAIGHT_TRACK_TAG:
-                
+                bogeyController.EnvironmentSpawnManager.SetEnvironmentBlocks(other.transform);
             break;
             case BogeyBlitz_Constants.CURVED_TRACK_TAG:
 

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
+    [SerializeField] private Transform leftBound;
+    [SerializeField] private Transform rightBound;
+
     [SerializeField] private Vector3 dir;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float laneWidth;
@@ -17,6 +20,9 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private InputController inputController;
     private BogeyCollisionHandler bogeyCollisionHandler;
 
+    private EnvironmentSpawnManager environmentSpawnManager;
+    public EnvironmentSpawnManager EnvironmentSpawnManager => environmentSpawnManager;
+
     public void Initialize()
     {
         InterfaceManager.Instance?.RegisterInterface<BogeyController>(this);
@@ -25,7 +31,21 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void InitializeData()
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
+        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
+        
         Debug.Log($"initialized input controller: {inputController}");
+    }
+
+    public void UpdateMovement(Vector2 swipeDelta)
+    {
+        if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
+        {
+            MoveRight();
+        }
+        else if (swipeDelta.x < 0 && transform.position.x > leftBound.position.x)
+        {
+            MoveLeft();
+        }
     }
 
     public void MoveLeft()
