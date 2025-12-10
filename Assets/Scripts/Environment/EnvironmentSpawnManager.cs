@@ -64,11 +64,8 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     public void SetEnvironmentBlocks(Transform newBlock)
     {
-        Debug.Log($"SetEnvironmentBlocks :: before prevEnvironmentBlock: {prevEnvironmentBlock?.name}");
-        Debug.Log($"SetEnvironmentBlocks :: before currentEnvironmentBlock: {currentEnvironmentBlock?.name}");
-
-        if (currentEnvironmentBlock != null && environmentBlocksDict[newBlock.name].ID != environmentBlocksDict[currentEnvironmentBlock.name].ID + 1 || 
-            environmentBlocksDict[newBlock.name].ID == 1 && environmentBlocksDict[currentEnvironmentBlock.name].ID == environmentBlocksDict.Count)
+        if (currentEnvironmentBlock != null && (environmentBlocksDict[newBlock.name].ID != environmentBlocksDict[currentEnvironmentBlock.name].ID + 1 || 
+            environmentBlocksDict[newBlock.name].ID == 1 && environmentBlocksDict[currentEnvironmentBlock.name].ID == environmentBlocksDict.Count))
         {
             return;
         }
@@ -82,23 +79,15 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         prevEnvironmentBlock = currentEnvironmentBlock;
         currentEnvironmentBlock = newBlock;
 
-        Debug.Log($"SetEnvironmentBlocks :: after prevEnvironmentBlock: {prevEnvironmentBlock?.name}");
-        Debug.Log($"SetEnvironmentBlocks :: after currentEnvironmentBlock: {currentEnvironmentBlock.name}");
-
         if (prevEnvironmentBlock != null)
         {
             lastSavedZOffset = bogeyController.transform.position.z - currentEnvironmentBlock.transform.position.z;
-            Debug.Log($":: lastSavedZOffset: currentEnvironmentBlock: {currentEnvironmentBlock.name}");
-            Debug.Log($":: lastSavedZOffset. bogeyController.transform.position.z : {bogeyController.transform.position.z }");
-            Debug.Log($":: lastSavedZOffset. currentEnvironmentBlock.transform.position.z: {currentEnvironmentBlock.transform.position.z}");
-            Debug.Log($":: lastSavedZOffset: {lastSavedZOffset}");
             SendBlockTowardsEnd();
         }
     }
 
     private void SendBlockTowardsEnd()
     {
-        Debug.Log($"SetEnvironmentBlocks :: after :: SendBlockTowardsEnd");
         var dequeuedElement = environmentBlocksQueue.Dequeue();
         var offsetZ = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
 
