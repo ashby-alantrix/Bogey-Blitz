@@ -584,6 +584,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   initialSpawnCount: 14
   blockOffsetZ: 20
+  environmentMoveSpeed: 15
 --- !u!1 &1584401110
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,38 +792,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPoolBases: []
   obstaclePoolBases: []
---- !u!1 &2046248574
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2046248575}
-  - component: {fileID: 1770350795569697673}
-  m_Layer: 0
-  m_Name: Train-Electric-Bullet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2046248575
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046248574}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 4.47, y: 0, z: -0.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2103669964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,19 +1376,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7509403435231268035}
   m_Mesh: {fileID: -6296406880743504499, guid: c344b426112744a8d830e831568f9ecc, type: 3}
---- !u!65 &1770350795569697673
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046248574}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.89, z: 0}
 --- !u!33 &1845871712525293529
 MeshFilter:
   m_ObjectHideFlags: 0
