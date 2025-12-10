@@ -10,6 +10,7 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     [SerializeField] private Vector3 dir;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float laneWidth;
+    [SerializeField] private float laneChangeTime;
     [SerializeField] private float laneChangeSpeed;
 
     [SerializeField] private Transform middleLane;
@@ -56,16 +57,22 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void MoveLeft()
     {
-        targetPosition = transform.position + (Vector3.left * laneWidth) + (Vector3.forward * 3f);
+        targetPosition = transform.position + (Vector3.left * laneWidth);// + (Vector3.forward * 3f);
 
-        transform.DOMove(targetPosition, 0.2f).OnComplete(() => isChangingLane = false);
+        transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
+        {
+            isChangingLane = false;
+        });
     }
 
     public void MoveRight()
     {
-        targetPosition = transform.position + (Vector3.right * laneWidth) + (Vector3.forward * 3f);
+        targetPosition = transform.position + (Vector3.right * laneWidth);// + (Vector3.forward * 3f);
 
-        transform.DOMove(targetPosition, 0.2f).OnComplete(() => isChangingLane = false);
+        transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
+        {
+            isChangingLane = false;
+        });
 
         Debug.Log($"Target position: {targetPosition}");
     }
@@ -80,6 +87,6 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void Update()
     {
-        transform.position += dir * Time.deltaTime * moveSpeed;
+        // transform.position += dir * Time.deltaTime * moveSpeed;
     }
 }

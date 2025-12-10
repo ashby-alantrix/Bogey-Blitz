@@ -14,6 +14,7 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
     [SerializeField] private GameObject prefab;
     [SerializeField] private int initialSpawnCount = 14;
     [SerializeField] private float blockOffsetZ = 5;
+    [SerializeField] private float environmentMoveSpeed = 15f;
 
     private BogeyController bogeyController;
     private Queue<Transform> environmentBlocksQueue = new Queue<Transform>();
@@ -36,7 +37,7 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
             var block = instance.GetComponent<EnvironmentBlock>();
             environmentBlocksDict.Add(instance.name, block);
-            block.Init(i + 1);
+            block.Init(i + 1, environmentMoveSpeed);
 
             zOffsetSum += blockOffsetZ;
         }
@@ -64,11 +65,16 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     public void SetEnvironmentBlocks(Transform newBlock)
     {
-        if (currentEnvironmentBlock != null && (environmentBlocksDict[newBlock.name].ID != environmentBlocksDict[currentEnvironmentBlock.name].ID + 1 || 
-            environmentBlocksDict[newBlock.name].ID == 1 && environmentBlocksDict[currentEnvironmentBlock.name].ID == environmentBlocksDict.Count))
-        {
-            return;
-        }
+        // Debug.Log($"environmentBlocksDict: {environmentBlocksDict.Count}");
+        // Debug.Log($"environmentBlocksDict, currentEnvironmentBlock: {environmentBlocksDict[currentEnvironmentBlock.name]}");
+        // Debug.Log($"environmentBlocksDict, newBlock: {newBlock.name}");
+        // Debug.Log($"environmentBlocksDict, newBlock: {environmentBlocksDict[newBlock.name]}");
+
+        // if (currentEnvironmentBlock != null && environmentBlocksDict.ContainsKey(currentEnvironmentBlock.name) && (environmentBlocksDict[newBlock.name].ID != environmentBlocksDict[currentEnvironmentBlock.name].ID + 1 || 
+        //     environmentBlocksDict[newBlock.name].ID == 1 && environmentBlocksDict[currentEnvironmentBlock.name].ID == environmentBlocksDict.Count))
+        // {
+        //     return;
+        // }
 
         // if (!string.IsNullOrWhiteSpace(prevEnvironmentBlock?.name) && !string.IsNullOrWhiteSpace(currentEnvironmentBlock?.name) 
         //     &&  (prevEnvironmentBlock.name.Equals(currentEnvironmentBlock.name) || currentEnvironmentBlock.name.Equals(newBlock.name))) 
@@ -98,6 +104,7 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     private void Update()
     {
+        return;
         if (!bogeyController) return;
 
         if (bogeyController.transform.position.z > 110f)
