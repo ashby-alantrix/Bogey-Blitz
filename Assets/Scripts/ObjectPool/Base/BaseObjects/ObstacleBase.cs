@@ -1,15 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-public enum ObstacleType
-{
-    Broken_Rail_Piece = 0,
-    Log = 1,
-    Parked_Wagon = 2,
-}
 
 public class ObstacleBase : ObjectBase
 {
-    [SerializeField] private ObstacleType obstacleType;
+    [SerializeField] private TrackObstacleType objectType;
+    [SerializeField] private Transform endPoint;
 
-    public ObstacleType ObstacleType => obstacleType;
+    public Transform EndPoint => endPoint;
+    public TrackObstacleType ObjectType => objectType;
+    public bool HasAIPassed
+    {
+        get;
+        private set;
+    }
+
+    public void SetAIPassedState(bool state)
+    {
+        HasAIPassed = state;
+    }
 }

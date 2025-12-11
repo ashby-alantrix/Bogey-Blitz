@@ -7,32 +7,23 @@ using UnityEngine.Pool;
 
 public enum PoolType
 {
-    Block = 0,
-    Train = 1,
+    Movable = 0,
+    NonMovable = 1,
     Obstacle = 2,
     Collectible = 3,
 }
 
 public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
 {
-    [SerializeField] private BlockObjectPool[] blockPoolBases;
     [SerializeField] private ObstacleObjectPool[] obstaclePoolBases;
 
-    private ObjectPoolBase<ObjectBase> poolToUse = null;
-    // private ItemsObjectPool poolToUse = null;
-
-    private Dictionary<BlockType, BlockObjectPool> blocksPoolBasesDict = new Dictionary<BlockType, BlockObjectPool>();
-    private Dictionary<ObstacleType, ObstacleObjectPool> obstaclesPoolBasesDict = new Dictionary<ObstacleType, ObstacleObjectPool>();
+    private Dictionary<TrackObstacleType, ObjectPoolBase> obstaclesPoolBasesDict = new Dictionary<TrackObstacleType, ObjectPoolBase>();
+    private Dictionary<TrackCollectibleType, ObjectPoolBase> collectiblesPoolBasesDict = new Dictionary<TrackCollectibleType, ObjectPoolBase>();
 
     public void Initialize()
     {
         InterfaceManager.Instance?.RegisterInterface<ObjectPoolManager>(this);
-        foreach (var pool in blockPoolBases)
-        {
-            blocksPoolBasesDict.Add(pool.GetPoolObjectType(), pool);
-            pool.InitPoolFirstTime();
-        }
-
+        
         foreach (var pool in obstaclePoolBases)
         {
             obstaclesPoolBasesDict.Add(pool.GetPoolObjectType(), pool);
@@ -61,7 +52,7 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
 
         return objectBase;
     }
-    
+
     public void PassObjectToPool<T>(string poolItemTypeInfo, PoolType poolType, T objectBase) where T : ObjectBase
     {
         ObjectPoolBase poolToUse = GetUsedPool(GetPoolInfoBasedOnType(poolItemTypeInfo, poolType), poolType);
@@ -77,10 +68,12 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
     {
         switch (poolType)
         {
-            case PoolType.Block:
-                return (int)Enum.Parse(typeof(BlockType), poolItemTypeInfo);
+            case PoolType.Movable:
+            case PoolType.NonMovable:
             case PoolType.Obstacle:
-                return (int)Enum.Parse(typeof(ObstacleType), poolItemTypeInfo);
+                return (int)Enum.Parse(typeof(TrackObstacleType), poolItemTypeInfo);
+            case PoolType.Collectible:
+                return (int)Enum.Parse(typeof(TrackCollectibleType), poolItemTypeInfo);
             default: 
                 return -1;
         }
@@ -90,20 +83,20 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
     {
         switch (poolType)
         {
-            case PoolType.Block:
-                var objectType = (BlockType)poolIndex;
-                if (blocksPoolBasesDict.ContainsKey(objectType))
-                    return blocksPoolBasesDict[objectType];
-                else 
-                    return null;
-
+            case PoolType.Movable:
+            case PoolType.NonMovable:
             case PoolType.Obstacle:
-                var objectType1 = (ObstacleType)poolIndex;
-                if (obstaclesPoolBasesDict.ContainsKey(objectType1))
-                    return obstaclesPoolBasesDict[objectType1];
+                var trackObstacleType = (TrackObstacleType)poolIndex;
+                if (obstaclesPoolBasesDict.ContainsKey(trackObstacleType))
+                    return obstaclesPoolBasesDict[trackObstacleType];
                 else 
                     return null;
-                    
+            case PoolType.Collectible:
+                var trackCollectibleType = (TrackCollectibleType)poolIndex;
+                if (collectiblesPoolBasesDict.ContainsKey(trackCollectibleType))
+                    return collectiblesPoolBasesDict[trackCollectibleType];
+                else 
+                    return null;
             default:
                 return null;
         }

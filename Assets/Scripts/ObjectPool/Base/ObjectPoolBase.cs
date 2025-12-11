@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class ObjectPoolBase : MonoBehaviour
@@ -12,6 +13,11 @@ public abstract class ObjectPoolBase : MonoBehaviour
 public class ObjectPoolBase<T> : ObjectPoolBase where T : ObjectBase
 {
     [SerializeField] protected T prefabInst;
+    [SerializeField] protected bool canContainMultipleObjects = false;
+
+    [Tooltip("If canContainMultipleObjects initialize this")]
+    [SerializeField] protected T[] prefabInstances;
+
     [SerializeField] protected Transform prefabsParent;
     [SerializeField] protected int initialPoolCount;
 
@@ -20,15 +26,39 @@ public class ObjectPoolBase<T> : ObjectPoolBase where T : ObjectBase
     public virtual void InitPoolFirstTime()
     {
         T itemInst = null;
-        for (int i = 0; i < initialPoolCount; i++)
+
+        if (!canContainMultipleObjects)
         {
-            itemInst = (T)CreateNewPooledItem();
-            Enqueue(itemInst);
+            for (int i = 0; i < initialPoolCount; i++)
+            {
+                itemInst = (T)CreateNewPooledItem();
+                Enqueue(itemInst);
+            }
+        }
+        else
+        {
+            initialPoolCount *= prefabInstances.Count();
+            var indexer = 0;
+
+            for (int i = 0; i < initialPoolCount; i++)
+            {
+                if (indexer >= prefabInstances.Count()) indexer = 0;
+
+                prefabInst = prefabInstances[indexer++];
+
+                itemInst = (T)CreateNewPooledItem();
+                Enqueue(itemInst);
+            }
         }
     }
 
     public override ObjectBase CreateNewPooledItem()
     {
+        if (canContainMultipleObjects)
+        {
+            prefabInst = prefabInstances[Random.Range(0, prefabInstances.Length)];
+        }
+
         T inst = Instantiate(prefabInst);
         inst.gameObject.SetActive(false); // enqueue these objects later
         inst.transform.parent = prefabsParent;
@@ -45,27 +75,6 @@ public class ObjectPoolBase<T> : ObjectPoolBase where T : ObjectBase
     {
         return queue.Dequeue();
     }
-
-    // public T CreateNewPoolItem()
-    // {
-    //     T inst = Instantiate(prefabInst);
-    //     inst.gameObject.SetActive(false); // enqueue these objects later
-    //     inst.transform.parent = prefabsParent;
-        
-    //     // Enqueue(inst);
-
-    //     return inst;
-    // }
-
-    // public virtual void Enqueue(T item)
-    // {
-    //     queue.Enqueue(item);
-    // }
-
-    // public virtual T Dequeue()
-    // {
-    //     return queue.Dequeue();
-    // }
 
     public override bool IsEmpty()
     {
