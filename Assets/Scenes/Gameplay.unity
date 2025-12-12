@@ -561,9 +561,10 @@ MonoBehaviour:
   - {fileID: 1884538609}
   - {fileID: 1489614767}
   totalLanes: 3
-  safeDistance: 10
-  pathTimerMinLimit: 4
-  pathTimerMaxLimit: 7
+  initialSafeDistance: 10
+  intervalSafeDistance: 5
+  pathTimerMinLimit: 0
+  pathTimerMaxLimit: 5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +578,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: FollowCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camOffset: {x: 0, y: 6.240682, z: -8}
-  bogeyController: {fileID: 2104461514}
+  bogeyController: {fileID: 2104461520}
 --- !u!1 &1269252414
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +714,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   initialSpawnCount: 14
   blockOffsetZ: 20
-  environmentMoveSpeed: 15
+  environmentMoveSpeed: 20
 --- !u!4 &1489614767 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3068343165821833312, guid: bec3246d1a8514f529e8384be344d885, type: 3}
@@ -991,17 +992,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3577736732278104569, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
   m_PrefabInstance: {fileID: 3577736732728240444}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2104461514 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3577736732278104566, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
+--- !u!4 &2104461520 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3577736732278104565, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
   m_PrefabInstance: {fileID: 3577736732728240444}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104461509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c8d1549518de42eab5ecf06b405e81d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2039844867949096870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,6 +1067,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1884538611}
     - target: {fileID: 3577736732278104566, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
+      propertyPath: moveSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3577736732278104566, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
       propertyPath: rightLane
       value: 
       objectReference: {fileID: 1884538608}
@@ -1112,6 +1111,10 @@ PrefabInstance:
     - target: {fileID: 5051828963623730371, guid: d7191f46e32424ad9b0320ac9e765841, type: 3}
       propertyPath: m_Name
       value: AIBogeyController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051828963623730395, guid: d7191f46e32424ad9b0320ac9e765841, type: 3}
+      propertyPath: moveSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5051828963623730396, guid: d7191f46e32424ad9b0320ac9e765841, type: 3}
       propertyPath: m_RootOrder

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -9,12 +10,14 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [SerializeField] private Transform[] lanes;
     [SerializeField] private int totalLanes = 3;
-    [SerializeField] private float safeDistance = 20f;
+    [SerializeField] private float initialSafeDistance = 10f;
+    [SerializeField] private float intervalSafeDistance = 5f;
 
     [SerializeField] private float pathTimerMinLimit = 6f;
     [SerializeField] private float pathTimerMaxLimit = 10f;
 
 
+    private float safeDistance = 0f;
     private float pathTimer = 0;
     private float minDistance = 0;
     private float maxDistance = 5;
@@ -24,6 +27,8 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private bool isInitialSpawn = true;
 
     private int currentTrackLaneIdx = -1;
+    private int safeAreaIdx = 0;
+    private List<int> laneIndexes = new List<int>();
 
     private Vector3 globalEndPointPos = Vector3.zero;
     private Vector3 globalEndPointPosMax = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
@@ -48,7 +53,6 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void SpawnObstacles()
     {
         int closerEndpointLaneIdx = 0;
-        int safeAreaIdx = 0;
 
         if (isInitialSpawn)
         {
@@ -56,24 +60,17 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
             float distZ = 0, extraOffsetDist = 0;
             safeAreaIdx = Random.Range(0, totalLanes);
+            safeDistance = initialSafeDistance;
 
-            for (int i = 0; i < totalLanes; i++)
-            {
-                if (i == safeAreaIdx)
-                {
-                    continue;
-                }
+            Debug.Log($"Updated safeAreaIdx on initial instance {safeAreaIdx}");
 
-                SetObstaclePositionData(out distZ, out extraOffsetDist, i);
-            }
+            SetObstaclePositionData();
 
-            Transform emptyLane = GetEmptyLane(safeAreaIdx);
             closerEndpointLaneIdx = FindCloserEndpointLaneIdx(safeAreaIdx);
         }
         else
         {
-            List<int> laneIndexes = new List<int>();
-
+            laneIndexes.Clear();
             laneIndexes.Add(safeAreaIdx);
             if (safeAreaIdx != 0 && safeAreaIdx != totalLanes - 1)
             {
@@ -86,7 +83,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             }
             else if (safeAreaIdx == 0)
             {
-                if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx + 1) &&lastSpawnedObstaclesInLane[safeAreaIdx + 1].HasAIPassed)
+                if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx + 1) && lastSpawnedObstaclesInLane[safeAreaIdx + 1].HasAIPassed)
                     laneIndexes.Add(safeAreaIdx + 1);
             }
             else
@@ -95,18 +92,13 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
                     laneIndexes.Add(safeAreaIdx - 1);
             }
 
+            Debug.Log($":: safeAreaIdx: {safeAreaIdx}");
+            Debug.Log($":: laneIndexes: {laneIndexes[0]}, {laneIndexes[1]}");
             safeAreaIdx = laneIndexes[Random.Range(0, laneIndexes.Count)];
-            float distZ = 0, extraOffsetDist = 0;
+            safeDistance = intervalSafeDistance;
+            Debug.Log($"Updated safeAreaIdx on second instance {safeAreaIdx}");
 
-            for (int i = 0; i < laneIndexes.Count; i++)
-            {
-                if (i == safeAreaIdx) 
-                {
-                    continue;
-                }
-
-                SetObstaclePositionData(out distZ, out extraOffsetDist, i);
-            }
+            SetObstaclePositionData();
 
             Transform emptyLane = GetEmptyLane(safeAreaIdx);
             aiController.ChangeLane(emptyLane.position);
@@ -114,39 +106,46 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             closerEndpointLaneIdx = FindCloserEndpointLaneIdx(safeAreaIdx);
         }
 
-        // if (!lastSpawnedObstaclesInLane.ContainsKey(closerEndpointLaneIdx))
-        //     lastSpawnedObstaclesInLane.Add(closerEndpointLaneIdx)
-
+        Debug.Log($"closerEndpointLaneIdx: {closerEndpointLaneIdx}");
         globalEndPointPos = lastSpawnedObstaclesInLane[closerEndpointLaneIdx].EndPoint.position;
         Debug.Log($"globalEndPointPos: {globalEndPointPos}");
         currentTrackLaneIdx = closerEndpointLaneIdx;
     }
 
-    private void SetObstaclePositionData(out float distZ, out float extraOffsetDist, int i)
+    private void SetObstaclePositionData()
     {
-        extraOffsetDist = Random.Range(minDistance, maxDistance); // TODO :: tune values
-        distZ = safeDistance + extraOffsetDist;
+        float extraOffsetDist = 0, distZ = 0;
 
-        laneSpawnStartPos = new Vector3(lanes[i].position.x, lanes[i].position.y, aiController.transform.position.z + distZ);
+        for (int i = 0; i < totalLanes; i++)
+        {
+            if (i == safeAreaIdx)
+            {
+                continue;
+            }
 
-        obstaclesManager.SpawnObstacle(laneSpawnStartPos, out ObstacleBase obstacleBase);
+            extraOffsetDist = Random.Range(minDistance, maxDistance); // TODO :: tune values
+            distZ = safeDistance + extraOffsetDist;
 
-        if (lastSpawnedObstaclesInLane.ContainsKey(i))
-            lastSpawnedObstaclesInLane[i] = obstacleBase;
-        else
-            lastSpawnedObstaclesInLane.Add(i, obstacleBase);
+            laneSpawnStartPos = new Vector3(lanes[i].position.x, lanes[i].position.y, aiController.transform.position.z + distZ);
+            obstaclesManager.SpawnObstacle(laneSpawnStartPos, out ObstacleBase obstacleBase);
+
+            if (lastSpawnedObstaclesInLane.ContainsKey(i))
+                lastSpawnedObstaclesInLane[i] = obstacleBase;
+            else
+                lastSpawnedObstaclesInLane.Add(i, obstacleBase);
+        }
     }
 
     private Transform GetEmptyLane(int safeAreaIdx)
     {
         var emptyLane = lanes[safeAreaIdx];
-        emptyLane.position = new Vector3(emptyLane.position.x, emptyLane.position.y, aiController.transform.position.z + safeDistance);
+        emptyLane.position = new Vector3(emptyLane.position.x, emptyLane.position.y, aiController.transform.position.z);
         return emptyLane;
     }
 
     private int FindCloserEndpointLaneIdx(int safeAreaIdx)
     {
-        int closerEndpoint;
+        int closerEndpointIdx;
         var n1 = -1;
         var n2 = -1;
 
@@ -178,14 +177,14 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
         if (pos1 != Vector3.zero && pos2 != Vector3.zero)
         {
-            closerEndpoint = pos1.z < pos2.z ? n1 : n2;
+            closerEndpointIdx = pos1.z < pos2.z ? n1 : n2;
         }
         else// if (pos1 != Vector3.zero)
         {
-            closerEndpoint = pos1 != Vector3.zero ? n1 : n2;
+            closerEndpointIdx = pos1 != Vector3.zero ? n1 : n2;
         }
 
-        return closerEndpoint;
+        return closerEndpointIdx;
     }
 
     public void StartCreatingPathElements()
@@ -201,7 +200,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         if (canCreatePath)
         {
-                CheckIfAICrossedLaneTrainEndPoint();
+            CheckIfAICrossedLaneTrainEndPoint();
             // if (pathTimer < pathTimerLimit) // should be configurable
             // {
             //     pathTimer += Time.deltaTime;
@@ -215,15 +214,16 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
-
     private void CheckIfAICrossedLaneTrainEndPoint()
     {
-        Debug.Log($"CheckIfAICrossedLaneTrainEndPoint: {aiController.transform.position.z} > {globalEndPointPos.z}");
         if (aiController.transform.position.z > globalEndPointPos.z)
         {
+            Debug.Log($":: CheckIfAICrossedLaneTrainEndPoint: {globalEndPointPos.z}");
             globalEndPointPos = globalEndPointPosMax;
             if (lastSpawnedObstaclesInLane.ContainsKey(currentTrackLaneIdx))
                 lastSpawnedObstaclesInLane[currentTrackLaneIdx].SetAIPassedState(true);
+
+            Debug.Log($"Spawn Obstacles");
             SpawnObstacles();
         }
     }

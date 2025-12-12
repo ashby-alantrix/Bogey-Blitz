@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     [SerializeField] private Vector3 camOffset;
-    [SerializeField] private BogeyController bogeyController;
+    [SerializeField] private Transform bogeyController;
 
     // Update is called once per frame
     void LateUpdate()
