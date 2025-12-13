@@ -31,7 +31,6 @@ public class ObstacleBase : ObjectBase
 
         if (obstaclesManager && transform.position.z < obstaclesManager.ObstacleEndpoint.z)
         {
-            Debug.Log($"Deactivating object :: {Mathf.Abs(transform.position.z)} > {Mathf.Abs(obstaclesManager.ObstacleEndpoint.z)}");
             gameObject.SetActive(false);
             obstaclesManager.SendObjectToPool(this);
         }
