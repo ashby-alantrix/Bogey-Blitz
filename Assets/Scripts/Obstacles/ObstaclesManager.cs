@@ -21,14 +21,17 @@ public enum TrackCollectibleType
 
 public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
+    [SerializeField] private Transform obstacleEndpoint;
+
     private ObjectPoolManager objectPoolManager;
     private TrackObstacleType[] obstaclesTypes;
+
+    public Vector3 ObstacleEndpoint => obstacleEndpoint.position;
     public TrackObstacleType CurrentTrackObstacleType
     {
         get;
         private set;    
     }
-
 
     public void Initialize()
     {
@@ -52,9 +55,17 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void SpawnObstacle(Vector3 laneSpawnStartPos, out ObstacleBase obstacleBase)
     {
         var poolInstance = objectPoolManager.GetObjectFromPool<ObstacleBase>($"{CurrentTrackObstacleType}", GetPoolType());
+
+        Debug.Log($"");
+
         poolInstance.transform.position = laneSpawnStartPos;
         poolInstance.gameObject.SetActive(true);
         obstacleBase = poolInstance;
+    }
+
+    public void SendObjectToPool(ObstacleBase obstacleBase)
+    {
+        objectPoolManager.PassObjectToPool($"{obstacleBase.ObjectType}", GetPoolType(), obstacleBase);
     }
 
     public PoolType GetPoolType()

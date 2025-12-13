@@ -4,6 +4,7 @@ using UnityEngine;
 public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     // Finger finger;
+    [SerializeField] private bool enableKeyboardControl;
 
     private float laneWidth;
 
@@ -30,13 +31,16 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         if (!bogeyController) return;
 
-    // #if UNITY_EDITOR
-    //     if (Input.GetKeyDown(KeyCode.A))
-    //         bogeyController.MoveLeft();
-    //     else if (Input.GetKeyDown(KeyCode.D))
-    //         bogeyController.MoveRight();
-    // #endif
-    //     return;
+#if UNITY_EDITOR
+        if (enableKeyboardControl)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+                bogeyController.MoveLeft();
+            else if (Input.GetKeyDown(KeyCode.D))
+                bogeyController.MoveRight();
+        }
+#endif
+
         DetectSwipe();
     }
 

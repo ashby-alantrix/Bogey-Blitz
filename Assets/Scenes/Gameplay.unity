@@ -206,7 +206,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &260998076
 GameObject:
@@ -259,6 +259,37 @@ MonoBehaviour:
   prefabsParent: {fileID: 260998077}
   initialPoolCount: 5
   objectType: 2
+--- !u!1 &537700952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537700953}
+  m_Layer: 0
+  m_Name: ObstacleEndpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537700953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537700952}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.53, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &551582124
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +414,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &834529452
 GameObject:
@@ -481,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cc2a5dcbaf748d4a94a5f889b773de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstacleEndpoint: {fileID: 537700953}
 --- !u!1 &854358679
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +542,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &949006157
 GameObject:
@@ -781,6 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2389f83887e7b44f98e3f6ad1533b15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableKeyboardControl: 1
 --- !u!4 &1714804019
 Transform:
   m_ObjectHideFlags: 0
@@ -810,7 +843,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3068343166850957667, guid: bec3246d1a8514f529e8384be344d885, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3068343166850957667, guid: bec3246d1a8514f529e8384be344d885, type: 3}
       propertyPath: m_LocalPosition.x

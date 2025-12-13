@@ -127,6 +127,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             distZ = safeDistance + extraOffsetDist;
 
             laneSpawnStartPos = new Vector3(lanes[i].position.x, lanes[i].position.y, aiController.transform.position.z + distZ);
+            Debug.Log($"LaneSpawnStartPos: {laneSpawnStartPos}");
             obstaclesManager.SpawnObstacle(laneSpawnStartPos, out ObstacleBase obstacleBase);
 
             if (lastSpawnedObstaclesInLane.ContainsKey(i))
