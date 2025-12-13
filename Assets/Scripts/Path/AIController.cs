@@ -25,6 +25,7 @@ public class AIController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     void Update()
     {
+        return;
         transform.position += Vector3.forward * Time.deltaTime * moveSpeed;
     }
 

@@ -13,7 +13,6 @@ public class BogeyCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Checking block event: {other.tag}");
         CheckBlockEvent(other);
     }
 

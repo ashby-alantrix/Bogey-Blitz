@@ -204,6 +204,7 @@ MonoBehaviour:
   dir: {x: 0, y: 0, z: 0}
   moveSpeed: 20
   laneWidth: 0
+  laneChangeTime: 0
   laneChangeSpeed: 10
   middleLane: {fileID: 0}
   rightLane: {fileID: 0}
@@ -352,10 +353,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c344b426112744a8d830e831568f9ecc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1bd26ba2efec04ff9826fe0bda3190b8, type: 2}
+    - target: {fileID: -6483240261258245640, guid: c344b426112744a8d830e831568f9ecc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 547f9bb7f841d4b0799c3772e2c25801, type: 2}
     - target: {fileID: 919132149155446097, guid: c344b426112744a8d830e831568f9ecc, type: 3}
       propertyPath: m_Name
       value: train-locomotive-c
       objectReference: {fileID: 0}
+    - target: {fileID: 2513161050298241050, guid: c344b426112744a8d830e831568f9ecc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 547f9bb7f841d4b0799c3772e2c25801, type: 2}
+    - target: {fileID: 2532653736880331566, guid: c344b426112744a8d830e831568f9ecc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 547f9bb7f841d4b0799c3772e2c25801, type: 2}
+    - target: {fileID: 2737424176336421215, guid: c344b426112744a8d830e831568f9ecc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 547f9bb7f841d4b0799c3772e2c25801, type: 2}
+    - target: {fileID: 5591963073044988768, guid: c344b426112744a8d830e831568f9ecc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 547f9bb7f841d4b0799c3772e2c25801, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c344b426112744a8d830e831568f9ecc, type: 3}
 --- !u!4 &8874858402374754118 stripped

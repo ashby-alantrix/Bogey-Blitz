@@ -103,6 +103,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2440834577113820191}
     m_Modifications:
+    - target: {fileID: 1570410678388052854, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 2391242865129755868, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
     - target: {fileID: 3958368401204931052, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -151,6 +159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainBogeyEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5184691879484497044, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
 --- !u!4 &2440834576851907313 stripped
@@ -165,6 +177,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2440834577113820191}
     m_Modifications:
+    - target: {fileID: 1547934312549143811, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 2422655709268468883, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
+    - target: {fileID: 2422655709541995177, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
     - target: {fileID: 3917732731880462261, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -213,6 +237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainPassengerBogey 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5135194239959505633, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
 --- !u!4 &2440834577339137716 stripped
@@ -227,6 +255,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2440834577113820191}
     m_Modifications:
+    - target: {fileID: 1146958885320701800, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 6760555042451683466, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 7581262946764668704, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
+    - target: {fileID: 7581262947767408306, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
     - target: {fileID: 9148952530166287506, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -289,6 +333,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2440834577113820191}
     m_Modifications:
+    - target: {fileID: 1146958885320701800, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 6760555042451683466, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 7581262946764668704, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
+    - target: {fileID: 7581262947767408306, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
     - target: {fileID: 9148952530166287506, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_RootOrder
       value: 2

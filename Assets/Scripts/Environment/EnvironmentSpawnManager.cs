@@ -12,7 +12,6 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
     [SerializeField] private int testPrefabCount;
 
     [SerializeField] private GameObject prefab;
-    [SerializeField] private int initialSpawnCount = 14;
     [SerializeField] private float blockOffsetZ = 5;
     [SerializeField] private float environmentMoveSpeed = 15f;
 

@@ -30,7 +30,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private int safeAreaIdx = 0;
     private List<int> laneIndexes = new List<int>();
 
-    private Vector3 globalEndPointPos = Vector3.zero;
+    private ObstacleBase lastEncounteredObstacle = null;
     private Vector3 globalEndPointPosMax = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
     private Vector3 laneSpawnStartPos;
 
@@ -75,7 +75,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             if (safeAreaIdx != 0 && safeAreaIdx != totalLanes - 1)
             {
                 Debug.Log($"safeAreaIdx: {safeAreaIdx}");
-                if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx - 1) &&lastSpawnedObstaclesInLane[safeAreaIdx - 1].HasAIPassed)
+                if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx - 1) && lastSpawnedObstaclesInLane[safeAreaIdx - 1].HasAIPassed)
                     laneIndexes.Add(safeAreaIdx - 1);
 
                 if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx + 1) && lastSpawnedObstaclesInLane[safeAreaIdx + 1].HasAIPassed)
@@ -88,7 +88,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             }
             else
             {
-                if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx - 1) &&lastSpawnedObstaclesInLane[safeAreaIdx - 1].HasAIPassed)
+                if (lastSpawnedObstaclesInLane.ContainsKey(safeAreaIdx - 1) && lastSpawnedObstaclesInLane[safeAreaIdx - 1].HasAIPassed)
                     laneIndexes.Add(safeAreaIdx - 1);
             }
 
@@ -107,8 +107,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
 
         Debug.Log($"closerEndpointLaneIdx: {closerEndpointLaneIdx}");
-        globalEndPointPos = lastSpawnedObstaclesInLane[closerEndpointLaneIdx].EndPoint.position;
-        Debug.Log($"globalEndPointPos: {globalEndPointPos}");
+        lastEncounteredObstacle = lastSpawnedObstaclesInLane[closerEndpointLaneIdx];
         currentTrackLaneIdx = closerEndpointLaneIdx;
     }
 
@@ -217,10 +216,13 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void CheckIfAICrossedLaneTrainEndPoint()
     {
-        if (aiController.transform.position.z > globalEndPointPos.z)
+        if (lastEncounteredObstacle)
+            Debug.Log($":: CheckIfAICrossedLaneTrainEndPoint :: {aiController.transform.position.z} > {lastEncounteredObstacle.EndPoint.position.z}");
+
+        if (isInitialSpawn || (lastEncounteredObstacle != null && aiController.transform.position.z > lastEncounteredObstacle.EndPoint.position.z))
         {
-            Debug.Log($":: CheckIfAICrossedLaneTrainEndPoint: {globalEndPointPos.z}");
-            globalEndPointPos = globalEndPointPosMax;
+            lastEncounteredObstacle = null;
+            
             if (lastSpawnedObstaclesInLane.ContainsKey(currentTrackLaneIdx))
                 lastSpawnedObstaclesInLane[currentTrackLaneIdx].SetAIPassedState(true);
 
