@@ -5,11 +5,21 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     [SerializeField] private Vector3 camOffset;
-    [SerializeField] private Transform bogeyController;
+    [SerializeField] private PlayerCarController playerCarController;
+
+    private void Start()
+    {
+        playerCarController.InitFollowCamera(this);
+    }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
-        transform.position = bogeyController.transform.position + camOffset;
+        transform.position = playerCarController.transform.position + camOffset;
+    }
+
+    public void SetCamState(bool state)
+    {
+        enabled = state;
     }
 }

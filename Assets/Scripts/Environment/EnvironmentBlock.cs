@@ -16,6 +16,11 @@ public class EnvironmentBlock : MonoBehaviour
     public void Init(int id, float moveSpeed)
     {
         this.ID = id;
+        UpdateMoveSpeed(moveSpeed);
+    }
+
+    public void UpdateMoveSpeed(float moveSpeed)
+    {
         this.moveSpeed = moveSpeed;
     }
 

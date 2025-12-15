@@ -91,7 +91,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             }
 
             Debug.Log($":: safeAreaIdx: {safeAreaIdx}");
-            Debug.Log($":: laneIndexes: {laneIndexes[0]}, {laneIndexes[1]}");
+            // Debug.Log($":: laneIndexes: {laneIndexes[0]}, {laneIndexes[1]}");
             safeAreaIdx = laneIndexes[Random.Range(0, laneIndexes.Count)];
 
             Debug.Log($"Updated safeAreaIdx on second instance {safeAreaIdx}");
@@ -190,7 +190,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void StartCreatingPathElements()
     {
         timer = 0;
-        obstaclesManager.SetObstaclesType();
+        obstaclesManager.SetObstaclesType(isInitialSpawn);
 
         var obstaclesPathData = obstaclesManager.GetObstaclesPathData();
         safeDistance = obstaclesPathData.safeDistance;
@@ -202,8 +202,15 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         Debug.Log($"StartCreatingPathElements");
     }
 
+    // // private bool AreManagersInitialized()
+    // // {
+    // //     return aiController != null && obstaclesManager != null;
+    // // }
+
     private void Update()
     {
+        // // if (!AreManagersInitialized()) return;
+
         if (hasExtraDelay)
         {
             if (timer < extraDelayTime)

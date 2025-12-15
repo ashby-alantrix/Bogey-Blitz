@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +16,23 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
     [SerializeField] private float blockOffsetZ = 5;
     [SerializeField] private float environmentMoveSpeed;
 
-    private BogeyController bogeyController;
-    private Queue<Transform> environmentBlocksQueue = new Queue<Transform>();
-    private Dictionary<string, EnvironmentBlock> environmentBlocksDict = new Dictionary<string, EnvironmentBlock>();
-
-    private Transform prevEnvironmentBlock = null;
+    private Queue<EnvironmentBlock> environmentBlocksQueue = new Queue<EnvironmentBlock>();
     private Transform passedEnvironmentBlock = null;
 
-    private float lastSavedZOffset;
+    public float EnvironmentMoveSpeed => environmentMoveSpeed;
 
     [ContextMenu("Create Test Blocks")]
-    public void CreateTestBlocks()
+    public void CreateBlocks()
     {
         float zOffsetSum = 0;
         for (int i=0; i<testPrefabCount; i++)
         {
-            var instance = Instantiate(testPrefab, new Vector3(testPrefab.transform.position.x, testPrefab.transform.position.y, zOffsetSum), Quaternion.identity);
+            GameObject instance = Instantiate(testPrefab, new Vector3(testPrefab.transform.position.x, testPrefab.transform.position.y, zOffsetSum), Quaternion.identity);
             instance.transform.SetParent(planesParent);
             instance.name = $"Rail {i + 1}";
 
-            var block = instance.GetComponent<EnvironmentBlock>();
-            environmentBlocksDict.Add(instance.name, block);
-            block.Init(i + 1, environmentMoveSpeed);
+            EnvironmentBlock block = instance.GetComponent<EnvironmentBlock>();
+            block.Init(i + 1, EnvironmentMoveSpeed);
 
             zOffsetSum += blockOffsetZ;
         }
@@ -44,11 +40,11 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     private void Awake()
     {
-        CreateTestBlocks();
+        CreateBlocks();
 
         foreach (Transform transformObj in planesParent)
         {
-            environmentBlocksQueue.Enqueue(transformObj);
+            environmentBlocksQueue.Enqueue(transformObj.GetComponent<EnvironmentBlock>());
         }
     }
 
@@ -59,14 +55,11 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     public void InitializeData()
     {
-        bogeyController = InterfaceManager.Instance?.GetInterfaceInstance<BogeyController>();
     }
 
     public void SetEnvironmentBlocks(Transform newBlock)
     {
-        prevEnvironmentBlock = passedEnvironmentBlock;
         passedEnvironmentBlock = newBlock;
-
         if (passedEnvironmentBlock != null)
         {
             SendBlockTowardsEnd();
@@ -75,10 +68,18 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     private void SendBlockTowardsEnd()
     {
-        var dequeuedElement = environmentBlocksQueue.Dequeue();
-        var offsetZ = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
+        EnvironmentBlock dequeuedElement = environmentBlocksQueue.Dequeue();
+        float offsetZ = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
 
         dequeuedElement.transform.position = new Vector3(dequeuedElement.transform.position.x, dequeuedElement.transform.position.y, offsetZ);
         environmentBlocksQueue.Enqueue(dequeuedElement);
+    }
+
+    public void UpdateEnvBlockMoveSpeed(float moveSpeed)
+    {
+        foreach (EnvironmentBlock envBlock in environmentBlocksQueue)
+        {
+            envBlock.UpdateMoveSpeed(moveSpeed);
+        }
     }
 }

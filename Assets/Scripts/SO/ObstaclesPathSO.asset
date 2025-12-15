@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesPathData:
   - trackObstacleType: 0
-    extraDelay: 3
+    extraDelay: 0
+    pathTimerMinLimit: 2
+    pathTimerMaxLimit: 5
+    safeDistance: 8
+    extraOffsetMinDist: 5
+    extraOffsetMaxDist: 8
+  - trackObstacleType: 1
+    extraDelay: 0
+    pathTimerMinLimit: 3
+    pathTimerMaxLimit: 6
+    safeDistance: 8
+    extraOffsetMinDist: 4
+    extraOffsetMaxDist: 8
+  - trackObstacleType: 2
+    extraDelay: 5
     pathTimerMinLimit: 1
     pathTimerMaxLimit: 3
     safeDistance: 25
     extraOffsetMinDist: 5
     extraOffsetMaxDist: 12
-  - trackObstacleType: 1
-    extraDelay: 0
-    pathTimerMinLimit: 3
-    pathTimerMaxLimit: 6
-    safeDistance: 10
-    extraOffsetMinDist: 4
-    extraOffsetMaxDist: 8
-  - trackObstacleType: 2
-    extraDelay: 0
-    pathTimerMinLimit: 2
-    pathTimerMaxLimit: 5
-    safeDistance: 5
-    extraOffsetMinDist: 3
-    extraOffsetMaxDist: 5

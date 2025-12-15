@@ -14,7 +14,7 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private bool isSwiping = false;
     private bool canChangeLane = false;
 
-    private BogeyController bogeyController;
+    private PlayerCarController bogeyController;
 
     public void Initialize()
     {
@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
-        bogeyController = InterfaceManager.Instance?.GetInterfaceInstance<BogeyController>();
+        bogeyController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
         Debug.Log($"initialized bogey controller: {bogeyController}");
     }
 

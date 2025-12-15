@@ -6,9 +6,10 @@ using UnityEngine;
 
 public enum TrackObstacleType
 {
-    MovableTrain = 0,
+    Stopper = 0,
     NonMovableTrain = 1,
-    Stopper = 2
+    MovableTrain = 2,
+    MAX = 3,
 }
 
 public enum TrackCollectibleType
@@ -23,10 +24,10 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [SerializeField] private ObstaclesPathSO obstaclesPathSO;
     [SerializeField] private Transform obstacleEndpoint;
+    [SerializeField] private float movableTrainSpeed;
 
-    public ObstaclesPathSO ObstaclesPathSO;
     private ObjectPoolManager objectPoolManager;
-    private TrackObstacleType[] obstaclesTypes;
+    private EnvironmentSpawnManager environmentSpawnManager;
 
     public Vector3 ObstacleEndpoint => obstacleEndpoint.position;
     public TrackObstacleType CurrentTrackObstacleType
@@ -43,31 +44,27 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void InitializeData()
     {
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
-
-        var indexer = 0;
-        var obstacleTags = Enum.GetValues(typeof(TrackObstacleType));
-        obstaclesTypes = new TrackObstacleType[obstacleTags.Length];
-
-        foreach (var obstacleTag in obstacleTags)
-        {
-            obstaclesTypes[indexer++] = (TrackObstacleType)obstacleTag;
-        }  
+        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
     }
 
     public void SpawnObstacle(Vector3 laneSpawnStartPos, out ObstacleBase obstacleBase)
     {
-        var poolInstance = objectPoolManager.GetObjectFromPool<ObstacleBase>($"{CurrentTrackObstacleType}", GetPoolType());
+        ObstacleBase poolInstance = objectPoolManager.GetObjectFromPool<ObstacleBase>($"{CurrentTrackObstacleType}", GetPoolType());
 
         Debug.Log($"");
 
         poolInstance.transform.position = laneSpawnStartPos;
         poolInstance.gameObject.SetActive(true);
+
+        poolInstance.ObstacleMover.InitMoveSpeed(
+                        poolInstance.ObstacleType != TrackObstacleType.MovableTrain ? environmentSpawnManager.EnvironmentMoveSpeed : movableTrainSpeed);
+
         obstacleBase = poolInstance;
     }
 
     public void SendObjectToPool(ObstacleBase obstacleBase)
     {
-        objectPoolManager.PassObjectToPool($"{obstacleBase.ObjectType}", GetPoolType(), obstacleBase);
+        objectPoolManager.PassObjectToPool($"{obstacleBase.ObstacleType}", GetPoolType(), obstacleBase);
     }
 
     public PoolType GetPoolType()
@@ -85,9 +82,16 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
-    public void SetObstaclesType()
+    public void SetObstaclesType(bool isInitialSpawn)
     {
-        CurrentTrackObstacleType = obstaclesTypes[UnityEngine.Random.Range(0, obstaclesTypes.Length)];
+        int index = 0;
+        if (isInitialSpawn)
+            index = UnityEngine.Random.Range(0, (int)TrackObstacleType.MovableTrain);
+        else 
+            index = UnityEngine.Random.Range(0, (int)TrackObstacleType.MAX);
+
+        CurrentTrackObstacleType = (TrackObstacleType)index;
+        Debug.Log($"index: {index}, {isInitialSpawn}, {CurrentTrackObstacleType}");
     }
 
     public ObstaclesPathData GetObstaclesPathData()

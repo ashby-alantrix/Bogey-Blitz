@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
+public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [SerializeField] private Transform leftBound;
     [SerializeField] private Transform rightBound;
@@ -20,15 +20,21 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private bool isChangingLane = false;
 
     private InputController inputController;
-    private BogeyCollisionHandler bogeyCollisionHandler;
-    public BogeyCollisionHandler BogeyCollisionHandler => bogeyCollisionHandler;
+    private PlayerCollisionHandler bogeyCollisionHandler;
+    
+    public PlayerCollisionHandler BogeyCollisionHandler => bogeyCollisionHandler;
+    public FollowCamera FollowCamera
+    {
+        get;
+        private set;
+    }
 
     private EnvironmentSpawnManager environmentSpawnManager;
     public EnvironmentSpawnManager EnvironmentSpawnManager => environmentSpawnManager;
 
     public void Initialize()
     {
-        InterfaceManager.Instance?.RegisterInterface<BogeyController>(this);
+        InterfaceManager.Instance?.RegisterInterface<PlayerCarController>(this);
     }
 
     public void InitializeData()
@@ -39,24 +45,36 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
         Debug.Log($"initialized input controller: {inputController}");
     }
 
+    public void InitFollowCamera(FollowCamera cam)
+    {
+        FollowCamera = cam;
+    }
+
     public void UpdateMovement(Vector2 swipeDelta)
     {
-        if (isChangingLane) return;
+        Debug.Log($":: SwipeDelta: {swipeDelta}");
+        if (isChangingLane) 
+        {
+            Debug.Log($":: isChangingLane early return");
+            return;
+        }
         
         if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
         {
-            isChangingLane = true;
             MoveRight();
         }
         else if (swipeDelta.x < 0 && transform.position.x > leftBound.position.x)
         {
-            isChangingLane = true;
             MoveLeft();
         }
     }
 
     public void MoveLeft()
     {
+        #if UNITY_EDITOR
+        if (isChangingLane) return;
+        #endif
+        isChangingLane = true;
         targetPosition = transform.position + (Vector3.left * laneWidth);// + (Vector3.forward * 3f);
 
         transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
@@ -67,6 +85,11 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void MoveRight()
     {
+        #if UNITY_EDITOR
+        if (isChangingLane) return;
+        #endif
+
+        isChangingLane = true;
         targetPosition = transform.position + (Vector3.right * laneWidth);// + (Vector3.forward * 3f);
 
         transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
@@ -81,12 +104,7 @@ public class BogeyController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         dir = Vector3.forward;    
 
-        bogeyCollisionHandler = GetComponent<BogeyCollisionHandler>();
+        bogeyCollisionHandler = GetComponent<PlayerCollisionHandler>();
         laneWidth = (middleLane.position - rightLane.position).magnitude;
-    }
-
-    private void Update()
-    {
-        // transform.position += dir * Time.deltaTime * moveSpeed;
     }
 }

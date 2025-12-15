@@ -23,12 +23,6 @@ public class AIController : MonoBehaviour, IBase, IBootLoader, IDataLoader
         aiPathManager.StartCreatingPathElements();
     }
 
-    void Update()
-    {
-        return;
-        transform.position += Vector3.forward * Time.deltaTime * moveSpeed;
-    }
-
     public void ChangeLane(Vector3 pos)
     {
         transform.DOMove(pos, laneChangeTime);
