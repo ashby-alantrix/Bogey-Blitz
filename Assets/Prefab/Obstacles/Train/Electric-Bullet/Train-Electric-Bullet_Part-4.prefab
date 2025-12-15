@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 8716479483703968927}
   - component: {fileID: 6051775420184433180}
   - component: {fileID: 6008921004303361761}
+  - component: {fileID: 796355725618282502}
   m_Layer: 0
   m_Name: Train-Electric-Bullet_Part-4
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 1
   endPoint: {fileID: 4230415283638740651}
+  obstacleStationaryMover: {fileID: 6008921004303361761}
 --- !u!114 &6008921004303361761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +95,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1fb9758aedb4910b288ebd4a9d5065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &796355725618282502
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8716479483703968926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5, z: 5.25}
+  m_Center: {x: 0, y: 0.67, z: -2.75}
 --- !u!1001 &8716479483406168515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,6 +115,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8716479483703968927}
     m_Modifications:
+    - target: {fileID: 1255680247457645294, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255680247457645294, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1547934312549143811, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -160,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainPassengerBogey 2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3917732731880462262, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 5135194239959505633, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -182,6 +209,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 5125778833548502582, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5125778833548502582, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6760555042451683466, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -241,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_Name
       value: TrainPassengerBogey 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
