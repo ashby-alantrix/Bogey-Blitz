@@ -5,29 +5,28 @@ using System.Runtime.InteropServices;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
+using System.Timers;
 
 public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
-{
+{ 
     [SerializeField] private Transform[] lanes;
     [SerializeField] private int totalLanes = 3;
-    [SerializeField] private float initialSafeDistance = 10f;
-    [SerializeField] private float intervalSafeDistance = 5f;
 
     [SerializeField] private float pathTimerMinLimit = 6f;
     [SerializeField] private float pathTimerMaxLimit = 10f;
 
-
     private float safeDistance = 0f;
-    private float pathTimer = 0;
-    private float minDistance = 0;
-    private float maxDistance = 5;
+    private float timer = 0;
     private float pathTimerLimit = 5f;
+    private float extraDelayTime = 2f;
 
+    private bool hasExtraDelay = false;
     private bool canCreatePath;
     private bool isInitialSpawn = true;
 
     private int currentTrackLaneIdx = -1;
     private int safeAreaIdx = 0;
+    
     private List<int> laneIndexes = new List<int>();
 
     private ObstacleBase lastEncounteredObstacle = null;
@@ -60,7 +59,6 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
             float distZ = 0, extraOffsetDist = 0;
             safeAreaIdx = Random.Range(0, totalLanes);
-            safeDistance = initialSafeDistance;
 
             Debug.Log($"Updated safeAreaIdx on initial instance {safeAreaIdx}");
 
@@ -95,7 +93,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             Debug.Log($":: safeAreaIdx: {safeAreaIdx}");
             Debug.Log($":: laneIndexes: {laneIndexes[0]}, {laneIndexes[1]}");
             safeAreaIdx = laneIndexes[Random.Range(0, laneIndexes.Count)];
-            safeDistance = intervalSafeDistance;
+
             Debug.Log($"Updated safeAreaIdx on second instance {safeAreaIdx}");
 
             SetObstaclePositionData();
@@ -122,7 +120,9 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
                 continue;
             }
 
-            extraOffsetDist = Random.Range(minDistance, maxDistance); // TODO :: tune values
+            extraOffsetDist = Random.Range(obstaclesManager.GetObstaclesPathData().extraOffsetMinDist, 
+                                            obstaclesManager.GetObstaclesPathData().extraOffsetMaxDist); // TODO :: tune values
+
             distZ = safeDistance + extraOffsetDist;
 
             laneSpawnStartPos = new Vector3(lanes[i].position.x, lanes[i].position.y, aiController.transform.position.z + distZ);
@@ -189,28 +189,48 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void StartCreatingPathElements()
     {
+        timer = 0;
         obstaclesManager.SetObstaclesType();
-        pathTimerLimit = Random.Range(pathTimerMinLimit, pathTimerMaxLimit);
-        pathTimer = 0;
+
+        var obstaclesPathData = obstaclesManager.GetObstaclesPathData();
+        safeDistance = obstaclesPathData.safeDistance;
+        extraDelayTime = obstaclesPathData.extraDelay;
+        hasExtraDelay = extraDelayTime > 0;
+        pathTimerLimit = Random.Range(obstaclesPathData.pathTimerMinLimit, obstaclesPathData.pathTimerMaxLimit);
+
         canCreatePath = true;
         Debug.Log($"StartCreatingPathElements");
     }
 
     private void Update()
     {
-        if (canCreatePath)
+        if (hasExtraDelay)
         {
-            CheckIfAICrossedLaneTrainEndPoint();
-            // if (pathTimer < pathTimerLimit) // should be configurable
-            // {
-            //     pathTimer += Time.deltaTime;
-            //     CheckIfAICrossedLaneTrainEndPoint();
-            // }
-            // else
-            // {
-            //     pathTimer = 0;
-            //     canCreatePath = false;
-            // }
+            if (timer < extraDelayTime)
+            {
+                timer += Time.deltaTime;
+            }    
+            else
+            {
+                timer = 0;
+                hasExtraDelay = false;
+            }
+        }
+
+        if (!hasExtraDelay && canCreatePath)
+        {
+            // CheckIfAICrossedLaneTrainEndPoint();
+            if (timer < pathTimerLimit) // should be configurable
+            {
+                timer += Time.deltaTime;
+                CheckIfAICrossedLaneTrainEndPoint();
+            }
+            else
+            {
+                timer = 0;
+                canCreatePath = false;
+                StartCreatingPathElements();
+            }
         }
     }
 

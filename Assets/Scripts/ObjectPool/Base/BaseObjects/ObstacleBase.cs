@@ -31,6 +31,7 @@ public class ObstacleBase : ObjectBase
 
         if (obstaclesManager && transform.position.z < obstaclesManager.ObstacleEndpoint.z)
         {
+            HasAIPassed = false;
             gameObject.SetActive(false);
             obstaclesManager.SendObjectToPool(this);
         }

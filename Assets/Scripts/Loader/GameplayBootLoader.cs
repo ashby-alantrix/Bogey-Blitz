@@ -45,7 +45,7 @@ public class GameplayBootLoader : BootLoader
         {
             foreach (BaseSO scriptableObject in scriptables)
             {
-                scriptableObject.InitData();
+                scriptableObject.InitScriptableData();
             }
 
             hasInitializedScriptables = true;

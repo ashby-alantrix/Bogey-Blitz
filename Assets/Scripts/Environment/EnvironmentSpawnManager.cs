@@ -13,14 +13,14 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     [SerializeField] private GameObject prefab;
     [SerializeField] private float blockOffsetZ = 5;
-    [SerializeField] private float environmentMoveSpeed = 15f;
+    [SerializeField] private float environmentMoveSpeed;
 
     private BogeyController bogeyController;
     private Queue<Transform> environmentBlocksQueue = new Queue<Transform>();
     private Dictionary<string, EnvironmentBlock> environmentBlocksDict = new Dictionary<string, EnvironmentBlock>();
 
     private Transform prevEnvironmentBlock = null;
-    private Transform currentEnvironmentBlock = null;
+    private Transform passedEnvironmentBlock = null;
 
     private float lastSavedZOffset;
 
@@ -64,29 +64,11 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
     public void SetEnvironmentBlocks(Transform newBlock)
     {
-        // Debug.Log($"environmentBlocksDict: {environmentBlocksDict.Count}");
-        // Debug.Log($"environmentBlocksDict, currentEnvironmentBlock: {environmentBlocksDict[currentEnvironmentBlock.name]}");
-        // Debug.Log($"environmentBlocksDict, newBlock: {newBlock.name}");
-        // Debug.Log($"environmentBlocksDict, newBlock: {environmentBlocksDict[newBlock.name]}");
+        prevEnvironmentBlock = passedEnvironmentBlock;
+        passedEnvironmentBlock = newBlock;
 
-        // if (currentEnvironmentBlock != null && environmentBlocksDict.ContainsKey(currentEnvironmentBlock.name) && (environmentBlocksDict[newBlock.name].ID != environmentBlocksDict[currentEnvironmentBlock.name].ID + 1 || 
-        //     environmentBlocksDict[newBlock.name].ID == 1 && environmentBlocksDict[currentEnvironmentBlock.name].ID == environmentBlocksDict.Count))
-        // {
-        //     return;
-        // }
-
-        // if (!string.IsNullOrWhiteSpace(prevEnvironmentBlock?.name) && !string.IsNullOrWhiteSpace(currentEnvironmentBlock?.name) 
-        //     &&  (prevEnvironmentBlock.name.Equals(currentEnvironmentBlock.name) || currentEnvironmentBlock.name.Equals(newBlock.name))) 
-        // {
-        //     return;
-        // }
-
-        prevEnvironmentBlock = currentEnvironmentBlock;
-        currentEnvironmentBlock = newBlock;
-
-        if (prevEnvironmentBlock != null)
+        if (passedEnvironmentBlock != null)
         {
-            lastSavedZOffset = bogeyController.transform.position.z - currentEnvironmentBlock.transform.position.z;
             SendBlockTowardsEnd();
         }
     }
@@ -98,28 +80,5 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
         dequeuedElement.transform.position = new Vector3(dequeuedElement.transform.position.x, dequeuedElement.transform.position.y, offsetZ);
         environmentBlocksQueue.Enqueue(dequeuedElement);
-    }
-
-
-    private void Update()
-    {
-        return;
-        if (!bogeyController) return;
-
-        if (bogeyController.transform.position.z > 110f)
-        {
-            bogeyController.BogeyCollisionHandler.ToggleColliderState(false);
-            float blockPosZ = 0;
-
-            foreach (var block in environmentBlocksQueue)
-            {
-                block.position = new Vector3(block.position.x, block.position.y, blockPosZ);
-                blockPosZ += blockOffsetZ;
-            }
-
-            bogeyController.transform.position = new Vector3(bogeyController.transform.position.x, bogeyController.transform.position.y, Mathf.Abs(lastSavedZOffset));
-            bogeyController.BogeyCollisionHandler.ToggleColliderState(true);
-            Debug.Log($"Resetting world origin: {lastSavedZOffset}");
-        }
     }
 }

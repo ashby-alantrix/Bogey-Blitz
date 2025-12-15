@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BaseSO : ScriptableObject
 {
-    public virtual void InitData() {}
+    public virtual void InitScriptableData() {}
 }

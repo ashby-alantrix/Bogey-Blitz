@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleStationaryMover : MonoBehaviour
 {
-    private float moveSpeed = 15;
+    private float moveSpeed = 30;
 
     public void InitMoveSpeed(float moveSpeed)
     {

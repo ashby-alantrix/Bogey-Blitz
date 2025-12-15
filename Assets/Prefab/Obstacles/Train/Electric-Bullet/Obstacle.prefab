@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9b913037c9e304b61886536fc16b80c8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
     - target: {fileID: 919132149155446097, guid: 9b913037c9e304b61886536fc16b80c8, type: 3}
       propertyPath: m_Name
       value: train-connector
@@ -206,10 +210,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b348b7a8f211e431eb6b68a352f7923f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
+    - target: {fileID: -1072618819780143924, guid: b348b7a8f211e431eb6b68a352f7923f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
     - target: {fileID: 919132149155446097, guid: b348b7a8f211e431eb6b68a352f7923f, type: 3}
       propertyPath: m_Name
       value: train-electric-bullet-b
       objectReference: {fileID: 0}
+    - target: {fileID: 2532653736880331566, guid: b348b7a8f211e431eb6b68a352f7923f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b348b7a8f211e431eb6b68a352f7923f, type: 3}
 --- !u!4 &4118109990667908429 stripped

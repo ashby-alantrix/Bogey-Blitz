@@ -21,8 +21,10 @@ public enum TrackCollectibleType
 
 public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
+    [SerializeField] private ObstaclesPathSO obstaclesPathSO;
     [SerializeField] private Transform obstacleEndpoint;
 
+    public ObstaclesPathSO ObstaclesPathSO;
     private ObjectPoolManager objectPoolManager;
     private TrackObstacleType[] obstaclesTypes;
 
@@ -86,5 +88,10 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void SetObstaclesType()
     {
         CurrentTrackObstacleType = obstaclesTypes[UnityEngine.Random.Range(0, obstaclesTypes.Length)];
+    }
+
+    public ObstaclesPathData GetObstaclesPathData()
+    {
+        return obstaclesPathSO.GetObstaclesPathData(CurrentTrackObstacleType);
     }
 }
