@@ -14,14 +14,20 @@ public enum TrackCollectibleType
 public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [SerializeField] private float collectibleTimerLimit = 0.1f;
+    [SerializeField] private float collectibleSetSpawnDelay = 1f;
+    [SerializeField] private float spawnIntervalTime = 1f;
+    [SerializeField] private Transform collectibleEndpoint;
 
     private ObjectPoolManager objectPoolManager;
     private EnvironmentSpawnManager environmentSpawnManager;
     private AIPathManager aiPathManager;
 
-    private float collectibleTimer = 0;
+    private bool hasDelay = true;
+    private TimerSystem spawnerTimerSystem;
+    private TimerSystem stopperTimerSystem;
+    private TimerSystem delayTimerSystem;
 
-    private TimerSystem timerSystem;
+    public Vector3 CollectibleEndpoint => collectibleEndpoint.position;
 
     public TrackCollectibleType TrackCollectibleType
     {
@@ -40,25 +46,88 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
 
-        timerSystem = new TimerSystem();
-        timerSystem.Init(collectibleTimerLimit, () => OnCollectibleTimerComplete());
+        InitializeTimerSystem();
+    }
+
+    private void InitializeTimerSystem()
+    {
+        stopperTimerSystem = new TimerSystem();
+        spawnerTimerSystem = new TimerSystem();
+        delayTimerSystem = new TimerSystem();
+
+        InitTimers();
+    }
+
+    private void InitTimers()
+    {
+        InitializeStopperTimer();
+        InitializePathTimer();
+        InitializeDelayTimer();
+    }
+
+    private void InitializeDelayTimer()
+    {
+        delayTimerSystem.Init(collectibleSetSpawnDelay, onComplete: () =>
+        {
+            InitializeStopperTimer();
+            InitializePathTimer();
+        });
+    }
+
+    private void InitializeStopperTimer()
+    {
+        stopperTimerSystem.Init(spawnIntervalTime);
+    }
+
+    private void InitializePathTimer()
+    {
+        spawnerTimerSystem.Init(collectibleTimerLimit,
+        onComplete: () =>
+        {
+            OnCollectibleTimerComplete();
+        });
     }
 
     public void SpawnCollectible(Vector3 pos)
     {
-        CollectibleBase collectibleBase = objectPoolManager.GetObjectFromPool<CollectibleBase>($"{TrackCollectibleType}", PoolType.Collectible);
+        CollectibleBase collectibleBase = objectPoolManager.GetObjectFromPool<CollectibleBase>($"{TrackCollectibleType}", PoolType.Currency);
 
         collectibleBase.transform.position = pos; //new Vector3(pos.x, 0.5f, pos.y);
-        collectibleBase.transform.position = new Vector3(collectibleBase.transform.position.x, 0.5f, collectibleBase.transform.position.z); //new Vector3(pos.x, 0.5f, pos.y);
         collectibleBase.gameObject.SetActive(true);
         collectibleBase.SpawnableMoverBase.InitMoveSpeed(environmentSpawnManager.EnvironmentMoveSpeed);
     }
 
+    public void SendObjectToPool(CollectibleBase collectibleBase)
+    {
+        objectPoolManager.PassObjectToPool($"{collectibleBase.CollectibleType}", GetPoolType(), collectibleBase);
+    }
+
+    public PoolType GetPoolType()
+    {
+        switch (TrackCollectibleType)
+        {
+            case TrackCollectibleType.Currency:
+                return PoolType.Currency;
+
+            case TrackCollectibleType.Powerup1:
+            case TrackCollectibleType.Powerup2:
+            case TrackCollectibleType.Powerup3:
+                return PoolType.Powerup;
+
+            default:
+                return PoolType.MAX;
+        }
+    }
+
     private void Update()
     {
-        if (timerSystem == null) return;
+        if (spawnerTimerSystem == null) return;
 
-        timerSystem.UpdateTimer(Time.deltaTime);
+        stopperTimerSystem.UpdateTimer(Time.deltaTime);
+        if (!stopperTimerSystem.IsTimerComplete)
+            spawnerTimerSystem.UpdateTimer(Time.deltaTime);
+        else
+            delayTimerSystem.UpdateTimer(Time.deltaTime);
     }
 
     private void OnCollectibleTimerComplete()

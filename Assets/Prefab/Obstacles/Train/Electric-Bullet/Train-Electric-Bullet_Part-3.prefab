@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1149972630421052295}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6633700371151215810}
   - component: {fileID: -747347682040945866}
   - component: {fileID: 7404719982891066029}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Train-Electric-Bullet_Part-3
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -84,7 +84,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectType: 1
   endPoint: {fileID: 1149972630421052295}
-  obstacleStationaryMover: {fileID: -747347682040945866}
 --- !u!114 &-747347682040945866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,13 +185,33 @@ PrefabInstance:
       value: TrainPassengerBogey 2 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3917732731880462262, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917732731880462262, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_TagString
       value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224373117629051772, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224373117892117830, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5135194239959505633, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 7221296248157426620, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283783367267997276, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
 --- !u!4 &5668258148637501046 stripped
@@ -276,13 +295,33 @@ PrefabInstance:
       value: TrainPassengerBogey 2 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3917732731880462262, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917732731880462262, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_TagString
       value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224373117629051772, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224373117892117830, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5135194239959505633, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 7221296248157426620, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283783367267997276, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a261ba7baa942ccbfde4e178415a08, type: 3}
 --- !u!4 &5668258148666362636 stripped
@@ -301,6 +340,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 3215073562031783477, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205491130921647061, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5125778833548502582, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -321,6 +368,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
+    - target: {fileID: 8230031501011623669, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230031501885863783, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 9148952530166287506, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -370,6 +425,10 @@ PrefabInstance:
       value: TrainPassengerBogey 1 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_TagString
       value: Obstacle
       objectReference: {fileID: 0}
@@ -391,6 +450,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cf89867ed727942c7ac37fc590d8d7d1, type: 2}
+    - target: {fileID: 3215073562031783477, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205491130921647061, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5125778833548502582, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -411,6 +478,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
+    - target: {fileID: 8230031501011623669, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230031501885863783, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 9148952530166287506, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -458,6 +533,10 @@ PrefabInstance:
     - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_Name
       value: TrainPassengerBogey 1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9148952530166287509, guid: 99964bd05ba9a45d283b7c02857ede20, type: 3}
       propertyPath: m_TagString

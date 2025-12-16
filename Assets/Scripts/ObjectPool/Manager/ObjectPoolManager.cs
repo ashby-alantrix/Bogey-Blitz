@@ -10,8 +10,9 @@ public enum PoolType
     Movable = 0,
     NonMovable = 1,
     Obstacle = 2,
-    Collectible = 3,
-    MAX = 4,
+    Currency = 3,
+    Powerup = 4,
+    MAX = 5,
 }
 
 public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
@@ -81,7 +82,7 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
             case PoolType.NonMovable:
             case PoolType.Obstacle:
                 return (int)Enum.Parse(typeof(TrackObstacleType), poolItemTypeInfo);
-            case PoolType.Collectible:
+            case PoolType.Currency:
                 return (int)Enum.Parse(typeof(TrackCollectibleType), poolItemTypeInfo);
             default: 
                 return -1;
@@ -100,7 +101,7 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
                     return obstaclesPoolBasesDict[trackObstacleType];
                 else 
                     return null;
-            case PoolType.Collectible:
+            case PoolType.Currency:
                 var trackCollectibleType = (TrackCollectibleType)poolIndex;
                 if (collectiblesPoolBasesDict.ContainsKey(trackCollectibleType))
                     return collectiblesPoolBasesDict[trackCollectibleType];

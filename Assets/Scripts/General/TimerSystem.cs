@@ -10,10 +10,16 @@ public class TimerSystem
 
     private Action onTimerComplete = null;
     private Action onTimerInProgress = null;
+    public bool IsTimerComplete
+    {
+        get;
+        private set;
+    }
 
-    public void Init(float maxTimeAvail, Action onComplete, Action inProgress = null)
+    public void Init(float maxTimeAvail, Action onComplete = null, Action inProgress = null)
     {
         timeRem = 0;
+        IsTimerComplete = false;
 
         this.maxTimeAvail = maxTimeAvail;
         this.onTimerComplete = onComplete;
@@ -31,6 +37,7 @@ public class TimerSystem
         {
             timeRem = 0;
             onTimerComplete?.Invoke();
+            IsTimerComplete = true;
         }
     }
 }

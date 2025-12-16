@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
-using System.Timers;
 
 public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 { 
@@ -20,8 +19,6 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private float pathTimerLimit = 5f;
     private float extraDelayTime = 2f;
 
-    private bool hasExtraDelay = false;
-    private bool canCreatePath;
     private bool isInitialSpawn = true;
 
     private int currentTrackLaneIdx = -1;
@@ -51,27 +48,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
         collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
 
-        timerSystem = new TimerSystem();
         InitializeTimerSystem();
-    }
-
-    private void InitializeTimerSystem()
-    {
-        timerSystem.Init(extraDelayTime,
-        onComplete: () =>
-        {
-            hasExtraDelay = false;
-            timerSystem.Init(pathTimerLimit,
-            onComplete: () =>
-            {
-                canCreatePath = false;
-                StartCreatingObstacleElements();
-            },
-            inProgress: () =>
-            {
-                CheckIfAICrossedLaneTrainEndPoint();
-            });
-        });
     }
 
     public void SpawnObstacles()
@@ -132,6 +109,100 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         Debug.Log($"closerEndpointLaneIdx: {closerEndpointLaneIdx}");
         lastEncounteredObstacle = lastSpawnedObstaclesInLane[closerEndpointLaneIdx];
         currentTrackLaneIdx = closerEndpointLaneIdx;
+    }
+
+    public void StartCreatingObstacleElements()
+    {
+        timer = 0;
+        obstaclesManager.SetObstaclesType(isInitialSpawn);
+
+        var obstaclesPathData = obstaclesManager.GetObstaclesPathData();
+        safeDistance = obstaclesPathData.safeDistance;
+        extraDelayTime = obstaclesPathData.extraDelay;
+        pathTimerLimit = Random.Range(obstaclesPathData.pathTimerMinLimit, obstaclesPathData.pathTimerMaxLimit);
+
+        if (extraDelayTime > 0)
+        {
+            InitializePathTimerWithExtraDelay();
+        }
+        else
+        {
+            InitializePathTimer();
+        }
+
+        Debug.Log($"StartCreatingPathElements");
+    }
+
+    public void CreateCollectibleElements()
+    {
+        // TODO :: create two different positions
+
+        int index1 = UnityEngine.Random.Range(0, lanes.Length);
+        int index2 = UnityEngine.Random.Range(0, lanes.Length);
+        Vector3 lanePos1 = new Vector3(lanes[index1].position.x, 0.5f, aiController.transform.position.z);
+        collectiblesManager.SpawnCollectible(lanePos1);
+        if (index1 != index2)
+        {
+            Vector3 lanePos2 = new Vector3(lanes[index2].position.x, 0.5f, aiController.transform.position.z);
+            collectiblesManager.SpawnCollectible(lanePos2);
+        }
+    }
+
+    private void InitializeTimerSystem()
+    {
+        timerSystem = new TimerSystem();
+    }
+
+    private void InitializePathTimer()
+    {
+        timerSystem.Init(pathTimerLimit,
+        onComplete: () =>
+        {
+            StartCreatingObstacleElements();
+        },
+        inProgress: () =>
+        {
+            CheckIfAICrossedLaneTrainEndPoint();
+        });
+    }
+
+    private void InitializePathTimerWithExtraDelay()
+    {
+        timerSystem.Init(extraDelayTime,
+        onComplete: () =>
+        {
+            timerSystem.Init(pathTimerLimit,
+            onComplete: () =>
+            {
+                StartCreatingObstacleElements();
+            },
+            inProgress: () =>
+            {
+                CheckIfAICrossedLaneTrainEndPoint();
+            });
+        });
+    }
+
+    private void Update()
+    {
+        timerSystem.UpdateTimer(Time.deltaTime);
+    }
+
+    private void CheckIfAICrossedLaneTrainEndPoint()
+    {
+        if (lastEncounteredObstacle)
+            Debug.Log($":: CheckIfAICrossedLaneTrainEndPoint :: {aiController.transform.position.z} > {lastEncounteredObstacle.EndPoint.position.z}");
+
+        if (isInitialSpawn || (lastEncounteredObstacle != null && aiController.transform.position.z > lastEncounteredObstacle.EndPoint.position.z))
+        {
+            lastEncounteredObstacle = null;
+            
+            if (lastSpawnedObstaclesInLane.ContainsKey(currentTrackLaneIdx))
+                lastSpawnedObstaclesInLane[currentTrackLaneIdx].SetAIPassedState(true);
+
+            Debug.Log($"Spawn Obstacles");
+            SpawnObstacles();
+        }
     }
 
     private void SetObstaclePositionData()
@@ -210,55 +281,5 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
 
         return closerEndpointIdx;
-    }
-
-    public void StartCreatingObstacleElements()
-    {
-        timer = 0;
-        obstaclesManager.SetObstaclesType(isInitialSpawn);
-
-        var obstaclesPathData = obstaclesManager.GetObstaclesPathData();
-        safeDistance = obstaclesPathData.safeDistance;
-        extraDelayTime = obstaclesPathData.extraDelay;
-        hasExtraDelay = extraDelayTime > 0;
-        pathTimerLimit = Random.Range(obstaclesPathData.pathTimerMinLimit, obstaclesPathData.pathTimerMaxLimit);
-
-        canCreatePath = true;
-        Debug.Log($"StartCreatingPathElements");
-    }
-
-    public void CreateCollectibleElements()
-    {
-        collectiblesManager.SpawnCollectible(aiController.transform.position);
-    }
-
-    private void Update()
-    {
-        if (hasExtraDelay)
-        {
-            timerSystem.UpdateTimer(Time.deltaTime);
-        }
-
-        if (!hasExtraDelay && canCreatePath)
-        {
-            timerSystem.UpdateTimer(Time.deltaTime);
-        }
-    }
-
-    private void CheckIfAICrossedLaneTrainEndPoint()
-    {
-        if (lastEncounteredObstacle)
-            Debug.Log($":: CheckIfAICrossedLaneTrainEndPoint :: {aiController.transform.position.z} > {lastEncounteredObstacle.EndPoint.position.z}");
-
-        if (isInitialSpawn || (lastEncounteredObstacle != null && aiController.transform.position.z > lastEncounteredObstacle.EndPoint.position.z))
-        {
-            lastEncounteredObstacle = null;
-            
-            if (lastSpawnedObstaclesInLane.ContainsKey(currentTrackLaneIdx))
-                lastSpawnedObstaclesInLane[currentTrackLaneIdx].SetAIPassedState(true);
-
-            Debug.Log($"Spawn Obstacles");
-            SpawnObstacles();
-        }
     }
 }

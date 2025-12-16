@@ -1,21 +1,13 @@
-using Unity.VisualScripting;
 using UnityEngine;
-
-public enum CollectibleType
-{
-    Coins = 0,
-    Powerup1 = 1,
-    Powerup2 = 2,
-    Powerup3 = 3,
-}
 
 public class CollectibleBase : ObjectBase
 {
-    [SerializeField] private CollectibleType collectibleType;
+    [SerializeField] private TrackCollectibleType collectibleType;
 
     private ObjectPoolManager objectPoolManager;
+    private CollectiblesManager collectiblesManager;
 
-    public CollectibleType CollectibleType => collectibleType;
+    public TrackCollectibleType CollectibleType => collectibleType;
 
     public SpawnableMoverBase SpawnableMoverBase
     {
@@ -36,8 +28,22 @@ public class CollectibleBase : ObjectBase
         {
             case BogeyBlitz_Constants.PLAYER_TAG:
                 gameObject.SetActive(false);
-                objectPoolManager.PassObjectToPool($"{TrackCollectibleType.Currency}", PoolType.Collectible, this);
+                objectPoolManager.PassObjectToPool($"{TrackCollectibleType.Currency}", PoolType.Currency, this);
             break;
+        }
+    }
+
+    private void Update()
+    {
+        if (!collectiblesManager)
+        {
+            collectiblesManager = InterfaceManager.Instance.GetInterfaceInstance<CollectiblesManager>();    
+        }
+
+        if (collectiblesManager && transform.position.z < collectiblesManager.CollectibleEndpoint.z)
+        {
+            gameObject.SetActive(false);
+            collectiblesManager.SendObjectToPool(this);
         }
     }
 }
