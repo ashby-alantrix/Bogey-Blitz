@@ -12,14 +12,6 @@ public enum TrackObstacleType
     MAX = 3,
 }
 
-public enum TrackCollectibleType
-{
-    Currency = 0,
-    Powerup1 = 1,
-    Powerup2 = 2,
-    Powerup3 = 3
-}
-
 public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [SerializeField] private ObstaclesPathSO obstaclesPathSO;
@@ -51,8 +43,6 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         ObstacleBase poolInstance = objectPoolManager.GetObjectFromPool<ObstacleBase>($"{CurrentTrackObstacleType}", GetPoolType());
 
-        Debug.Log($"");
-
         poolInstance.transform.position = laneSpawnStartPos;
         poolInstance.gameObject.SetActive(true);
 
@@ -78,20 +68,14 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             case TrackObstacleType.Stopper:
                 return PoolType.Obstacle;
             default:
-                return PoolType.Movable;
+                return PoolType.MAX;
         }
     }
 
     public void SetObstaclesType(bool isInitialSpawn)
     {
-        int index = 0;
-        if (isInitialSpawn)
-            index = UnityEngine.Random.Range(0, (int)TrackObstacleType.MovableTrain);
-        else 
-            index = UnityEngine.Random.Range(0, (int)TrackObstacleType.MAX);
-
-        CurrentTrackObstacleType = (TrackObstacleType)index;
-        Debug.Log($"index: {index}, {isInitialSpawn}, {CurrentTrackObstacleType}");
+        CurrentTrackObstacleType = (TrackObstacleType)(isInitialSpawn ? UnityEngine.Random.Range(0, (int)TrackObstacleType.MovableTrain) 
+                                                                      : UnityEngine.Random.Range(0, (int)TrackObstacleType.MAX));
     }
 
     public ObstaclesPathData GetObstaclesPathData()

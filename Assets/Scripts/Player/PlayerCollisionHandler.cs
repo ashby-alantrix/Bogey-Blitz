@@ -26,6 +26,7 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         gameManager = gameManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<GameManager>() : gameManager;
         playerCarController = playerCarController == null ? InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>() : playerCarController;
+        
 
         Debug.Log($":: other.tag: {other.tag}");
         switch (other.tag)

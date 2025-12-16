@@ -8,10 +8,10 @@ public class ObstacleBase : ObjectBase
     [SerializeField] private TrackObstacleType objectType;
     [SerializeField] private Transform endPoint;
     
-    private ObstacleMoverBase obstacleMoverBase;
+    private SpawnableMoverBase obstacleMoverBase;
     private ObstaclesManager obstaclesManager;
 
-    public ObstacleMoverBase ObstacleMover => obstacleMoverBase;
+    public SpawnableMoverBase ObstacleMover => obstacleMoverBase;
     public Transform EndPoint => endPoint;
     public TrackObstacleType ObstacleType => objectType;
     public bool HasAIPassed
@@ -27,7 +27,7 @@ public class ObstacleBase : ObjectBase
 
     private void Awake()
     {
-        obstacleMoverBase = GetComponent<ObstacleMoverBase>();
+        obstacleMoverBase = GetComponent<SpawnableMoverBase>();
     }
 
     private void Update()

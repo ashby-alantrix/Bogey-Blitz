@@ -31,6 +31,6 @@ MonoBehaviour:
     extraDelay: 5
     pathTimerMinLimit: 1
     pathTimerMaxLimit: 3
-    safeDistance: 25
+    safeDistance: 50
     extraOffsetMinDist: 5
     extraOffsetMaxDist: 12

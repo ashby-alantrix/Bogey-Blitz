@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleMoverBase : MonoBehaviour
+public class SpawnableMoverBase : MonoBehaviour
 {
     private float moveSpeed;
 

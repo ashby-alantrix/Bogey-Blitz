@@ -33,8 +33,10 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private Vector3 globalEndPointPosMax = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
     private Vector3 laneSpawnStartPos;
 
+    private TimerSystem timerSystem;
     private AIController aiController;
     private ObstaclesManager obstaclesManager;
+    private CollectiblesManager collectiblesManager;
 
     private Dictionary<int, ObstacleBase> lastSpawnedObstaclesInLane = new Dictionary<int, ObstacleBase>(); // convert to a list if required
 
@@ -47,6 +49,29 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
+        collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
+
+        timerSystem = new TimerSystem();
+        InitializeTimerSystem();
+    }
+
+    private void InitializeTimerSystem()
+    {
+        timerSystem.Init(extraDelayTime,
+        onComplete: () =>
+        {
+            hasExtraDelay = false;
+            timerSystem.Init(pathTimerLimit,
+            onComplete: () =>
+            {
+                canCreatePath = false;
+                StartCreatingObstacleElements();
+            },
+            inProgress: () =>
+            {
+                CheckIfAICrossedLaneTrainEndPoint();
+            });
+        });
     }
 
     public void SpawnObstacles()
@@ -187,7 +212,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         return closerEndpointIdx;
     }
 
-    public void StartCreatingPathElements()
+    public void StartCreatingObstacleElements()
     {
         timer = 0;
         obstaclesManager.SetObstaclesType(isInitialSpawn);
@@ -202,42 +227,21 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         Debug.Log($"StartCreatingPathElements");
     }
 
-    // // private bool AreManagersInitialized()
-    // // {
-    // //     return aiController != null && obstaclesManager != null;
-    // // }
+    public void CreateCollectibleElements()
+    {
+        collectiblesManager.SpawnCollectible(aiController.transform.position);
+    }
 
     private void Update()
     {
-        // // if (!AreManagersInitialized()) return;
-
         if (hasExtraDelay)
         {
-            if (timer < extraDelayTime)
-            {
-                timer += Time.deltaTime;
-            }    
-            else
-            {
-                timer = 0;
-                hasExtraDelay = false;
-            }
+            timerSystem.UpdateTimer(Time.deltaTime);
         }
 
         if (!hasExtraDelay && canCreatePath)
         {
-            // CheckIfAICrossedLaneTrainEndPoint();
-            if (timer < pathTimerLimit) // should be configurable
-            {
-                timer += Time.deltaTime;
-                CheckIfAICrossedLaneTrainEndPoint();
-            }
-            else
-            {
-                timer = 0;
-                canCreatePath = false;
-                StartCreatingPathElements();
-            }
+            timerSystem.UpdateTimer(Time.deltaTime);
         }
     }
 

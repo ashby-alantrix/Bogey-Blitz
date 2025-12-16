@@ -11,11 +11,13 @@ public enum PoolType
     NonMovable = 1,
     Obstacle = 2,
     Collectible = 3,
+    MAX = 4,
 }
 
 public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
 {
     [SerializeField] private ObstacleObjectPool[] obstaclePoolBases;
+    [SerializeField] private CollectibleObjectPool[] collectiblePoolBases;
 
     private Dictionary<TrackObstacleType, ObjectPoolBase> obstaclesPoolBasesDict = new Dictionary<TrackObstacleType, ObjectPoolBase>();
     private Dictionary<TrackCollectibleType, ObjectPoolBase> collectiblesPoolBasesDict = new Dictionary<TrackCollectibleType, ObjectPoolBase>();
@@ -29,6 +31,12 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
             obstaclesPoolBasesDict.Add(pool.GetPoolObjectType(), pool);
             pool.InitPoolFirstTime();
         }
+
+        foreach (var pool in collectiblePoolBases)
+        {
+            collectiblesPoolBasesDict.Add(pool.GetPoolObjectType(), pool);
+            pool.InitPoolFirstTime();
+        }
     }
  
     public T GetObjectFromPool<T>(string poolItemTypeInfo, PoolType poolType) where T : ObjectBase //ItemType poolItemType) where T : ObjectBase
@@ -40,6 +48,7 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
         {
             if (poolToUse.IsEmpty())
             {
+                Debug.Log($"Creating new pooled item");
                 // Debug.Log($"Object Pool: CreateNewPooledItem");
                 objectBase = (T)poolToUse.CreateNewPooledItem();
             }
