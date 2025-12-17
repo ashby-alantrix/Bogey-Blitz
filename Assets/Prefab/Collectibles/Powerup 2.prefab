@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2825800434568208008}
   - component: {fileID: 2825800434568208009}
   m_Layer: 0
-  m_Name: Collectible
+  m_Name: Powerup 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7c7848c20734a8f805314aadd0c048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectibleType: 0
+  collectibleType: 2
 --- !u!1 &4392414691828303125
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0ea228e20fb184bab9d0b232fb742357, type: 2}
+  - {fileID: 2100000, guid: 9b47eb1479be0454a832451acb41ccdf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

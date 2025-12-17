@@ -1,11 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvironmentBlock : MonoBehaviour
 {
+    [SerializeField] private Transform startpoint;
+    [SerializeField] private Transform endpoint;
+
     private float moveSpeed;
+
+    public Vector3 Startpoint => startpoint.position;
+    public Vector3 Endpoint => endpoint.position;
 
     public int ID
     {

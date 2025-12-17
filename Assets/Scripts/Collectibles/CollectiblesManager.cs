@@ -5,10 +5,7 @@ using UnityEngine;
 
 public enum TrackCollectibleType
 {
-    Currency = 0,
-    Powerup1 = 1,
-    Powerup2 = 2,
-    Powerup3 = 3
+    Currency = 0
 }
 
 public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
@@ -21,6 +18,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private ObjectPoolManager objectPoolManager;
     private EnvironmentSpawnManager environmentSpawnManager;
     private AIPathManager aiPathManager;
+    private PowerupsManager powerupsManager;
 
     private bool hasDelay = true;
     private TimerSystem spawnerTimerSystem;
@@ -43,6 +41,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     public void InitializeData()
     {
         aiPathManager = InterfaceManager.Instance?.GetInterfaceInstance<AIPathManager>();
+        powerupsManager = InterfaceManager.Instance?.GetInterfaceInstance<PowerupsManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
 
@@ -71,6 +70,10 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         {
             InitializeStopperTimer();
             InitializePathTimer();
+        }, 
+        inProgress: () =>
+        {
+            
         });
     }
 
@@ -97,6 +100,11 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         collectibleBase.SpawnableMoverBase.InitMoveSpeed(environmentSpawnManager.EnvironmentMoveSpeed);
     }
 
+    public void SpawnPowerup()
+    {
+        
+    }
+
     public void SendObjectToPool(CollectibleBase collectibleBase)
     {
         objectPoolManager.PassObjectToPool($"{collectibleBase.CollectibleType}", GetPoolType(), collectibleBase);
@@ -108,11 +116,6 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         {
             case TrackCollectibleType.Currency:
                 return PoolType.Currency;
-
-            case TrackCollectibleType.Powerup1:
-            case TrackCollectibleType.Powerup2:
-            case TrackCollectibleType.Powerup3:
-                return PoolType.Powerup;
 
             default:
                 return PoolType.MAX;

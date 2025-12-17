@@ -15,11 +15,31 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
     [SerializeField] private GameObject prefab;
     [SerializeField] private float blockOffsetZ = 5;
     [SerializeField] private float environmentMoveSpeed;
+    [SerializeField] private float queueEnqueueDelay = 1f;
 
     private Queue<EnvironmentBlock> environmentBlocksQueue = new Queue<EnvironmentBlock>();
     private Transform passedEnvironmentBlock = null;
 
+    private EnvironmentBlock passedEnvironmentBlockComp = null;
+    private EnvironmentBlock newlyEncounteredEnvironmentBlock = null;
+    private EnvironmentBlock firstEnvironmentBlock = null;
+
     public float EnvironmentMoveSpeed => environmentMoveSpeed;
+
+    public EnvironmentBlock GetFirstEnvironmentBlock()
+    {
+        return firstEnvironmentBlock;
+    }
+
+    public EnvironmentBlock GetNewlyEncounteredEnvironmentBlock()
+    {
+        return newlyEncounteredEnvironmentBlock;
+    }
+
+    public void ResetNewlyEncounteredEnvironmentBlock()
+    {
+        newlyEncounteredEnvironmentBlock = null;
+    }
 
     [ContextMenu("Create Test Blocks")]
     public void CreateBlocks()
@@ -33,6 +53,9 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
 
             EnvironmentBlock block = instance.GetComponent<EnvironmentBlock>();
             block.Init(i + 1, EnvironmentMoveSpeed);
+
+            if (firstEnvironmentBlock == null)
+                firstEnvironmentBlock = block;
 
             zOffsetSum += blockOffsetZ;
         }
@@ -63,16 +86,29 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         if (passedEnvironmentBlock != null)
         {
             SendBlockTowardsEnd();
+            InitNewEnvironmentBlock();
         }
     }
 
+    private float lastZOffset;
+
     private void SendBlockTowardsEnd()
     {
-        EnvironmentBlock dequeuedElement = environmentBlocksQueue.Dequeue();
-        float offsetZ = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
+        passedEnvironmentBlockComp = environmentBlocksQueue.Dequeue();
+        Invoke(nameof(UpdatePositionForDequeuedElement), queueEnqueueDelay);
+    }
 
-        dequeuedElement.transform.position = new Vector3(dequeuedElement.transform.position.x, dequeuedElement.transform.position.y, offsetZ);
-        environmentBlocksQueue.Enqueue(dequeuedElement);
+    private void UpdatePositionForDequeuedElement()
+    {
+        lastZOffset = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
+        passedEnvironmentBlockComp.transform.position = new Vector3(passedEnvironmentBlockComp.transform.position.x, passedEnvironmentBlockComp.transform.position.y, lastZOffset);
+
+        environmentBlocksQueue.Enqueue(passedEnvironmentBlockComp);
+    }
+
+    private void InitNewEnvironmentBlock()
+    {
+        newlyEncounteredEnvironmentBlock = environmentBlocksQueue.Peek();
     }
 
     public void UpdateEnvBlockMoveSpeed(float moveSpeed)
