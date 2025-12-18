@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class TrackObjectStationaryMover : SpawnableMoverBase
 {
-    private ObstaclesManager obstaclesManager;
-
-    private void Update()
+    protected override void Update()
     {
         if (!worldSpawnManager)
         {

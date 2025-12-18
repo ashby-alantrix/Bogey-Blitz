@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class ObstacleTrainMover : SpawnableMoverBase
 {
-    private ObstacleBase obstacleBase;
     private ObstaclesManager obstaclesManager;
 
-    private void Awake()
-    {
-        obstacleBase = GetComponent<ObstacleBase>();
-    }
-
-    private void Update()
+    protected override void Update()
     {
         if (!worldSpawnManager || !obstaclesManager)
         {
