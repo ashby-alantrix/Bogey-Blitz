@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleStationaryMover : SpawnableMoverBase
+public class GameplayController : MonoBehaviour
 {
+
 }

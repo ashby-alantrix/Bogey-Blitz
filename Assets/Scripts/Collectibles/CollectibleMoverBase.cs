@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleTrainMover : SpawnableMoverBase
+public class CollectibleMoverBase : SpawnableMoverBase
 {
-    private ObstacleBase obstacleBase;
+    private CollectibleBase obstacleBase;
     private ObstaclesManager obstaclesManager;
 
     private void Awake()
     {
-        obstacleBase = GetComponent<ObstacleBase>();
+        obstacleBase = GetComponent<CollectibleBase>();
     }
 
     private void Update()
@@ -22,7 +22,7 @@ public class ObstacleTrainMover : SpawnableMoverBase
         
         if (worldSpawnManager && obstaclesManager)
         {
-            moveSpeed = obstaclesManager.MovableTrainSpeed;
+            moveSpeed = worldSpawnManager.EnvironmentMoveSpeed;
             base.Update();
         }
     }

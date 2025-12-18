@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SpawnableMoverBase : MonoBehaviour
 {
-    private float moveSpeed;
+    protected float moveSpeed;
+
+    protected WorldSpawnManager worldSpawnManager;
 
     private ObstacleBase obstacleBase;
     private ObstaclesManager obstaclesManager;

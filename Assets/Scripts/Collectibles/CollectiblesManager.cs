@@ -18,7 +18,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private ObjectPoolManager objectPoolManager;
     private WorldSpawnManager environmentSpawnManager;
     private AIPathManager aiPathManager;
-    private PowerupsManager powerupsManager;
+    // private PowerupsManager powerupsManager;
     private TimerSystem spawnerTimerSystem;
     private TimerSystem stopperTimerSystem;
     private TimerSystem delayTimerSystem;
@@ -39,7 +39,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     public void InitializeData()
     {
         aiPathManager = InterfaceManager.Instance?.GetInterfaceInstance<AIPathManager>();
-        powerupsManager = InterfaceManager.Instance?.GetInterfaceInstance<PowerupsManager>();
+        // powerupsManager = InterfaceManager.Instance?.GetInterfaceInstance<PowerupsManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
 
