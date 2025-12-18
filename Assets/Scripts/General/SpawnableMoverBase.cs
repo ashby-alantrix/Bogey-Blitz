@@ -6,6 +6,15 @@ public class SpawnableMoverBase : MonoBehaviour
 {
     private float moveSpeed;
 
+    private ObstacleBase obstacleBase;
+    private ObstaclesManager obstaclesManager;
+    private WorldSpawnManager worldSpawnManager;
+
+    private void Awake()
+    {
+        obstacleBase = GetComponent<ObstacleBase>();
+    }
+
     public void InitMoveSpeed(float moveSpeed)
     {
         this.moveSpeed = moveSpeed;
@@ -13,6 +22,15 @@ public class SpawnableMoverBase : MonoBehaviour
 
     protected void Update()
     {
-        transform.position += transform.forward * Time.deltaTime * moveSpeed;
+        if (!worldSpawnManager || !obstaclesManager)
+        {
+            worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+            obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
+        }
+        else 
+        {
+            moveSpeed = obstacleBase.ObstacleType != TrackObstacleType.MovableTrain ? worldSpawnManager.EnvironmentMoveSpeed : obstaclesManager.MovableTrainSpeed;
+            transform.position += transform.forward * Time.deltaTime * moveSpeed;
+        }
     }
 }

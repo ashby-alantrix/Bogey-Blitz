@@ -24,12 +24,6 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         environmentSpawnManager.UpdateEnvBlockMoveSpeed(0f);
         playerCarController.FollowCamera.SetCamState(false);
-
-        var spawnedMovables = FindObjectsOfType<SpawnableMoverBase>();
-        foreach (var spawnedMovable in spawnedMovables)
-        {
-            spawnedMovable.InitMoveSpeed(0);
-        }
         
         aiController.gameObject.SetActive(false);
     }

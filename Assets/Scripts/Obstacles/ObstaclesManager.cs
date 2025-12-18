@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 public enum TrackObstacleType
 {
@@ -28,6 +29,8 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         private set;    
     }
 
+    public float MovableTrainSpeed => movableTrainSpeed;
+
     public void Initialize()
     {
         InterfaceManager.Instance?.RegisterInterface<ObstaclesManager>(this);
@@ -45,9 +48,6 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
         poolInstance.transform.position = laneSpawnStartPos;
         poolInstance.gameObject.SetActive(true);
-
-        poolInstance.ObstacleMover.InitMoveSpeed(
-                        poolInstance.ObstacleType != TrackObstacleType.MovableTrain ? environmentSpawnManager.EnvironmentMoveSpeed : movableTrainSpeed);
 
         obstacleBase = poolInstance;
     }

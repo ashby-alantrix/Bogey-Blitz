@@ -95,7 +95,6 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
         collectibleBase.transform.position = pos; //new Vector3(pos.x, 0.5f, pos.y);
         collectibleBase.gameObject.SetActive(true);
-        collectibleBase.SpawnableMoverBase.InitMoveSpeed(environmentSpawnManager.EnvironmentMoveSpeed);
     }
 
     public void SpawnPowerup()
