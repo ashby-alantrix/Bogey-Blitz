@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     private PlayerCarController playerCarController;
-    private EnvironmentSpawnManager environmentSpawnManager;
+    private WorldSpawnManager environmentSpawnManager;
     private AIController aiController;
 
     public void Initialize()
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
-        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
+        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
     }

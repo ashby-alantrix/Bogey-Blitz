@@ -5,28 +5,35 @@ using UnityEngine;
 
 public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
-    [SerializeField] private bool shouldStop;
-    [SerializeField] private Transform leftBound;
-    [SerializeField] private Transform rightBound;
+    [Header("Distance attributes")]
+    [SerializeField] private AnimationCurve speedCurve;
+    [SerializeField] private float totalDistanceToCover = 10000;
 
-    [SerializeField] private Vector3 dir;
-    [SerializeField] private float moveSpeed;
+    [Header("Move speed attributes")]
+    [SerializeField] private float baseSpeed = 13;
+    [SerializeField] private float maxSpeed = 30;
+
     [SerializeField] private float laneWidth;
     [SerializeField] private float laneChangeTime;
     [SerializeField] private float laneChangeSpeed;
 
+    [SerializeField] private Transform leftBound;
+    [SerializeField] private Transform rightBound;
     [SerializeField] private Transform middleLane;
     [SerializeField] private Transform rightLane;
 
+    [SerializeField] private Vector3 dir;
+
     private bool isChangingLane = false;
     private float distanceToRailEndpoint;
-    private float timeTowardRailEndpoint;
+    private float timeToRailEndpoint;
     private float distTimer = 0;
     private float distanceCovered = 0;
-    private float prevRailDistanceCovered = 0;
+    private float lastCoveredDistance = 0;
 
     private Vector3 targetPosition = Vector3.zero;
     private InputController inputController;
+    private WorldSpawnManager worldSpawnManager;
     private PlayerCollisionHandler bogeyCollisionHandler;
     
     public PlayerCollisionHandler BogeyCollisionHandler => bogeyCollisionHandler;
@@ -36,8 +43,9 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         private set;
     }
 
-    private EnvironmentSpawnManager environmentSpawnManager;
-    public EnvironmentSpawnManager EnvironmentSpawnManager => environmentSpawnManager;
+    public float CurrentCoveredDistance => distanceCovered;
+
+    public WorldSpawnManager WorldSpawnManager => worldSpawnManager;
 
     public void Initialize()
     {
@@ -47,13 +55,14 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     public void InitializeData()
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
-        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
+        worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        worldSpawnManager.SetEnvironmentMoveSpeed(baseSpeed);
 
         Debug.Log($"initialized input controller: {inputController}");
 
         distTimer = 0;
-        distanceToRailEndpoint = environmentSpawnManager.GetFirstEnvironmentBlock().Endpoint.z - transform.position.z;
-        timeTowardRailEndpoint = distanceToRailEndpoint / environmentSpawnManager.EnvironmentMoveSpeed;
+        distanceToRailEndpoint = worldSpawnManager.GetFirstEnvironmentBlock().Endpoint.z - transform.position.z;
+        timeToRailEndpoint = distanceToRailEndpoint / worldSpawnManager.EnvironmentMoveSpeed;
 
         Debug.Log($":: DISTANCE TO COVER :: {distanceToRailEndpoint}");
     }
@@ -123,42 +132,37 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     private void Update()
     {
-        if (distTimer < timeTowardRailEndpoint)
+        if (!worldSpawnManager) return;
+
+        if (distTimer < timeToRailEndpoint)
         {
             distTimer += Time.deltaTime;
-            // distanceCovered = prevRailDistanceCovered + environmentSpawnManager.EnvironmentMoveSpeed * distTimer;
-            distanceCovered = environmentSpawnManager.EnvironmentMoveSpeed * distTimer;
-            Debug.Log($":: DISTANCE COVERED :: {distanceCovered}");
+            distanceCovered = lastCoveredDistance + (worldSpawnManager.EnvironmentMoveSpeed * distTimer);
+
+            Debug.Log($"DistanceCovered: {distanceCovered}");
         }
         else
         {
             distTimer = 0;
-            timeTowardRailEndpoint = 0;
-            prevRailDistanceCovered = distanceCovered;
+            timeToRailEndpoint = 0;
+            lastCoveredDistance = distanceCovered;
 
-            if (environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock() != null)
+            if (worldSpawnManager.GetNewlyEncounteredEnvironmentBlock() != null)
             {
-                distanceToRailEndpoint = environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().Endpoint.z - transform.position.z;
-                timeTowardRailEndpoint = distanceToRailEndpoint / environmentSpawnManager.EnvironmentMoveSpeed;
+                distanceToRailEndpoint = worldSpawnManager.GetNewlyEncounteredEnvironmentBlock().Endpoint.z - transform.position.z;
+                timeToRailEndpoint = distanceToRailEndpoint / worldSpawnManager.EnvironmentMoveSpeed;
 
-                Debug.Log($"rail points :: startpoint position: {environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().Startpoint}");
-                Debug.Log($"rail points :: endpoint position: {environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().Endpoint}");
-                Debug.Log($"rail points :: distance between rail points: {(environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().Endpoint - environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().Startpoint).magnitude}");
-                Debug.Log($"rail points :: distance between player and rail point: {(environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().Endpoint - transform.position).magnitude}");
-                Debug.Log($"rail points :: distanceToRailEndpoint: {distanceToRailEndpoint}, {environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock().name}");
-                environmentSpawnManager.ResetNewlyEncounteredEnvironmentBlock();
-                Debug.Log($"rail points :: timeTowardRailEndpoint: {timeTowardRailEndpoint}");
-            }
-            else
-            {
-                Debug.Log($"environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock(): {environmentSpawnManager.GetNewlyEncounteredEnvironmentBlock()?.name}");
+                worldSpawnManager.ResetNewlyEncounteredEnvironmentBlock();
             }
         }   
 
-        if (transform.position.z > environmentSpawnManager.GetFirstEnvironmentBlock().Endpoint.z && shouldStop)
+
+        if (distanceCovered > 0)
         {
-            shouldStop = false;
-            Debug.Break();
+            var fractionVal = speedCurve.Evaluate(distanceCovered / totalDistanceToCover);
+            var updatedSpeedVal = baseSpeed + (maxSpeed - baseSpeed) * fractionVal;
+
+            worldSpawnManager.SetEnvironmentMoveSpeed(updatedSpeedVal);
         }
     }
 }

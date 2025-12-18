@@ -1,13 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
+public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
+    [SerializeField] private AnimationCurve worldSpeedCurve;
+
     [SerializeField] private Transform planesParent;
     [SerializeField] private GameObject testPrefab;
     [SerializeField] private int testPrefabCount;
@@ -17,14 +15,24 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
     [SerializeField] private float environmentMoveSpeed;
     [SerializeField] private float queueEnqueueDelay = 1f;
 
+    private float lastZOffset;
+
     private Queue<EnvironmentBlock> environmentBlocksQueue = new Queue<EnvironmentBlock>();
     private Transform passedEnvironmentBlock = null;
 
     private EnvironmentBlock passedEnvironmentBlockComp = null;
     private EnvironmentBlock newlyEncounteredEnvironmentBlock = null;
     private EnvironmentBlock firstEnvironmentBlock = null;
+    private PlayerCarController playerCarController = null;
 
     public float EnvironmentMoveSpeed => environmentMoveSpeed;
+
+    public void SetEnvironmentMoveSpeed(float newSpeedVal)
+    {
+        Debug.Log($"newSpeedVal: {newSpeedVal}");
+        environmentMoveSpeed = newSpeedVal;
+        UpdateEnvBlockMoveSpeed(newSpeedVal);
+    }
 
     public EnvironmentBlock GetFirstEnvironmentBlock()
     {
@@ -61,23 +69,14 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         }
     }
 
-    private void Awake()
-    {
-        CreateBlocks();
-
-        foreach (Transform transformObj in planesParent)
-        {
-            environmentBlocksQueue.Enqueue(transformObj.GetComponent<EnvironmentBlock>());
-        }
-    }
-
     public void Initialize()
     {
-        InterfaceManager.Instance?.RegisterInterface<EnvironmentSpawnManager>(this);
+        InterfaceManager.Instance?.RegisterInterface<WorldSpawnManager>(this);
     }
 
     public void InitializeData()
     {
+        playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
     }
 
     public void SetEnvironmentBlocks(Transform newBlock)
@@ -90,7 +89,13 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
         }
     }
 
-    private float lastZOffset;
+    public void UpdateEnvBlockMoveSpeed(float moveSpeed)
+    {
+        foreach (EnvironmentBlock envBlock in environmentBlocksQueue)
+        {
+            envBlock.UpdateMoveSpeed(moveSpeed);
+        }
+    }
 
     private void SendBlockTowardsEnd()
     {
@@ -109,13 +114,16 @@ public class EnvironmentSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataL
     private void InitNewEnvironmentBlock()
     {
         newlyEncounteredEnvironmentBlock = environmentBlocksQueue.Peek();
+        Debug.Log($":: newlyEncounteredEnvironmentBlock: {newlyEncounteredEnvironmentBlock.name}");
     }
 
-    public void UpdateEnvBlockMoveSpeed(float moveSpeed)
+    private void Awake()
     {
-        foreach (EnvironmentBlock envBlock in environmentBlocksQueue)
+        CreateBlocks();
+
+        foreach (Transform transformObj in planesParent)
         {
-            envBlock.UpdateMoveSpeed(moveSpeed);
+            environmentBlocksQueue.Enqueue(transformObj.GetComponent<EnvironmentBlock>());
         }
     }
 }

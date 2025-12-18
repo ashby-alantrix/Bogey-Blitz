@@ -16,7 +16,7 @@ public class TimerSystem
         private set;
     }
 
-    public void Init(float maxTimeAvail, Action onComplete = null, Action inProgress = null)
+    public void Init(float maxTimeAvail, Action onComplete = null, Action inProgress = null, Action onStart = null)
     {
         timeRem = 0;
         IsTimerComplete = false;

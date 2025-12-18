@@ -31,7 +31,7 @@ public class PlayerCollisionHandler : MonoBehaviour
         switch (other.tag)
         {
             case BogeyBlitz_Constants.STRAIGHT_TRACK_TAG:
-                playerCarController.EnvironmentSpawnManager.SetEnvironmentBlocks(other.transform);
+                playerCarController.WorldSpawnManager.SetEnvironmentBlocks(other.transform);
             break;
             case BogeyBlitz_Constants.OBSTACLE_TAG:
 

@@ -16,11 +16,9 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     [SerializeField] private Transform collectibleEndpoint;
 
     private ObjectPoolManager objectPoolManager;
-    private EnvironmentSpawnManager environmentSpawnManager;
+    private WorldSpawnManager environmentSpawnManager;
     private AIPathManager aiPathManager;
     private PowerupsManager powerupsManager;
-
-    private bool hasDelay = true;
     private TimerSystem spawnerTimerSystem;
     private TimerSystem stopperTimerSystem;
     private TimerSystem delayTimerSystem;
@@ -43,7 +41,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         aiPathManager = InterfaceManager.Instance?.GetInterfaceInstance<AIPathManager>();
         powerupsManager = InterfaceManager.Instance?.GetInterfaceInstance<PowerupsManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
-        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
+        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
 
         InitializeTimerSystem();
     }
@@ -71,9 +69,9 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
             InitializeStopperTimer();
             InitializePathTimer();
         }, 
-        inProgress: () =>
+        onStart: () =>
         {
-            
+            SpawnPowerup();
         });
     }
 

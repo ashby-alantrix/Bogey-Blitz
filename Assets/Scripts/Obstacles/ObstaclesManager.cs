@@ -19,7 +19,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     [SerializeField] private float movableTrainSpeed;
 
     private ObjectPoolManager objectPoolManager;
-    private EnvironmentSpawnManager environmentSpawnManager;
+    private WorldSpawnManager environmentSpawnManager;
 
     public Vector3 ObstacleEndpoint => obstacleEndpoint.position;
     public TrackObstacleType CurrentTrackObstacleType
@@ -36,7 +36,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void InitializeData()
     {
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
-        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<EnvironmentSpawnManager>();
+        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
     }
 
     public void SpawnObstacle(Vector3 laneSpawnStartPos, out ObstacleBase obstacleBase)
