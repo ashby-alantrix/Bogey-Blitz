@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
-    [SerializeField] private AnimationCurve worldSpeedCurve;
-
     [SerializeField] private Transform planesParent;
     [SerializeField] private GameObject testPrefab;
     [SerializeField] private int testPrefabCount;
