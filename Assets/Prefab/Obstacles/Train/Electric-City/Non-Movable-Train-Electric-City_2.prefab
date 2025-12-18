@@ -1,0 +1,235 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7976950592634344270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9166071702040534182}
+  m_Layer: 0
+  m_Name: Endpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9166071702040534182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976950592634344270}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -5.562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8266375560766357548}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8266375560766357547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8266375560766357548}
+  - component: {fileID: 8266375560766357550}
+  - component: {fileID: 8266375560766357549}
+  m_Layer: 0
+  m_Name: Non-Movable-Train-Electric-City_2
+  m_TagString: Obstacle
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8266375560766357548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266375560766357547}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.29970884, y: -0, z: 23.354828}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3422284118633737207}
+  - {fileID: 7253991423792818947}
+  - {fileID: 9166071702040534182}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8266375560766357550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266375560766357547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1fb9758aedb4910b288ebd4a9d5065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8266375560766357549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266375560766357547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0eba201132a74227964b3e44bad616b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 1
+  endPoint: {fileID: 9166071702040534182}
+--- !u!1001 &1088349322969107224
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8266375560766357548}
+    m_Modifications:
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.5100002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588848, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_Name
+      value: Electric-City-Compartment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334257376699588848, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4009724390596237964, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+--- !u!4 &3422284118633737207 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2334257376699588847, guid: ea69a82d3764e4a90bf635eaec17b6fd, type: 3}
+  m_PrefabInstance: {fileID: 1088349322969107224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7423943561918888944
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8266375560766357548}
+    m_Modifications:
+    - target: {fileID: 264726741981827308, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_Name
+      value: Electric-City-Compartment (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.210001
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472090147220187792, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
+    - target: {fileID: 3027141735085604117, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 269487d2cdd66488081c34585dcfff1d, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+--- !u!4 &7253991423792818947 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 264726741981827315, guid: 9dc2d492696744838979678abf2bccbc, type: 3}
+  m_PrefabInstance: {fileID: 7423943561918888944}
+  m_PrefabAsset: {fileID: 0}

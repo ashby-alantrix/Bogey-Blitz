@@ -7819,6 +7819,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (127)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &546510770577512148 stripped
@@ -7884,6 +7888,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -7951,6 +7959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (46)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &477513457784428691 stripped
@@ -8016,6 +8028,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (119)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -8083,6 +8099,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (124)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &415115630477243449 stripped
@@ -8148,6 +8168,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (123)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -8215,6 +8239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &270307601824453679 stripped
@@ -8280,6 +8308,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (131)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -8351,6 +8383,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &120580199501522306 stripped
@@ -8416,6 +8452,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (121)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -8483,6 +8523,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &971763623157414648 stripped
@@ -8548,6 +8592,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (132)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -8615,6 +8663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (149)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &804282026158747679 stripped
@@ -8680,6 +8732,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -8747,6 +8803,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (128)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &710732055539206566 stripped
@@ -8812,6 +8872,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -8879,6 +8943,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (73)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &665108155230471793 stripped
@@ -8945,6 +9013,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (63)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &1651721020824554008 stripped
@@ -9010,6 +9082,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (153)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -9081,6 +9157,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &1565495962883044479 stripped
@@ -9146,6 +9226,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -9213,6 +9297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (134)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &1521612779895310913 stripped
@@ -9278,6 +9366,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (148)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -9345,6 +9437,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (56)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &2254435813994869910 stripped
@@ -9410,6 +9506,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (75)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -9477,6 +9577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (58)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &2083662947262209782 stripped
@@ -9542,6 +9646,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (72)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -9609,6 +9717,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (137)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &1965454526096821796 stripped
@@ -9674,6 +9786,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -9741,6 +9857,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (145)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &2714790601630218776 stripped
@@ -9806,6 +9926,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (179)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -9873,6 +9997,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (143)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &2725023284503886519 stripped
@@ -9939,6 +10067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &2452315853182110154 stripped
@@ -10004,6 +10136,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -10075,6 +10211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &2404137590664982555 stripped
@@ -10140,6 +10280,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -10207,6 +10351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (67)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &2348632455219029764 stripped
@@ -10273,6 +10421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (135)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &3449632695663884373 stripped
@@ -10338,6 +10490,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (64)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -10409,6 +10565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &3221639834026563920 stripped
@@ -10474,6 +10634,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (122)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -10541,6 +10705,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (117)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &3201506647098182724 stripped
@@ -10606,6 +10774,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -10673,6 +10845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (136)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &3930134923517299458 stripped
@@ -10738,6 +10914,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (60)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -10805,6 +10985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &3898914676723141873 stripped
@@ -10871,6 +11055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (146)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &3752531997727168900 stripped
@@ -10936,6 +11124,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (147)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -11007,6 +11199,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &3471002771790985085 stripped
@@ -11072,6 +11268,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -11139,6 +11339,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (133)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &4522620396778247129 stripped
@@ -11204,6 +11408,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -11271,6 +11479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (130)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &4346066456971211020 stripped
@@ -11336,6 +11548,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (141)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -11407,6 +11623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &4189389324082879601 stripped
@@ -11472,6 +11692,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -11539,6 +11763,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (53)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &4805844193347725977 stripped
@@ -11604,6 +11832,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (150)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -11671,6 +11903,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &4748511034837350992 stripped
@@ -11736,6 +11972,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (57)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -11803,6 +12043,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &4665180492985207367 stripped
@@ -11869,6 +12113,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &4682136878399851190 stripped
@@ -11934,6 +12182,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -12005,6 +12257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &5564453639563159890 stripped
@@ -12070,6 +12326,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (126)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -12137,6 +12397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (61)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &6295916638899254025 stripped
@@ -12202,6 +12466,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -12269,6 +12537,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (62)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &6095308015794791413 stripped
@@ -12334,6 +12606,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -12405,6 +12681,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &5800654912875585928 stripped
@@ -12475,6 +12755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &5785927440262683603 stripped
@@ -12540,6 +12824,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -12607,6 +12895,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (74)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &6879361119623594246 stripped
@@ -12672,6 +12964,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (138)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -12739,6 +13035,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (66)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &6808068221672832658 stripped
@@ -12804,6 +13104,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -12871,6 +13175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (55)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &6627742690248145707 stripped
@@ -12937,6 +13245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (152)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &6431324759281935978 stripped
@@ -13002,6 +13314,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (59)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -13073,6 +13389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cabin-roof-dormer (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
 --- !u!4 &7314373054163800830 stripped
@@ -13138,6 +13458,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (139)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -13205,6 +13529,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (118)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &6999334046558686176 stripped
@@ -13270,6 +13598,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (142)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -13337,6 +13669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (140)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &7766816160198697961 stripped
@@ -13402,6 +13738,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (151)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -13469,6 +13809,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (116)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &7610442534086599390 stripped
@@ -13534,6 +13878,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (120)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -13601,6 +13949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (71)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &8582705271768772690 stripped
@@ -13666,6 +14018,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -13733,6 +14089,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (129)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &8375268525055422863 stripped
@@ -13798,6 +14158,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (68)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -13865,6 +14229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (70)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &9182590593582608508 stripped
@@ -13930,6 +14298,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (69)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -13997,6 +14369,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (125)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &8934437092537940808 stripped
@@ -14062,6 +14438,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
       propertyPath: m_Name
       value: tree-snow-c (144)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
@@ -14129,6 +14509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (115)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &8797377863746993367 stripped
@@ -14194,6 +14578,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
       propertyPath: m_Name
       value: cabin-roof-dormer (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4514e7de89a48f6ba949b22ba77304, type: 3}
@@ -14261,6 +14649,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &8797377863276502684 stripped
@@ -14326,6 +14718,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -14393,6 +14789,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &8797377862648343561 stripped
@@ -14458,6 +14858,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -14525,6 +14929,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &8797377862395833283 stripped
@@ -14590,6 +14998,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
@@ -14657,6 +15069,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-decorated (65)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
 --- !u!4 &8754054718599688523 stripped
@@ -14722,6 +15138,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
       propertyPath: m_Name
       value: tree-decorated (50)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91ae3aa818a3647969914b5721426b07, type: 3}
