@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a3076d2c12e4dd89edcf70b8b5b46e, type: 3}
   m_Name: ObstaclesPathSO
   m_EditorClassIdentifier: 
-  obstaclesPathData:
+  startBoundObstaclesPathData:
   - trackObstacleType: 0
     extraDelay: 0
     pathTimerMinLimit: 2
@@ -32,5 +32,27 @@ MonoBehaviour:
     pathTimerMinLimit: 1
     pathTimerMaxLimit: 3
     safeDistance: 50
+    extraOffsetMinDist: 5
+    extraOffsetMaxDist: 12
+  endBoundObstaclesPathData:
+  - trackObstacleType: 0
+    extraDelay: 0
+    pathTimerMinLimit: 2
+    pathTimerMaxLimit: 8
+    safeDistance: 4
+    extraOffsetMinDist: 5
+    extraOffsetMaxDist: 8
+  - trackObstacleType: 1
+    extraDelay: 0
+    pathTimerMinLimit: 3
+    pathTimerMaxLimit: 9
+    safeDistance: 4
+    extraOffsetMinDist: 4
+    extraOffsetMaxDist: 8
+  - trackObstacleType: 2
+    extraDelay: 5
+    pathTimerMinLimit: 1
+    pathTimerMaxLimit: 5
+    safeDistance: 34
     extraOffsetMinDist: 5
     extraOffsetMaxDist: 12

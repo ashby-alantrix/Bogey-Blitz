@@ -712,29 +712,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 3.3776085
-      outSlope: 3.3776085
+      inSlope: 1.9641792
+      outSlope: 1.9641792
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.06187571
+      outWeight: 0.08747372
     - serializedVersion: 3
-      time: 0.39904833
-      value: 0.5997362
-      inSlope: -0.07751204
-      outSlope: -0.07751204
+      time: 0.4006444
+      value: 0.59841245
+      inSlope: 0.34176865
+      outSlope: 0.34176865
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.087490104
       outWeight: 0.25209576
     - serializedVersion: 3
       time: 0.59961194
-      value: 0.59941465
-      inSlope: 0
-      outSlope: 0
+      value: 0.6020622
+      inSlope: 0.053804588
+      outSlope: 0.053804588
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.22342207
       outWeight: 0
     - serializedVersion: 3
       time: 0.9996046
@@ -748,8 +748,32 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  speedCurve1:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.000036410056
+      value: 0.61146265
+      inSlope: 0.023617217
+      outSlope: 0.023617217
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.03927823
+    - serializedVersion: 3
+      time: 0.40078795
+      value: 1.000287
+      inSlope: 3.0546255
+      outSlope: 3.0546255
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.062037062
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   totalDistanceToCover: 10000
-  baseSpeed: 13
+  baseSpeed: 15
   maxSpeed: 30
   laneWidth: 0
   laneChangeTime: 0.2

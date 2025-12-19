@@ -17,6 +17,7 @@ public class ObstacleTrainMover : SpawnableMoverBase
         if (worldSpawnManager && obstaclesManager)
         {
             moveSpeed = obstaclesManager.MovableTrainSpeed;
+            Debug.Log($"## obstaclesManager.MovableTrainSpeed: {obstaclesManager.MovableTrainSpeed}");
             base.Update();
         }
     }

@@ -7,10 +7,11 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 {
     [Header("Distance attributes")]
     [SerializeField] private AnimationCurve speedCurve;
+    [SerializeField] private AnimationCurve speedCurve1;
     [SerializeField] private float totalDistanceToCover = 10000;
 
     [Header("Move speed attributes")]
-    [SerializeField] private float baseSpeed = 13;
+    [SerializeField] private float baseSpeed = 15;
     [SerializeField] private float maxSpeed = 30;
 
     [SerializeField] private float laneWidth;
@@ -43,6 +44,13 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         private set;
     }
 
+    public float CurrentEvaluatedSpeed01
+    {
+        get; 
+        private set;        
+    }
+    
+    public float CurrentCoveredDistance01 => distanceCovered / totalDistanceToCover;
     public float CurrentCoveredDistance => distanceCovered;
 
     public WorldSpawnManager WorldSpawnManager => worldSpawnManager;
@@ -159,10 +167,12 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
         if (distanceCovered > 0)
         {
-            var fractionVal = speedCurve.Evaluate(distanceCovered / totalDistanceToCover);
-            var updatedSpeedVal = baseSpeed + (maxSpeed - baseSpeed) * fractionVal;
-
-            worldSpawnManager.SetEnvironmentMoveSpeed(updatedSpeedVal);
+            CurrentEvaluatedSpeed01 = speedCurve.Evaluate(distanceCovered / totalDistanceToCover);
+            worldSpawnManager.SetEnvironmentMoveSpeed(
+                worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(
+                    startVal: baseSpeed, 
+                    endVal: maxSpeed, 
+                    fraction: CurrentEvaluatedSpeed01));
         }
     }
 }

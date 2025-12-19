@@ -95,6 +95,11 @@ public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
+    public float GetResultBasedOnDifficultyProgressiveFormula(float startVal, float endVal, float fraction)
+    {
+        return startVal + (endVal - startVal) * fraction;
+    }
+
     private void SendBlockTowardsEnd()
     {
         passedEnvironmentBlockComp = environmentBlocksQueue.Dequeue();

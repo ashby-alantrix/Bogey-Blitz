@@ -19,9 +19,14 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     [SerializeField] private Transform obstacleEndpoint;
     [SerializeField] private float movableTrainSpeed;
 
-    private ObjectPoolManager objectPoolManager;
-    private WorldSpawnManager environmentSpawnManager;
+    [SerializeField] private float movableTrainMinSpeed = 30f;
+    [SerializeField] private float movableTrainMaxSpeed = 45f;
 
+    private ObjectPoolManager objectPoolManager;
+    private WorldSpawnManager worldSpawnManager;
+    private PlayerCarController playerCarController;
+
+    public ObstaclesPathSO ObstaclesPathSO => obstaclesPathSO;
     public Vector3 ObstacleEndpoint => obstacleEndpoint.position;
     public TrackObstacleType CurrentTrackObstacleType
     {
@@ -29,7 +34,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         private set;    
     }
 
-    public float MovableTrainSpeed => movableTrainSpeed;
+    public float MovableTrainSpeed => worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: movableTrainMinSpeed, endVal: movableTrainMaxSpeed, fraction: playerCarController.CurrentEvaluatedSpeed01);
 
     public void Initialize()
     {
@@ -39,7 +44,8 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void InitializeData()
     {
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
-        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
     }
 
     public void SpawnObstacle(Vector3 laneSpawnStartPos, out ObstacleBase obstacleBase)
@@ -76,10 +82,5 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         CurrentTrackObstacleType = (TrackObstacleType)(isInitialSpawn ? UnityEngine.Random.Range(0, (int)TrackObstacleType.MovableTrain) 
                                                                       : UnityEngine.Random.Range(0, (int)TrackObstacleType.MAX));
-    }
-
-    public ObstaclesPathData GetObstaclesPathData()
-    {
-        return obstaclesPathSO.GetObstaclesPathData(CurrentTrackObstacleType);
     }
 }

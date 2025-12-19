@@ -33,20 +33,31 @@ public class ObstaclesPathSO : BaseSO
     // pathTimerLimit => min -> 2, max -> 4
     // safeDistance -> 15, extraOffsetDist => min -> 4, max -> 8
 
-    [SerializeField] private ObstaclesPathData[] obstaclesPathData;
+    [SerializeField] private ObstaclesPathData[] startBoundObstaclesPathData;
+    [SerializeField] private ObstaclesPathData[] endBoundObstaclesPathData;
 
-    private Dictionary<TrackObstacleType, ObstaclesPathData> obstaclesPathDict = new Dictionary<TrackObstacleType, ObstaclesPathData>();
+    private Dictionary<TrackObstacleType, ObstaclesPathData> startBoundObstaclesPathDict = new Dictionary<TrackObstacleType, ObstaclesPathData>();
+    private Dictionary<TrackObstacleType, ObstaclesPathData> endBoundObstaclesPathDict = new Dictionary<TrackObstacleType, ObstaclesPathData>();
 
     public override void InitScriptableData()
     {
-        foreach (var data in obstaclesPathData)
+        foreach (var data in startBoundObstaclesPathData)
         {
-            if (obstaclesPathDict.ContainsKey(data.trackObstacleType))
-                obstaclesPathDict[data.trackObstacleType] = data;
+            if (startBoundObstaclesPathDict.ContainsKey(data.trackObstacleType))
+                startBoundObstaclesPathDict[data.trackObstacleType] = data;
             else 
-                obstaclesPathDict.Add(data.trackObstacleType, data);
+                startBoundObstaclesPathDict.Add(data.trackObstacleType, data);
+        }
+
+        foreach (var data in endBoundObstaclesPathData)
+        {
+            if (endBoundObstaclesPathDict.ContainsKey(data.trackObstacleType))
+                endBoundObstaclesPathDict[data.trackObstacleType] = data;
+            else 
+                endBoundObstaclesPathDict.Add(data.trackObstacleType, data);
         }
     }
 
-    public ObstaclesPathData GetObstaclesPathData(TrackObstacleType trackObstacleType) => obstaclesPathDict[trackObstacleType];
+    public ObstaclesPathData GetStartBoundObstaclesPathData(TrackObstacleType trackObstacleType) => startBoundObstaclesPathDict[trackObstacleType];
+    public ObstaclesPathData GetEndBoundObstaclesPathData(TrackObstacleType trackObstacleType) => endBoundObstaclesPathDict[trackObstacleType];
 }

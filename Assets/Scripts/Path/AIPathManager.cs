@@ -8,22 +8,27 @@ using UnityEngine.InputSystem.Processors;
 
 public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 { 
+    [SerializeField] private AnimationCurve nonMovableObstaclesDifficultyCurve;
+    [SerializeField] private AnimationCurve movableDifficultyCurve;
+
     [SerializeField] private Transform[] lanes;
     [SerializeField] private int totalLanes = 3;
 
     [SerializeField] private float pathTimerMinLimit = 6f;
     [SerializeField] private float pathTimerMaxLimit = 10f;
 
-    private float safeDistance = 0f;
+    // private float safeDistance = 0f;
     private float timer = 0;
     private float pathTimerLimit = 5f;
-    private float extraDelayTime = 2f;
+    // private float extraDelayTime = 2f;
 
     private bool isInitialSpawn = true;
 
     private int currentTrackLaneIdx = -1;
     private int safeAreaIdx = 0;
-    
+    private float nonMovableDifficultyVal = 0;
+    private float movableDifficultyVal = 0;
+
     private List<int> laneIndexes = new List<int>();
 
     private ObstacleBase lastEncounteredObstacle = null;
@@ -31,7 +36,9 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private Vector3 laneSpawnStartPos;
 
     private TimerSystem timerSystem;
+    private PlayerCarController playerCarController;
     private AIController aiController;
+    private WorldSpawnManager worldSpawnManager;
     private ObstaclesManager obstaclesManager;
     private CollectiblesManager collectiblesManager;
 
@@ -44,9 +51,11 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
+        playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
         collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
+        worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
 
         InitializeTimerSystem();
     }
@@ -111,17 +120,33 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         currentTrackLaneIdx = closerEndpointLaneIdx;
     }
 
+    private ObstaclesPathData obstaclesPathData = null;
+
     public void StartCreatingObstacleElements()
     {
         timer = 0;
-        obstaclesManager.SetObstaclesType(isInitialSpawn);
+        InitObstaclesPathData();
+        
+        var difficultyVal = obstaclesManager.CurrentTrackObstacleType == TrackObstacleType.MovableTrain 
+                                                    ? movableDifficultyCurve.Evaluate(playerCarController.CurrentCoveredDistance01) 
+                                                    : nonMovableObstaclesDifficultyCurve.Evaluate(playerCarController.CurrentCoveredDistance01);
 
-        var obstaclesPathData = obstaclesManager.GetObstaclesPathData();
-        safeDistance = obstaclesPathData.safeDistance;
-        extraDelayTime = obstaclesPathData.extraDelay;
+        var startBoundPathTimerMax = obstaclesManager.ObstaclesPathSO.GetStartBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).pathTimerMaxLimit;
+        var endBoundPathTimerMax = obstaclesManager.ObstaclesPathSO.GetEndBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).pathTimerMaxLimit;
+
+        obstaclesPathData.pathTimerMaxLimit = worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: startBoundPathTimerMax, endVal: endBoundPathTimerMax, fraction: difficultyVal);
+
+        var startBoundSafeDistance = obstaclesManager.ObstaclesPathSO.GetStartBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).safeDistance;
+        var endBoundSafeDistance = obstaclesManager.ObstaclesPathSO.GetEndBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).safeDistance;
+
+        obstaclesPathData.safeDistance = worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: startBoundSafeDistance, endVal: endBoundSafeDistance, fraction: difficultyVal);
+
+        Debug.Log($"## obstaclesPathData.safeDistance: {obstaclesPathData.safeDistance}");
+        Debug.Log($"## obstaclesPathData.pathTimerMaxLimit: {obstaclesPathData.pathTimerMaxLimit}");
+
         pathTimerLimit = Random.Range(obstaclesPathData.pathTimerMinLimit, obstaclesPathData.pathTimerMaxLimit);
 
-        if (extraDelayTime > 0)
+        if (obstaclesPathData.extraDelay > 0)
         {
             InitializePathTimerWithExtraDelay();
         }
@@ -133,12 +158,31 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         Debug.Log($"StartCreatingPathElements");
     }
 
+    private void InitObstaclesPathData()
+    {
+        obstaclesManager.SetObstaclesType(isInitialSpawn);
+        var newData = obstaclesManager.ObstaclesPathSO.GetStartBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType);
+
+        if (obstaclesPathData == null)
+        {
+            obstaclesPathData = new ObstaclesPathData();
+        }
+
+        obstaclesPathData.trackObstacleType = newData.trackObstacleType;
+        obstaclesPathData.extraDelay = newData.extraDelay;
+        obstaclesPathData.pathTimerMinLimit = newData.pathTimerMinLimit;
+        obstaclesPathData.pathTimerMaxLimit = newData.pathTimerMaxLimit;
+        obstaclesPathData.safeDistance = newData.safeDistance;
+        obstaclesPathData.extraOffsetMinDist = newData.extraOffsetMinDist;
+        obstaclesPathData.extraOffsetMaxDist = newData.extraOffsetMaxDist;
+    }
+
     public void CreateCollectibleElements()
     {
         // TODO :: create two different positions
 
-        int index1 = UnityEngine.Random.Range(0, lanes.Length);
-        int index2 = UnityEngine.Random.Range(0, lanes.Length);
+        int index1 = Random.Range(0, lanes.Length);
+        int index2 = Random.Range(0, lanes.Length);
         Vector3 lanePos1 = new Vector3(lanes[index1].position.x, 0.5f, aiController.transform.position.z);
         collectiblesManager.SpawnCollectible(lanePos1);
         if (index1 != index2)
@@ -168,7 +212,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void InitializePathTimerWithExtraDelay()
     {
-        timerSystem.Init(extraDelayTime,
+        timerSystem.Init(obstaclesPathData.extraDelay,
         onComplete: () =>
         {
             timerSystem.Init(pathTimerLimit,
@@ -216,10 +260,10 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
                 continue;
             }
 
-            extraOffsetDist = Random.Range(obstaclesManager.GetObstaclesPathData().extraOffsetMinDist, 
-                                            obstaclesManager.GetObstaclesPathData().extraOffsetMaxDist); // TODO :: tune values
+            extraOffsetDist = Random.Range(obstaclesManager.ObstaclesPathSO.GetStartBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).extraOffsetMinDist, 
+                                            obstaclesManager.ObstaclesPathSO.GetStartBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).extraOffsetMaxDist); // TODO :: tune values
 
-            distZ = safeDistance + extraOffsetDist;
+            distZ = obstaclesPathData.safeDistance + extraOffsetDist;
 
             laneSpawnStartPos = new Vector3(lanes[i].position.x, lanes[i].position.y, aiController.transform.position.z + distZ);
             Debug.Log($"LaneSpawnStartPos: {laneSpawnStartPos}");
