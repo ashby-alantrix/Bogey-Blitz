@@ -6,8 +6,6 @@ using UnityEngine;
 public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [Header("Distance attributes")]
-    [SerializeField] private AnimationCurve speedCurve;
-    [SerializeField] private AnimationCurve speedCurve1;
     [SerializeField] private float totalDistanceToCover = 10000;
 
     [Header("Move speed attributes")]
@@ -33,8 +31,10 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private float lastCoveredDistance = 0;
 
     private Vector3 targetPosition = Vector3.zero;
+    private AnimationCurve worldMoveSpeed;
     private InputController inputController;
     private WorldSpawnManager worldSpawnManager;
+    private DifficultyEvaluator difficultyEvaluator;
     private PlayerCollisionHandler bogeyCollisionHandler;
     
     public PlayerCollisionHandler BogeyCollisionHandler => bogeyCollisionHandler;
@@ -64,6 +64,10 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        difficultyEvaluator  = InterfaceManager.Instance?.GetInterfaceInstance<DifficultyEvaluator>();
+
+        worldMoveSpeed = difficultyEvaluator.DifficultyCurveSO.GetDifficultyCurve(DifficultyCurveType.WorldMoveSpeed);
+
         worldSpawnManager.SetEnvironmentMoveSpeed(baseSpeed);
 
         Debug.Log($"initialized input controller: {inputController}");
@@ -167,7 +171,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
         if (distanceCovered > 0)
         {
-            CurrentEvaluatedSpeed01 = speedCurve.Evaluate(distanceCovered / totalDistanceToCover);
+            CurrentEvaluatedSpeed01 = worldMoveSpeed.Evaluate(distanceCovered / totalDistanceToCover);
             worldSpawnManager.SetEnvironmentMoveSpeed(
                 worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(
                     startVal: baseSpeed, 

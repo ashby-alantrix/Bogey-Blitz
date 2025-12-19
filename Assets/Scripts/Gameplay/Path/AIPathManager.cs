@@ -8,9 +8,6 @@ using UnityEngine.InputSystem.Processors;
 
 public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 { 
-    [SerializeField] private AnimationCurve nonMovableObstaclesDifficultyCurve;
-    [SerializeField] private AnimationCurve movableDifficultyCurve;
-
     [SerializeField] private Transform[] lanes;
     [SerializeField] private int totalLanes = 3;
 
@@ -29,10 +26,8 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private float nonMovableDifficultyVal = 0;
     private float movableDifficultyVal = 0;
 
-    private List<int> laneIndexes = new List<int>();
-
-    private ObstacleBase lastEncounteredObstacle = null;
     private Vector3 globalEndPointPosMax = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
+    private List<int> laneIndexes = new List<int>();
     private Vector3 laneSpawnStartPos;
 
     private TimerSystem timerSystem;
@@ -41,6 +36,11 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private WorldSpawnManager worldSpawnManager;
     private ObstaclesManager obstaclesManager;
     private CollectiblesManager collectiblesManager;
+    private DifficultyEvaluator difficultyEvaluator;
+    private ObstacleBase lastEncounteredObstacle = null;
+    
+    private AnimationCurve nonMoveableObstaclesDiffCurve;
+    private AnimationCurve moveableTrainDiffCurve;
 
     private Dictionary<int, ObstacleBase> lastSpawnedObstaclesInLane = new Dictionary<int, ObstacleBase>(); // convert to a list if required
 
@@ -56,8 +56,17 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
         collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        difficultyEvaluator = InterfaceManager.Instance?.GetInterfaceInstance<DifficultyEvaluator>();
 
+        InitDifficultyCurves();
         InitializeTimerSystem();
+    }
+
+    private void InitDifficultyCurves()
+    {
+        Debug.Log($"### InitDifficultyCurves");
+        moveableTrainDiffCurve = difficultyEvaluator.DifficultyCurveSO.GetDifficultyCurve(DifficultyCurveType.MovableTrainSpeed);
+        nonMoveableObstaclesDiffCurve = difficultyEvaluator.DifficultyCurveSO.GetDifficultyCurve(DifficultyCurveType.NonMovableObstacleSpeed);
     }
 
     public void SpawnObstacles()
@@ -127,9 +136,13 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         timer = 0;
         InitObstaclesPathData();
         
+        Debug.Log($"### obstaclesManager: {obstaclesManager.CurrentTrackObstacleType}");
+        Debug.Log($"### movableDifficultyCurve: {moveableTrainDiffCurve.Evaluate(playerCarController.CurrentCoveredDistance01)}");
+        Debug.Log($"### nonMovableObstaclesDifficultyCurve: {nonMoveableObstaclesDiffCurve.Evaluate(playerCarController.CurrentCoveredDistance01)}");
+
         var difficultyVal = obstaclesManager.CurrentTrackObstacleType == TrackObstacleType.MovableTrain 
-                                                    ? movableDifficultyCurve.Evaluate(playerCarController.CurrentCoveredDistance01) 
-                                                    : nonMovableObstaclesDifficultyCurve.Evaluate(playerCarController.CurrentCoveredDistance01);
+                                                    ? moveableTrainDiffCurve.Evaluate(playerCarController.CurrentCoveredDistance01) 
+                                                    : nonMoveableObstaclesDiffCurve.Evaluate(playerCarController.CurrentCoveredDistance01);
 
         var startBoundPathTimerMax = obstaclesManager.ObstaclesPathSO.GetStartBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).pathTimerMaxLimit;
         var endBoundPathTimerMax = obstaclesManager.ObstaclesPathSO.GetEndBoundObstaclesPathData(obstaclesManager.CurrentTrackObstacleType).pathTimerMaxLimit;

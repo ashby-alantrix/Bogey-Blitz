@@ -21,7 +21,6 @@ public class AIController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void InitializeData()
     {
         aiPathManager = InterfaceManager.Instance?.GetInterfaceInstance<AIPathManager>();
-
         aiPathManager.StartCreatingObstacleElements();
     }
 
