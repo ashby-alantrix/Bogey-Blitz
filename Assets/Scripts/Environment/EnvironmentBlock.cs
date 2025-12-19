@@ -11,6 +11,8 @@ public class EnvironmentBlock : MonoBehaviour
 
     private float moveSpeed;
 
+    private WorldSpawnManager worldSpawnManager;
+
     public Vector3 Startpoint => startpoint.position;
     public Vector3 Endpoint => endpoint.position;
 
@@ -31,8 +33,11 @@ public class EnvironmentBlock : MonoBehaviour
         this.moveSpeed = moveSpeed;
     }
 
-    void Update()
+    private void Update()
     {
-        transform.position += -Vector3.forward * Time.deltaTime * moveSpeed;
+        if (worldSpawnManager)
+            transform.position += -Vector3.forward * Time.deltaTime * worldSpawnManager.EnvironmentMoveSpeed;
+        else
+            worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
     }
 }

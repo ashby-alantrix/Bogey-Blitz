@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     private PlayerCarController playerCarController;
-    private WorldSpawnManager environmentSpawnManager;
+    private WorldSpawnManager worldSpawnManager;
     private AIController aiController;
 
     public void Initialize()
@@ -15,16 +15,22 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
-        environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
     }
 
     public void OnGameOver()
     {
-        environmentSpawnManager.UpdateEnvBlockMoveSpeed(0f);
+        worldSpawnManager.SetEnvironmentMoveSpeed(0f);
         playerCarController.FollowCamera.SetCamState(false);
-        
+        ActivatePlayer(false);
+
         aiController.gameObject.SetActive(false);
+    }
+
+    public void ActivatePlayer(bool state)
+    {
+        playerCarController.gameObject.SetActive(state);
     }
 }

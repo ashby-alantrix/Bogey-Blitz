@@ -27,7 +27,6 @@ public class PlayerCollisionHandler : MonoBehaviour
         gameManager = gameManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<GameManager>() : gameManager;
         playerCarController = playerCarController == null ? InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>() : playerCarController;
 
-        Debug.Log($":: other.tag: {other.tag}");
         switch (other.tag)
         {
             case BogeyBlitz_Constants.STRAIGHT_TRACK_TAG:
@@ -40,7 +39,6 @@ public class PlayerCollisionHandler : MonoBehaviour
                 carModel.SetActive(false);
                 crashModel.SetActive(true);
 
-                Debug.Log($"Activating crash model");
                 foreach (var meshPart in meshParts)
                 {
                     int index = Random.Range(0, crashPoints.Length);
