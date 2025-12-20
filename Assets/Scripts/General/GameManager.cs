@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void OnGameOver()
     {
+        Debug.Log($":: OnGameOver");
         worldSpawnManager.SetEnvironmentMoveSpeed(0f);
         playerCarController.FollowCamera.SetCamState(false);
         ActivatePlayer(false);
@@ -31,6 +32,6 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void ActivatePlayer(bool state)
     {
-        playerCarController.gameObject.SetActive(state);
+        playerCarController.enabled = state;
     }
 }

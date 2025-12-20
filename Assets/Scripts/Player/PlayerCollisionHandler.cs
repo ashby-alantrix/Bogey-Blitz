@@ -43,6 +43,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                 {
                     int index = Random.Range(0, crashPoints.Length);
                     Vector3 dir = (crashPoints[index].position - transform.position).normalized;
+
                     meshPart.AddForce(1000f * dir);
                 }
             break;

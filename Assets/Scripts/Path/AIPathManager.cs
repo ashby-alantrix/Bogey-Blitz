@@ -229,7 +229,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void Update()
     {
-        timerSystem.UpdateTimer(Time.deltaTime);
+        timerSystem?.UpdateTimer(Time.deltaTime);
     }
 
     private void CheckIfAICrossedLaneTrainEndPoint()
