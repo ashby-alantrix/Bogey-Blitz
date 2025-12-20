@@ -36,7 +36,10 @@ public class EnvironmentBlock : MonoBehaviour
     private void Update()
     {
         if (worldSpawnManager)
+        {
             transform.position += -Vector3.forward * Time.deltaTime * worldSpawnManager.EnvironmentMoveSpeed;
+            Debug.Log($"moving blocks: {transform.position}");
+        }
         else
             worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
     }
