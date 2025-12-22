@@ -26,7 +26,7 @@ public class CurrencyManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
         inGameHudScreen = screenManager.GetScreen<InGameHUDScreen>(ScreenType.InGameHUDScreen);
 
         Debug.Log($"userCurrencyData.attainedCurrency: {userCurrencyData.attainedCurrency}");
-        inGameHudScreen.UpdateCurrencyText($"{userCurrencyData.attainedCurrency}");
+        // inGameHudScreen.UpdateCurrencyText($"{userCurrencyData.attainedCurrency}");
 
         Debug.Log($"userDataBehaviour.IsFirstUserSession(): {userDataBehaviour.IsFirstUserSession()}");
     }
@@ -46,7 +46,7 @@ public class CurrencyManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
     public void UpdateCurrencyData()
     {
         Debug.Log($"Updated currency data userCurrencyData.attainedCurrency: {userCurrencyData.attainedCurrency}");
-        inGameHudScreen.UpdateCurrencyText($"{userCurrencyData.attainedCurrency}");
+        // inGameHudScreen.UpdateCurrencyText($"{userCurrencyData.attainedCurrency}");
         userDataBehaviour.SaveUserCurrencyData(userCurrencyData);
     }
 

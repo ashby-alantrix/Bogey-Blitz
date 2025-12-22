@@ -2,14 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// public class BaseUIManager<T> : MonoBehaviour, IBase, IBootLoader where T : UIBase
-// {
-//     public void Initialize()
-//     {
-//         throw new NotImplementedException();
-//     }
-// }
-
 public enum PopupResultEvent
 {
     None,
@@ -21,11 +13,18 @@ public enum PopupResultEvent
     LivesFull
 }
 
-public class PopupManager : MonoBehaviour, IBase, IBootLoader
+public class PopupManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     private Dictionary<PopupType, PopupBase> popupsDict = new Dictionary<PopupType, PopupBase>();
 
     private PopupBase activePopup = null;
+
+    public GameManager GameManager
+    {
+        get; 
+        private set;
+    }
+
     public PopupBase GetActivePU() => activePopup;
 
     private Stack<PopupBase> popupBasesStack = new Stack<PopupBase>();
@@ -34,6 +33,11 @@ public class PopupManager : MonoBehaviour, IBase, IBootLoader
     {
         InterfaceManager.Instance?.RegisterInterface<PopupManager>(this);
         popupsDict.Clear();
+    }
+
+    public void InitializeData()
+    {
+        GameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
     }
 
     public void RegisterPopup(PopupBase popupBase)

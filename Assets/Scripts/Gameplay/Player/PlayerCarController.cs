@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
+    [SerializeField] private Transform startPoint;
     [Header("Distance attributes")]
     [SerializeField] private float totalDistanceToCover = 10000;
 
@@ -37,9 +38,9 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private InputController inputController;
     private WorldSpawnManager worldSpawnManager;
     private DifficultyEvaluator difficultyEvaluator;
-    private PlayerCollisionHandler bogeyCollisionHandler;
+    private PlayerCollisionHandler playerCollisionHandler;
     
-    public PlayerCollisionHandler BogeyCollisionHandler => bogeyCollisionHandler;
+    public PlayerCollisionHandler PlayerCollisionHandler => playerCollisionHandler;
     public FollowCamera FollowCamera
     {
         get;
@@ -80,9 +81,21 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         Debug.Log($":: DISTANCE TO COVER :: {distanceToRailEndpoint}");
     }
 
-    public void SetEnvironmentBaseSpeed()
+    public void SetBaseMovementSpeed()
     {
         worldSpawnManager.SetEnvironmentMoveSpeed(baseSpeed);
+    }
+
+    public void ResetEnvironmentBaseSpeed()
+    {
+        worldSpawnManager.SetEnvironmentMoveSpeed(0);
+    }
+
+    public void ResetData()
+    {
+        distanceCovered = 0f;
+        ResetEnvironmentBaseSpeed();
+        transform.position = startPoint.position;
     }
 
     public void InitFollowCamera(FollowCamera cam)
@@ -144,7 +157,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     {
         dir = Vector3.forward;    
 
-        bogeyCollisionHandler = GetComponent<PlayerCollisionHandler>();
+        playerCollisionHandler = GetComponent<PlayerCollisionHandler>();
         laneWidth = (middleLane.position - rightLane.position).magnitude;
     }
 
@@ -152,12 +165,28 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     {
         if (!gameManager || !gameManager.IsGameInProgress) return;
 
+        Debug.Log($"#### PlayerCarController Update");
+
+        if (distanceCovered > 0)
+        {
+            Debug.Log($"#### Has distance covered: {distanceCovered}");
+
+            CurrentEvaluatedSpeed01 = worldMoveSpeed.Evaluate(distanceCovered / totalDistanceToCover);
+            worldSpawnManager.SetEnvironmentMoveSpeed(
+                worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(
+                    startVal: baseSpeed, 
+                    endVal: maxSpeed, 
+                    fraction: CurrentEvaluatedSpeed01));
+        }
+
         if (distTimer < timeToRailEndpoint)
         {
             distTimer += Time.deltaTime;
             distanceCovered = lastCoveredDistance + (worldSpawnManager.EnvironmentMoveSpeed * distTimer);
 
             Debug.Log($"DistanceCovered: {distanceCovered}");
+            Debug.Log($"DistanceCovered, lastCoveredDistance: {lastCoveredDistance}");
+            Debug.Log($"DistanceCovered, EnvironmentMoveSpeed: {worldSpawnManager.EnvironmentMoveSpeed}");
         }
         else
         {
@@ -174,15 +203,8 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
             }
         }   
 
+        Debug.Log($"#### PlayerCarController Update: {distanceCovered}");
 
-        if (distanceCovered > 0)
-        {
-            CurrentEvaluatedSpeed01 = worldMoveSpeed.Evaluate(distanceCovered / totalDistanceToCover);
-            worldSpawnManager.SetEnvironmentMoveSpeed(
-                worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(
-                    startVal: baseSpeed, 
-                    endVal: maxSpeed, 
-                    fraction: CurrentEvaluatedSpeed01));
-        }
+        
     }
 }

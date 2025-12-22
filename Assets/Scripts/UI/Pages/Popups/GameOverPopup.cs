@@ -7,64 +7,41 @@ using UnityEngine.UI;
 
 public class GameOverPopup : PopupBase
 {
-    [SerializeField] private Button playUsingCurrencyBtn;
-    [SerializeField] private TextMeshProUGUI remGoodsToSort;
-    [SerializeField] private Button closeBtn;
+    [SerializeField] private Button restartBtn;
+    [SerializeField] private Button optionsBtn;
+    [SerializeField] private Button menuBtn;
 
-    private PopupManager popupManager;
-    private CurrencyManager currencyManager;
-
-    private int nodesToClear = 5;
-    private int clearCurrency = 200;
-
-    new void OnEnable()
+    public void OnClick_Restart()
     {
-        // base.OnEnable();
-        playUsingCurrencyBtn.onClick.AddListener(() => OnClick_PlayUsingCurrency());
-        closeBtn.onClick.AddListener(() => OnClick_CloseBtn());
-    }
+        if (!popupManager) Debug.LogError($"Popupmanager is null");
+        if (!popupManager.GameManager) Debug.LogError($"game manager is null");
 
-    new void OnDisable()
-    {
-        // base.OnDisable();
-        playUsingCurrencyBtn.onClick.RemoveAllListeners();
-        closeBtn.onClick.RemoveAllListeners();
-    }
-
-    public void InitData(int remGoods)
-    {
-        remGoodsToSort.text = $"{remGoods}";
-    }
-
-    private void OnClick_PlayUsingCurrency()
-    {
-        currencyManager = currencyManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<CurrencyManager>() : currencyManager;
-        SetPopupManager();
-
-        if (!currencyManager.HasEnoughCurrency(clearCurrency))
-        {
-            // show feedback message -> not enough coins
-            popupManager.GetPopup<FeedbackPopup>(PopupType.FeedbackPopup).SetFeedbackText($"NOT ENOUGH COINS");
-            popupManager.ShowPopup(PopupType.FeedbackPopup);
-            return;
-        }
-
-        currencyManager.WithdrawCurrency(clearCurrency);
-
+        popupManager.GameManager.OnGameStateChange(GameState.GameRestart);
         popupManager.HidePopup(popupType);
-        OnComplete(PopupResultEvent.None);
     }
 
-    protected void OnClick_CloseBtn()
+    public void OnClick_Options()
     {
-        SetPopupManager();
-        popupManager.HidePopup(popupType);
-
-        OnComplete(PopupResultEvent.LifeLostInGameOver);
+        
     }
 
-    private void SetPopupManager()
+    public void OnClick_Menu()
     {
-        popupManager = popupManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>() : popupManager;
+        
     }
+
+    private void OnEnable()
+    {
+        restartBtn.onClick.AddListener(OnClick_Restart);
+        optionsBtn.onClick.AddListener(OnClick_Options);
+        menuBtn.onClick.AddListener(OnClick_Menu);
+    }
+
+    private void OnDisable()
+    {
+        restartBtn.onClick.RemoveAllListeners();
+        optionsBtn.onClick.RemoveAllListeners();
+        menuBtn.onClick.RemoveAllListeners();
+    }
+
 }

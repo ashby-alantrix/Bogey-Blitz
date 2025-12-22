@@ -4,17 +4,59 @@ public class PlayerCollisionHandler : MonoBehaviour
 {
     [SerializeField] private Transform[] crashPoints;
 
-    [SerializeField] private Rigidbody[] meshParts;
     [SerializeField] private GameObject carModel;
-    [SerializeField] private GameObject crashModel;
 
+    [SerializeField] private GameObject crashModelRef;
+
+    private Rigidbody[] meshParts;
+    private Vector3[] savedMeshPositions;
     private PlayerCarController playerCarController;
     private GameManager gameManager;
-    private BoxCollider boxCollider;
 
     private void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
+        InitializeCrashModelPositions();
+    }
+
+    public void InitializeCrashModelPositions()
+    {
+        int indexer = 0;
+        savedMeshPositions = new Vector3[crashModelRef.transform.childCount];
+        meshParts = new Rigidbody[crashModelRef.transform.childCount];
+
+        Debug.Log($"crashModelRef.transform.childCount: {crashModelRef.transform.childCount}");
+
+        foreach (Transform child in crashModelRef.transform)
+        {
+            savedMeshPositions[indexer] = child.position;
+            meshParts[indexer] = child.GetComponent<Rigidbody>();
+            indexer++;
+        }
+    }
+
+    public void SetupNewCrashModel()
+    {
+        // int indexer = 0;
+        // var crashModelInstance = Instantiate(crashModelRef, transform);
+        crashModelRef.gameObject.SetActive(false);
+
+        // crashModelInstance.transform.position = carModel.transform.position;
+
+        // meshParts = new Rigidbody[crashModelRef.transform.childCount];
+
+        // foreach (Transform part in crashModelRef.transform)
+        // {
+            
+        // }
+
+        for (int i=0; i< savedMeshPositions.Length; i++)
+        {
+            Debug.Log($"Setting new crash model: {savedMeshPositions[i]}");
+
+            meshParts[i].position = savedMeshPositions[i];
+        }
+
+        Debug.Log($"Setting new crash model");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,8 +78,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
                 gameManager.OnGameStateChange(GameState.GameOver);
 
-                carModel.SetActive(false);
-                crashModel.SetActive(true);
+                ActivateCarModel(false);
 
                 foreach (var meshPart in meshParts)
                 {
@@ -48,5 +89,11 @@ public class PlayerCollisionHandler : MonoBehaviour
                 }
             break;
         }
+    }
+
+    public void ActivateCarModel(bool state)
+    {
+        carModel.SetActive(state);
+        crashModelRef.SetActive(!state);
     }
 }

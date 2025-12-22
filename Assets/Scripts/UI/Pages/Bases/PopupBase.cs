@@ -5,6 +5,10 @@ using UnityEngine;
 
 public enum PopupType
 {
+    Pause,
+    GameOver,
+    //
+
     FTUE_Popup, //
     SettingsPopup, 
     RestartPopup, //
@@ -36,10 +40,16 @@ public class PopupBase : UIBase, IUIBase
 
     public override void Show()
     {
+        SetUIScaler();
         if (uiScaler)
             uiScaler.ApplyEffectOnShow(() => base.Show());
-        else 
+        else
             base.Show();
+    }
+
+    private void SetUIScaler()
+    {
+        uiScaler = uiScaler == null ? GetComponent<UIScaler>() : uiScaler;
     }
 
     public override void Hide()
@@ -64,11 +74,6 @@ public class PopupBase : UIBase, IUIBase
     protected void OnComplete(PopupResultEvent popupResultEvent)
     {
         onComplete?.Invoke(popupResultEvent);
-    }
-
-    private void Awake()
-    {
-        uiScaler = GetComponent<UIScaler>();
     }
 
     private void OnDestroy()

@@ -68,10 +68,6 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         {
             InitializeStopperTimer();
             InitializePathTimer();
-        }, 
-        onStart: () =>
-        {
-            SpawnPowerup();
         });
     }
 
@@ -97,9 +93,15 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         collectibleBase.gameObject.SetActive(true);
     }
 
-    public void SpawnPowerup()
+    public void SendAllObjectToPool()
     {
-        
+        var collectibleBases = FindObjectsOfType<CollectibleBase>();
+        Debug.Log($"bases Count: {collectibleBases.Length}");
+        foreach (var collectibleBase in collectibleBases)
+        {
+            collectibleBase.gameObject.SetActive(false);
+            SendObjectToPool(collectibleBase);
+        }
     }
 
     public void SendObjectToPool(CollectibleBase collectibleBase)

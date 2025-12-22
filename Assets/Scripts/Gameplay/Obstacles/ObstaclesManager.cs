@@ -25,6 +25,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private ObjectPoolManager objectPoolManager;
     private WorldSpawnManager worldSpawnManager;
     private PlayerCarController playerCarController;
+    private GameManager gameManager;
 
     public ObstaclesPathSO ObstaclesPathSO => obstaclesPathSO;
     public Vector3 ObstacleEndpoint => obstacleEndpoint.position;
@@ -34,7 +35,8 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         private set;    
     }
 
-    public float MovableTrainSpeed => worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: movableTrainMinSpeed, endVal: movableTrainMaxSpeed, fraction: playerCarController.CurrentEvaluatedSpeed01);
+    public float MovableTrainSpeed => 
+        gameManager.IsGameInProgress ? worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: movableTrainMinSpeed, endVal: movableTrainMaxSpeed, fraction: playerCarController.CurrentEvaluatedSpeed01) : 0;
 
     public void Initialize()
     {
@@ -43,6 +45,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
+        gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
@@ -75,6 +78,17 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
                 return PoolType.Obstacle;
             default:
                 return PoolType.MAX;
+        }
+    }
+
+    public void SendAllObjectsToPool()
+    {
+        var obstacleBases = FindObjectsOfType<ObstacleBase>();
+        Debug.Log($"bases Count: {obstacleBases.Length}");
+        foreach (var obstacleBase in obstacleBases)
+        {
+            obstacleBase.gameObject.SetActive(false);
+            SendObjectToPool(obstacleBase);
         }
     }
 

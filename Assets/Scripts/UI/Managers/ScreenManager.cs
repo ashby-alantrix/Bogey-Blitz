@@ -8,19 +8,30 @@ public enum ScreenResultEvent
     OnSettingsClicked
 }
 
-public class ScreenManager : MonoBehaviour, IBase, IBootLoader
+public class ScreenManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     private Dictionary<ScreenType, ScreenBase> screensDict = new Dictionary<ScreenType, ScreenBase>();
 
     private ScreenBase activeScreen = null;
     private Stack<ScreenBase> screenBasesStack = new Stack<ScreenBase>();
 
+    public GameManager GameManager
+    {
+        get;
+        private set;
+    }
+    
     public ScreenBase GetActiveScreen() => activeScreen;
 
     public void Initialize()
     {
         InterfaceManager.Instance?.RegisterInterface<ScreenManager>(this);
         screensDict.Clear();
+    }
+    
+    public void InitializeData()
+    {
+        GameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
     }
 
     public void RegisterScreen(ScreenBase screenBase)

@@ -1,108 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InGameHUDScreen : ScreenBase
 {
-    [SerializeField] private Animator animator;
-    
-    [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private TextMeshProUGUI currencyText;
-    [SerializeField] private Button hudButtonsCont;
-    [SerializeField] private Button restartBtn;
-    [SerializeField] private Button homeBtn;
-    [SerializeField] private Button soundBtn;
-    [SerializeField] private Image soundSprite;
-    [SerializeField] private Sprite soundOnSprite;
-    [SerializeField] private Sprite soundOffSprite;
-    [SerializeField] private GameObject settingsDropdown;
+    [SerializeField] private TextMeshProUGUI distanceText;
+    [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private Button settingsButton;
 
-    private int goodsGoalCount = 0;
-    private PopupManager popupManager;
-    private SoundManager soundManager;
-    private bool showSettingDropDown = false;
-
-    public void UpdateCurrencyText(string currencyText)
+    private void OnEnable()
     {
-        this.currencyText.text = currencyText;
+        settingsButton.onClick.AddListener(OnClick_SettingsButton);
     }
 
-    void OnEnable()
+    private void OnDisable()
     {
-        restartBtn.onClick.AddListener(() => OnClick_RestartButton());
-        hudButtonsCont.onClick.AddListener(() =>
-        {
-            ShowSettingDropdown();
-        });
-
-        homeBtn.onClick.AddListener(() => OnClick_HomeButton());
-        soundBtn.onClick.AddListener(() => OnClick_SoundButton());
+        settingsButton.onClick.RemoveAllListeners();    
     }
 
-    private void OnClick_RestartButton()
+    public void UpdateDistanceText(string distanceText)
     {
-        popupManager = popupManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>() : popupManager;
-
-        popupManager.ShowPopup(PopupType.RestartPopup);
+        this.distanceText.text = distanceText;
     }
 
-    private void OnClick_HomeButton()
+    public void UpdateCoinsText(string coinsText)
     {
-
+        this.coinsText.text = coinsText;
     }
 
-    private void OnClick_SoundButton()
+    private void OnClick_SettingsButton()
     {
-        SetSoundManager();
-        soundManager.SetGameSound(!soundManager.IsGameSoundOn);
-        SetSoundSprite();
-    }
-
-    private void SetSoundManager()
-    {
-        soundManager = soundManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<SoundManager>() : soundManager;
-    }
-
-    private void SetSoundSprite()
-    {
-        SetSoundManager();
-        soundSprite.sprite = soundManager.IsGameSoundOn ? soundOnSprite : soundOffSprite;
-    }
-
-    public void ShowSettingDropdown()
-    {
-        SetSoundSprite();
-
-        showSettingDropDown = !showSettingDropDown;
-        if (showSettingDropDown)
-        {
-            if (settingsDropdown.activeInHierarchy)
-            {
-                animator.Play("Open");
-                return;
-            }
-
-            settingsDropdown.SetActive(true);
-        }
-        else 
-        {
-            animator.Play("Close");
-            // Invoke(nameof(DisableSettingDropdown), 1f);
-        }
-    }
-
-    public void DisableSettingDropdown()
-    {
-        Debug.Log($"Disable Setting Dropdown");
-        settingsDropdown.SetActive(false);
-    }
-
-    void OnDisable()
-    {
-        hudButtonsCont.onClick.RemoveAllListeners();
+        screenManager.GameManager.OnGameStateChange(GameState.GamePaused);
     }
 }

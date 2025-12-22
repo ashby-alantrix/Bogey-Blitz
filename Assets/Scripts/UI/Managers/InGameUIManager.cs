@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
 {
-    private ScreenManager screenManager;
-    private PopupManager popupManager;
-    private InGameHUDScreen inGameHUDScreen;
-    private GameOverPopup gameOverPopup;
-
-    public InGameHUDScreen InGameHUDScreen => inGameHUDScreen;
-    public GameOverPopup GameOverPopup => gameOverPopup;
+    public ScreenManager ScreenManager
+    {
+        get;
+        private set;
+    }
+    
+    public PopupManager PopupManager
+    {
+        get;
+        private set;
+    }
 
     public void Initialize()
     {
@@ -19,12 +23,9 @@ public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
 
     public void InitializeData()
     {
-        screenManager = InterfaceManager.Instance?.GetInterfaceInstance<ScreenManager>();
-        popupManager = InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>();
-
-        inGameHUDScreen = screenManager.GetScreen<InGameHUDScreen>(ScreenType.InGameHUDScreen);
-        gameOverPopup = popupManager.GetPopup<GameOverPopup>(PopupType.GameOverPopup);
-
-        Debug.Log($"InGameUIManager: InGameHudScreen: {inGameHUDScreen}");
+        ScreenManager = InterfaceManager.Instance?.GetInterfaceInstance<ScreenManager>();
+        PopupManager = InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>();
     }
+
+
 }

@@ -207,8 +207,9 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
-    private void InitializeTimerSystem()
+    public void InitializeTimerSystem()
     {
+        isInitialSpawn = true;
         timerSystem = new TimerSystem();
     }
 
