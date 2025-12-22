@@ -15,7 +15,7 @@ public enum PoolType
     MAX = 5,
 }
 
-public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
+public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     [SerializeField] private ObstacleObjectPool[] obstaclePoolBases;
     [SerializeField] private CollectibleObjectPool[] collectiblePoolBases;
@@ -26,7 +26,10 @@ public class ObjectPoolManager : MonoBehaviour, IBase, IBootLoader
     public void Initialize()
     {
         InterfaceManager.Instance?.RegisterInterface<ObjectPoolManager>(this);
-        
+    }
+
+    public void InitializeData()
+    {
         foreach (var pool in obstaclePoolBases)
         {
             obstaclesPoolBasesDict.Add(pool.GetPoolObjectType(), pool);

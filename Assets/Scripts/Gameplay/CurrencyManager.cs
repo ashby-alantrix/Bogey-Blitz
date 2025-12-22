@@ -23,7 +23,7 @@ public class CurrencyManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
         userCurrencyData = userDataBehaviour.GetUserCurrencyData();
 
         screenManager = InterfaceManager.Instance?.GetInterfaceInstance<ScreenManager>();
-        inGameHudScreen = screenManager.GetScreen<InGameHUDScreen>(ScreenType.GlobalHUDScreen);
+        inGameHudScreen = screenManager.GetScreen<InGameHUDScreen>(ScreenType.InGameHUDScreen);
 
         Debug.Log($"userCurrencyData.attainedCurrency: {userCurrencyData.attainedCurrency}");
         inGameHudScreen.UpdateCurrencyText($"{userCurrencyData.attainedCurrency}");

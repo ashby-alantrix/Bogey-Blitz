@@ -34,7 +34,7 @@ public class PlayerCollisionHandler : MonoBehaviour
             break;
             case BogeyBlitz_Constants.OBSTACLE_TAG:
 
-                gameManager.OnGameOver();
+                gameManager.OnGameStateChange(GameState.GameOver);
 
                 carModel.SetActive(false);
                 crashModel.SetActive(true);

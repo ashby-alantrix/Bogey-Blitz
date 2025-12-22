@@ -37,6 +37,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private ObstaclesManager obstaclesManager;
     private CollectiblesManager collectiblesManager;
     private DifficultyEvaluator difficultyEvaluator;
+    private GameManager gameManager;
     private ObstacleBase lastEncounteredObstacle = null;
     
     private AnimationCurve nonMoveableObstaclesDiffCurve;
@@ -57,6 +58,7 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         difficultyEvaluator = InterfaceManager.Instance?.GetInterfaceInstance<DifficultyEvaluator>();
+        gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
 
         InitDifficultyCurves();
         InitializeTimerSystem();
@@ -242,6 +244,8 @@ public class AIPathManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void Update()
     {
+        if (!gameManager || !gameManager.IsGameInProgress) return;
+
         timerSystem?.UpdateTimer(Time.deltaTime);
     }
 

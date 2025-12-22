@@ -25,11 +25,20 @@ public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public float EnvironmentMoveSpeed => environmentMoveSpeed;
 
+    public void Initialize()
+    {
+        InterfaceManager.Instance?.RegisterInterface<WorldSpawnManager>(this);
+    }
+
+    public void InitializeData()
+    {
+        playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
+    }
+
     public void SetEnvironmentMoveSpeed(float newSpeedVal)
     {
         Debug.Log($"newSpeedVal: {newSpeedVal}");
         environmentMoveSpeed = newSpeedVal;
-        UpdateEnvBlockMoveSpeed(newSpeedVal);
     }
 
     public EnvironmentBlock GetFirstEnvironmentBlock()
@@ -58,23 +67,13 @@ public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             instance.name = $"Rail {i + 1}";
 
             EnvironmentBlock block = instance.GetComponent<EnvironmentBlock>();
-            block.Init(i + 1, EnvironmentMoveSpeed);
+            block.Init(i + 1);
 
             if (firstEnvironmentBlock == null)
                 firstEnvironmentBlock = block;
 
             zOffsetSum += blockOffsetZ;
         }
-    }
-
-    public void Initialize()
-    {
-        InterfaceManager.Instance?.RegisterInterface<WorldSpawnManager>(this);
-    }
-
-    public void InitializeData()
-    {
-        playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
     }
 
     public void SetEnvironmentBlocks(Transform newBlock)
@@ -84,14 +83,6 @@ public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         {
             SendBlockTowardsEnd();
             InitNewEnvironmentBlock();
-        }
-    }
-
-    public void UpdateEnvBlockMoveSpeed(float moveSpeed)
-    {
-        foreach (EnvironmentBlock envBlock in environmentBlocksQueue)
-        {
-            envBlock.UpdateMoveSpeed(moveSpeed);
         }
     }
 

@@ -1,28 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 
 public enum ScreenType
 {
-    LoadingScreen,
-    LevelsScreen,
     InGameHUDScreen,
-    MenuHUDScreen,
-    GlobalHUDScreen
+    MenuHUDScreen
 }
 
 public class ScreenBase : UIBase, IUIBase
 {
     [SerializeField] protected ScreenType screenType;
-    [SerializeField] protected bool shouldFade = false;
-    
 
     public ScreenType ScreenType => screenType;
 
-    private ScreenManager screenManager;
+    protected ScreenManager screenManager;
+
+    private UIScaler uiScaler;
 
     public void Initialize()
     {
@@ -32,11 +24,22 @@ public class ScreenBase : UIBase, IUIBase
 
     public override void Show()
     {
-        base.Show();
+        if (uiScaler)
+            uiScaler.ApplyEffectOnShow(() => base.Show());
+        else 
+            base.Show();
     }
 
     public override void Hide()
     {
-        base.Hide();
+        if (uiScaler)
+            uiScaler.ApplyEffectOnShow(() => base.Hide());
+        else 
+            base.Hide();
+    }
+
+    private void Awake()
+    {
+        uiScaler = GetComponent<UIScaler>();
     }
 }

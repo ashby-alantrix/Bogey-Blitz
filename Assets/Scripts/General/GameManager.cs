@@ -1,12 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum GameState
+{
+    GameStart,
+    GameInProgress,
+    GameOver,
+}
 
 public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
     private PlayerCarController playerCarController;
     private WorldSpawnManager worldSpawnManager;
     private AIController aiController;
+
+    private GameState currentGameState;
+    // {
+    //     get;
+    //     private set;
+    // }
+
+    public bool IsGameInProgress => currentGameState == GameState.GameStart;
 
     public void Initialize()
     {
@@ -20,7 +33,27 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
     }
 
-    public void OnGameOver()
+    public void OnGameStateChange(GameState state)
+    {
+        currentGameState = state;
+        switch (currentGameState)
+        {
+            case GameState.GameStart:
+                OnGameStart();
+            break;
+            case GameState.GameOver:
+                OnGameOver();
+            break;
+        }
+    }
+
+    private void OnGameStart()
+    {
+        playerCarController.SetEnvironmentBaseSpeed();
+        // aiController.AIPathManager.StartCreatingObstacleElements();
+    }
+
+    private void OnGameOver()
     {
         Debug.Log($":: OnGameOver");
         worldSpawnManager.SetEnvironmentMoveSpeed(0f);

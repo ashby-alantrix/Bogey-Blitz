@@ -22,15 +22,9 @@ public class EnvironmentBlock : MonoBehaviour
         private set;
     }
 
-    public void Init(int id, float moveSpeed)
+    public void Init(int id)
     {
         this.ID = id;
-        UpdateMoveSpeed(moveSpeed);
-    }
-
-    public void UpdateMoveSpeed(float moveSpeed)
-    {
-        this.moveSpeed = moveSpeed;
     }
 
     private void Update()
@@ -38,6 +32,7 @@ public class EnvironmentBlock : MonoBehaviour
         if (worldSpawnManager)
         {
             transform.position += -Vector3.forward * Time.deltaTime * worldSpawnManager.EnvironmentMoveSpeed;
+            Debug.Log($"## worldSpawnManager.EnvironmentMoveSpeed: {worldSpawnManager.EnvironmentMoveSpeed}");
             Debug.Log($"moving blocks: {transform.position}");
         }
         else

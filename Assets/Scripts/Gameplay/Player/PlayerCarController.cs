@@ -32,6 +32,8 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     private Vector3 targetPosition = Vector3.zero;
     private AnimationCurve worldMoveSpeed;
+
+    private GameManager gameManager;
     private InputController inputController;
     private WorldSpawnManager worldSpawnManager;
     private DifficultyEvaluator difficultyEvaluator;
@@ -64,11 +66,10 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        gameManager  = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
         difficultyEvaluator  = InterfaceManager.Instance?.GetInterfaceInstance<DifficultyEvaluator>();
 
         worldMoveSpeed = difficultyEvaluator.DifficultyCurveSO.GetDifficultyCurve(DifficultyCurveType.WorldMoveSpeed);
-
-        worldSpawnManager.SetEnvironmentMoveSpeed(baseSpeed);
 
         Debug.Log($"initialized input controller: {inputController}");
 
@@ -77,6 +78,11 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         timeToRailEndpoint = distanceToRailEndpoint / worldSpawnManager.EnvironmentMoveSpeed;
 
         Debug.Log($":: DISTANCE TO COVER :: {distanceToRailEndpoint}");
+    }
+
+    public void SetEnvironmentBaseSpeed()
+    {
+        worldSpawnManager.SetEnvironmentMoveSpeed(baseSpeed);
     }
 
     public void InitFollowCamera(FollowCamera cam)
@@ -144,7 +150,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     private void Update()
     {
-        if (!worldSpawnManager) return;
+        if (!gameManager || !gameManager.IsGameInProgress) return;
 
         if (distTimer < timeToRailEndpoint)
         {

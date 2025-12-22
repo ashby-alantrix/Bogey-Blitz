@@ -11,6 +11,8 @@ public class AIController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private AIPathManager aiPathManager;
     private bool canMove = false;
 
+    public AIPathManager AIPathManager => aiPathManager;
+
     private TimerSystem timerSystem;
 
     public void Initialize()
@@ -21,7 +23,6 @@ public class AIController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public void InitializeData()
     {
         aiPathManager = InterfaceManager.Instance?.GetInterfaceInstance<AIPathManager>();
-        aiPathManager.StartCreatingObstacleElements();
     }
 
     public void ChangeLane(Vector3 pos)
