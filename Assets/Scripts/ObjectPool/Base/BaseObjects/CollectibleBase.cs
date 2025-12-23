@@ -30,6 +30,7 @@ public class CollectibleBase : ObjectBase
                 gameObject.SetActive(false);
                 objectPoolManager.PassObjectToPool($"{TrackCollectibleType.Currency}", PoolType.Currency, this);
                 collectiblesManager.UpdateCoins();
+                collectiblesManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.GiftCollectible);
             break;
         }
     }

@@ -3,14 +3,12 @@ using UnityEngine;
 
 public enum SoundType
 {
-    Truck_Next_Point,
-    Truck_Dest_Point,
-    Level_Lost,
-    Level_Win,
-    Node_Click,
-    Node_Filled,
-    Swap,
-    Button_Click
+    CarAcceleration,
+    CarCrash,
+    CarGearChange,
+    GiftCollectible,
+    MetroTrainMovable, //
+    Button_Click 
 }
 
 [System.Serializable]
@@ -21,21 +19,40 @@ public class SoundData
     public AudioClip soundClip;
 }
 
+public enum SingleInstAudioSourceType
+{
+    BG,
+    OneShotClip,
+    CarAccel
+}
+
+public enum MultiAudioSourceType
+{
+    MovableTrain
+}
+
+[System.Serializable]
+public class AudioSourceData
+{
+    public SingleInstAudioSourceType sourceType;
+    public AudioSource audioSource;
+}
+
 public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
 {
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] private AudioSourceData[] singleInstAudioSourceDatas;
+
     [SerializeField] private SoundData[] soundDatas;
 
-    private float volTimer = 0, cachedSecVolTimer = 0;
-    private bool startVolTimer = false;
     public bool IsGameSoundOn
     {
         get;
         private set;
     }
 
+    private Queue<AudioSource> multiSourcesQueue = new Queue<AudioSource>(); // only a single multiSource right now
     private Dictionary<SoundType, SoundData> soundDataDict = new Dictionary<SoundType, SoundData>();
-    private Dictionary<SoundType, AudioSource> secondaryAudioSourcesDict = new Dictionary<SoundType, AudioSource>();
+    private Dictionary<SingleInstAudioSourceType, AudioSource> singleInstAudioSourcesDict = new Dictionary<SingleInstAudioSourceType, AudioSource>();
 
     private AudioSource secondaryAudioSource;
 
@@ -51,7 +68,6 @@ public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
     {
         // userDataBehaviour = InterfaceManager.Instance?.GetInterfaceInstance<UserDataBehaviour>();
 
-        audioSource.priority = 0;
         for (int idx = 0; idx < soundDatas.Length; idx++)
         {
             if (soundDataDict.ContainsKey(soundDatas[idx].soundType))
@@ -59,6 +75,11 @@ public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
             else 
                 soundDataDict.Add(soundDatas[idx].soundType, soundDatas[idx]);
         }
+
+        foreach (var data in singleInstAudioSourceDatas)
+        {
+            singleInstAudioSourcesDict.Add(data.sourceType, data.audioSource);
+        }        
 
         // soundData = userDataBehaviour.GetSoundData();
         // IsGameSoundOn = soundData.gameSoundToggle;
@@ -71,64 +92,42 @@ public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
         // userDataBehaviour.SaveSoundData(soundData);
     }
 
-    public void RegisterAudioSource(SoundType soundType, AudioSource audioSource)
+    public void RegisterToMultiSources(AudioSource audioSource)
     {
-        if (!secondaryAudioSourcesDict.ContainsKey(soundType))
-            secondaryAudioSourcesDict.Add(soundType, audioSource);
-        else
-        {
-            secondaryAudioSourcesDict[soundType] = audioSource;
-        }
+        multiSourcesQueue.Enqueue(audioSource);
+    }
+
+    public void UnregisterFromMultiSources()
+    {
+        multiSourcesQueue.Dequeue();
     }
 
     public void PlayPrimaryGameSoundClip(SoundType soundType)
     {
-        if (!enabled || !IsGameSoundOn) return;
+        // if (!enabled || !IsGameSoundOn) return;
 
         SoundData soundData = soundDataDict[soundType];
 
-        audioSource.priority = soundData.priority;
-        audioSource.PlayOneShot(soundData.soundClip);
+        // singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].priority = soundData.priority;
+        singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].clip = soundData.soundClip;
+        singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].PlayOneShot(soundData.soundClip);
+
+        Debug.Log($"soundData.soundClip: {soundData.soundClip}");
     }
 
     public void PlayButtonSoundClip(SoundType soundType)
     {
         SoundData soundData = soundDataDict[soundType];
 
-        audioSource.priority = soundData.priority;
-        audioSource.PlayOneShot(soundData.soundClip);
+        // singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].priority = soundData.priority;
+        singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].PlayOneShot(soundData.soundClip);
     }
 
-    public void PlaySecondaryGameSoundClip(SoundType soundType)
+    public void PlayMusic(SingleInstAudioSourceType singleInstAudioSourceType, bool play)
     {
-        if (!enabled || !IsGameSoundOn) return;
-
-        SoundData soundData = soundDataDict[soundType];
-        
-        secondaryAudioSource = secondaryAudioSourcesDict[soundType];
-        Debug.Log($"secondaryAudioSource. volume: {secondaryAudioSource.volume}");
-        secondaryAudioSource.priority = soundData.priority;
-        secondaryAudioSource.PlayOneShot(soundData.soundClip);
-        cachedSecVolTimer = volTimer = secondaryAudioSource.volume;
-        startVolTimer = true;
-    }
-
-    void Update()
-    {
-        // Debug.Log($"")
-        if (!startVolTimer) return;
-
-        if (volTimer > 0)
-        {
-            volTimer -= Time.deltaTime/4;
-            secondaryAudioSource.volume = volTimer;
-        }
-        else
-        {
-            volTimer = 0;
-            startVolTimer = false;
-            secondaryAudioSource.volume = cachedSecVolTimer;
-            secondaryAudioSource.Stop();
-        }
+        if (play)
+            singleInstAudioSourcesDict[singleInstAudioSourceType].Play();
+        else 
+            singleInstAudioSourcesDict[singleInstAudioSourceType].Stop();
     }
 }

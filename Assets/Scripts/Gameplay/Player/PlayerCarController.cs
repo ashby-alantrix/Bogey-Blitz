@@ -119,6 +119,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
             return;
         }
         
+        gameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
         if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
         {
             MoveRight();
@@ -134,8 +135,13 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         #if UNITY_EDITOR
         if (isChangingLane) return;
         #endif
+
         isChangingLane = true;
         targetPosition = transform.position + (Vector3.left * laneWidth);// + (Vector3.forward * 3f);
+        
+        #if UNITY_EDITOR
+        gameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
+        #endif
 
         transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
         {
@@ -151,6 +157,10 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
         isChangingLane = true;
         targetPosition = transform.position + (Vector3.right * laneWidth);// + (Vector3.forward * 3f);
+
+        #if UNITY_EDITOR
+        gameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
+        #endif
 
         transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
         {
@@ -216,7 +226,5 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         }   
 
         Debug.Log($"#### PlayerCarController Update: {distanceCovered}");
-
-        
     }
 }

@@ -19,6 +19,12 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private ObjectPoolManager objectPoolManager;
     private WorldSpawnManager environmentSpawnManager;
     private AIPathManager aiPathManager;
+    public SoundManager SoundManager
+    {
+        get;
+        private set;
+    }
+
     // private PowerupsManager powerupsManager;
     private TimerSystem spawnerTimerSystem;
     private TimerSystem stopperTimerSystem;
@@ -52,6 +58,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
+        SoundManager = InterfaceManager.Instance?.GetInterfaceInstance<SoundManager>();
 
         InitializeTimerSystem();
     }

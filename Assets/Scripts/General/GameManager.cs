@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private AIController aiController;
     private ObstaclesManager obstaclesManager;
     private CollectiblesManager collectiblesManager;
+    public SoundManager SoundManager
+    {
+        get;
+        private set;
+    }
     public InGameUIManager InGameUIManager
     {
         get;
@@ -45,10 +50,10 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
         InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
+        SoundManager = InterfaceManager.Instance?.GetInterfaceInstance<SoundManager>();
 
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
         collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
-
 
         Debug.Log($"Initializing playerCarController: {playerCarController}");
 
@@ -61,11 +66,8 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         switch (currentGameState)
         {
             case GameState.GameMenu:
-                ResetGameplayData();
-                ResetTrackElements();
-                ResetUIPanels();
-                InGameUIManager.ScreenManager.ShowScreen(ScreenType.MainMenu);
-            break;
+                OnGameMenuOpened();
+                break;
             case GameState.GameStart:
                 OnGameStart();
             break;
@@ -76,13 +78,32 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
                 OnGameRestart();
             break;
             case GameState.GamePaused:
-                playerCarController.ResetEnvironmentBaseSpeed();
-                InGameUIManager.PopupManager.ShowPopup(PopupType.Pause);
-            break;
+                OnGamePaused();
+                break;
             case GameState.GameOver:
                 OnGameOver();
             break;
         }
+    }
+
+    private void OnGamePaused()
+    {
+        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, false);
+        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, false);
+
+        playerCarController.ResetEnvironmentBaseSpeed();
+        InGameUIManager.PopupManager.ShowPopup(PopupType.Pause);
+    }
+
+    private void OnGameMenuOpened()
+    {
+        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, false);
+        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, false);
+        
+        ResetGameplayData();
+        ResetTrackElements();
+        ResetUIPanels();
+        InGameUIManager.ScreenManager.ShowScreen(ScreenType.MainMenu);
     }
 
     private void ResetUIPanels()
@@ -118,6 +139,9 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGameProgress()
     {
+        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, true);
+        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, true);
+
         Debug.Log($"OnGameProgress :: ShowScreen ScreenType.InGameHUDScreen");
         InGameUIManager.ScreenManager.ShowScreen(ScreenType.InGameHUDScreen);
         OnGameBackInProgress?.Invoke();
@@ -132,6 +156,11 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private void OnGameOver()
     {
         Debug.Log($":: OnGameOver");
+        
+        SoundManager.PlayPrimaryGameSoundClip(SoundType.CarCrash);
+        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, false);
+        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, false);
+
         worldSpawnManager.SetEnvironmentMoveSpeed(0f);
         ResetGameplayData();
 
@@ -153,22 +182,7 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGameRestart()
     {
-        /// <summary>
-        /// 
-        /// -> send all obstacles to the pool
-        /// -> send all collectibles to pool
-        /// 
-        /// -> reset the distance
-        /// -> stop ai logic
-        /// 
-        /// -> reset the envBaseSpeed
-        /// -> reset the car position
-        /// -> start path-finding
-        /// 
-        /// </summary>
-
         ResetTrackElements();
-
         OnGameStateChange(GameState.GameStart);
     }
 
