@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
 {
+    private InGameHUDScreen inGameHUDScreen;
+
     public ScreenManager ScreenManager
     {
         get;
@@ -27,5 +30,20 @@ public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
         PopupManager = InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>();
     }
 
+    public void UpdateHUDDistance(string distance)
+    {
+        SetInGameHUDScreen();
+        inGameHUDScreen.UpdateDistanceText(distance);
+    }
 
+    public void UpdateHUDCoins(string coins)
+    {
+        SetInGameHUDScreen();
+        inGameHUDScreen.UpdateCoinsText(coins);
+    }
+
+    private void SetInGameHUDScreen()
+    {
+        inGameHUDScreen = inGameHUDScreen == null ? ScreenManager.GetScreen<InGameHUDScreen>(ScreenType.InGameHUDScreen) : inGameHUDScreen;
+    }
 }

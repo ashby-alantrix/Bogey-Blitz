@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
@@ -23,6 +24,14 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private TimerSystem stopperTimerSystem;
     private TimerSystem delayTimerSystem;
 
+    private int collectibleCoins = 0;
+
+    public InGameUIManager InGameUIManager
+    {
+        get;
+        private set;
+    }
+
     public Vector3 CollectibleEndpoint => collectibleEndpoint.position;
 
     public TrackCollectibleType TrackCollectibleType
@@ -42,6 +51,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         // powerupsManager = InterfaceManager.Instance?.GetInterfaceInstance<PowerupsManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
+        InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
 
         InitializeTimerSystem();
     }
@@ -136,5 +146,11 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     {
         Debug.Log($"CreateCollectibleElements");
         aiPathManager.CreateCollectibleElements();
+    }
+
+    public void UpdateCoins()
+    {
+        collectibleCoins += 1;
+        InGameUIManager.UpdateHUDCoins($"{collectibleCoins}");
     }
 }

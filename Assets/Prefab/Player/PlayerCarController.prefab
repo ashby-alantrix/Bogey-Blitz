@@ -566,6 +566,7 @@ MonoBehaviour:
   - {fileID: 1753149870}
   carModel: {fileID: 5096519485441960258}
   crashModelRef: {fileID: 5681118119623766595}
+  forceToApply: 600
 --- !u!54 &3577736732278104560
 Rigidbody:
   m_ObjectHideFlags: 0

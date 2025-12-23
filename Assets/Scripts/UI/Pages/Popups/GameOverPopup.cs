@@ -13,21 +13,20 @@ public class GameOverPopup : PopupBase
 
     public void OnClick_Restart()
     {
-        if (!popupManager) Debug.LogError($"Popupmanager is null");
-        if (!popupManager.GameManager) Debug.LogError($"game manager is null");
-
         popupManager.GameManager.OnGameStateChange(GameState.GameRestart);
         popupManager.HidePopup(popupType);
     }
 
     public void OnClick_Options()
     {
-        
+        popupManager.HidePopupExplicitly(popupType);
+        popupManager.ShowPopup(PopupType.Options);
     }
 
     public void OnClick_Menu()
     {
-        
+        popupManager.HidePopup(popupType);
+        popupManager.GameManager.OnGameStateChange(GameState.GameMenu);   
     }
 
     private void OnEnable()
@@ -43,5 +42,4 @@ public class GameOverPopup : PopupBase
         optionsBtn.onClick.RemoveAllListeners();
         menuBtn.onClick.RemoveAllListeners();
     }
-
 }

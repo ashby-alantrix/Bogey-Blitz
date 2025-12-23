@@ -7,13 +7,14 @@ public class PlayerCollisionHandler : MonoBehaviour
     [SerializeField] private GameObject carModel;
 
     [SerializeField] private GameObject crashModelRef;
+    [SerializeField] private float forceToApply = 750f;
 
     private Rigidbody[] meshParts;
     private Vector3[] savedMeshPositions;
     private PlayerCarController playerCarController;
     private GameManager gameManager;
 
-    private void Start()
+    private void Awake()
     {
         InitializeCrashModelPositions();
     }
@@ -23,8 +24,6 @@ public class PlayerCollisionHandler : MonoBehaviour
         int indexer = 0;
         savedMeshPositions = new Vector3[crashModelRef.transform.childCount];
         meshParts = new Rigidbody[crashModelRef.transform.childCount];
-
-        Debug.Log($"crashModelRef.transform.childCount: {crashModelRef.transform.childCount}");
 
         foreach (Transform child in crashModelRef.transform)
         {
@@ -36,27 +35,14 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     public void SetupNewCrashModel()
     {
-        // int indexer = 0;
-        // var crashModelInstance = Instantiate(crashModelRef, transform);
         crashModelRef.gameObject.SetActive(false);
-
-        // crashModelInstance.transform.position = carModel.transform.position;
-
-        // meshParts = new Rigidbody[crashModelRef.transform.childCount];
-
-        // foreach (Transform part in crashModelRef.transform)
-        // {
-            
-        // }
-
         for (int i=0; i< savedMeshPositions.Length; i++)
         {
-            Debug.Log($"Setting new crash model: {savedMeshPositions[i]}");
-
-            meshParts[i].position = savedMeshPositions[i];
+            meshParts[i].velocity = Vector3.zero;
+            meshParts[i].angularVelocity = Vector3.zero;
+            meshParts[i].Sleep();
+            meshParts[i].transform.position = savedMeshPositions[i];
         }
-
-        Debug.Log($"Setting new crash model");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -71,10 +57,10 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         switch (other.tag)
         {
-            case BogeyBlitz_Constants.STRAIGHT_TRACK_TAG:
+            case BogeyBlitz_Constants.Straight_Track_Tag:
                 playerCarController.WorldSpawnManager.SetEnvironmentBlocks(other.transform);
             break;
-            case BogeyBlitz_Constants.OBSTACLE_TAG:
+            case BogeyBlitz_Constants.Obstacle_Tag:
 
                 gameManager.OnGameStateChange(GameState.GameOver);
 
@@ -85,7 +71,7 @@ public class PlayerCollisionHandler : MonoBehaviour
                     int index = Random.Range(0, crashPoints.Length);
                     Vector3 dir = (crashPoints[index].position - transform.position).normalized;
 
-                    meshPart.AddForce(1000f * dir);
+                    meshPart.AddForce(forceToApply * dir, ForceMode.Force);
                 }
             break;
         }

@@ -7,6 +7,7 @@ public enum PopupType
 {
     Pause,
     GameOver,
+    Options,
     //
 
     FTUE_Popup, //
@@ -31,9 +32,11 @@ public enum PopupScalerType
 public class PopupBase : UIBase, IUIBase
 {
     [SerializeField] protected PopupType popupType;
+    [SerializeField] protected bool hasBackOption = false;
 
     private Action<PopupResultEvent> onComplete;
     public PopupType PopupType => popupType;
+    public bool HasBackOption => hasBackOption;
 
     protected PopupManager popupManager;
     private UIScaler uiScaler;

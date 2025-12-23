@@ -66,9 +66,9 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     public void InitializeData()
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
-        worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         gameManager  = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
         difficultyEvaluator  = InterfaceManager.Instance?.GetInterfaceInstance<DifficultyEvaluator>();
+        SetWorldSpawnManager();
 
         worldMoveSpeed = difficultyEvaluator.DifficultyCurveSO.GetDifficultyCurve(DifficultyCurveType.WorldMoveSpeed);
 
@@ -83,12 +83,19 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     public void SetBaseMovementSpeed()
     {
+        SetWorldSpawnManager();
         worldSpawnManager.SetEnvironmentMoveSpeed(baseSpeed);
     }
 
     public void ResetEnvironmentBaseSpeed()
     {
+        SetWorldSpawnManager();
         worldSpawnManager.SetEnvironmentMoveSpeed(0);
+    }
+
+    private void SetWorldSpawnManager()
+    {
+        worldSpawnManager = worldSpawnManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>() : worldSpawnManager;
     }
 
     public void ResetData()
@@ -153,11 +160,15 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         Debug.Log($"Target position: {targetPosition}");
     }
 
+    private void Awake()
+    {
+        playerCollisionHandler = GetComponent<PlayerCollisionHandler>();
+    }
+
     private void Start()
     {
         dir = Vector3.forward;    
 
-        playerCollisionHandler = GetComponent<PlayerCollisionHandler>();
         laneWidth = (middleLane.position - rightLane.position).magnitude;
     }
 
@@ -170,6 +181,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         if (distanceCovered > 0)
         {
             Debug.Log($"#### Has distance covered: {distanceCovered}");
+            gameManager.InGameUIManager.UpdateHUDDistance($"{Mathf.FloorToInt(distanceCovered)}");
 
             CurrentEvaluatedSpeed01 = worldMoveSpeed.Evaluate(distanceCovered / totalDistanceToCover);
             worldSpawnManager.SetEnvironmentMoveSpeed(

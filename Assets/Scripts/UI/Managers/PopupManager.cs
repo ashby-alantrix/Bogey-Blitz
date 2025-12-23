@@ -5,12 +5,7 @@ using UnityEngine;
 public enum PopupResultEvent
 {
     None,
-    LifeLostInGameOver,
-    OnSpentCoinsForLevel,
-    OnFreeRefillHealth,
-    OnCancelRefillHealth,
-    FreeRefillUsed,
-    LivesFull
+    OnOptionsClosed,
 }
 
 public class PopupManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
@@ -18,6 +13,7 @@ public class PopupManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private Dictionary<PopupType, PopupBase> popupsDict = new Dictionary<PopupType, PopupBase>();
 
     private PopupBase activePopup = null;
+    private PopupBase prevActivePopup = null;
 
     public GameManager GameManager
     {
@@ -25,6 +21,7 @@ public class PopupManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         private set;
     }
 
+    public PopupBase GetPrevActivePU() => prevActivePopup;
     public PopupBase GetActivePU() => activePopup;
 
     private Stack<PopupBase> popupBasesStack = new Stack<PopupBase>();
@@ -47,7 +44,7 @@ public class PopupManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         else
             popupsDict[popupBase.PopupType] = popupBase;
 
-        popupBase.InitNextActionEvent((resultType) => OnPopupClosedExceuteEvent(resultType));
+        // popupBase.InitNextActionEvent((resultType) => OnPopupClosedExceuteEvent(resultType));
     }
 
     public T GetPopup<T>(PopupType uiType) where T : PopupBase
@@ -84,31 +81,36 @@ public class PopupManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
-    public void OnPopupClosedExceuteEvent(PopupResultEvent popupResultEvent)
+    public void HidePopupExplicitly(PopupType popupType)
     {
-        switch (popupResultEvent)
+        if (popupsDict[popupType] != null)
         {
-            case PopupResultEvent.None:
-
-            break;
-            case PopupResultEvent.LifeLostInGameOver:
-                ShowPopup(PopupType.LevelFailPopup);
-            break;
-            case PopupResultEvent.OnSpentCoinsForLevel:
-
-            break;
-
-            case PopupResultEvent.OnFreeRefillHealth:
-                ShowPopup(PopupType.FreeRefillPopup);
-            break;
-            case PopupResultEvent.LivesFull:
-            case PopupResultEvent.OnCancelRefillHealth:
-            case PopupResultEvent.FreeRefillUsed:
-                Debug.Log($"GetMoreLivesPopup");
-                ShowPopup(PopupType.GetMoreLivesPopup);
-            break;
-            default:
-            break;
+            prevActivePopup = popupsDict[popupType];
+            popupsDict[popupType].Hide();
         }
     }
+
+    public void ResetPrevActionPU() => prevActivePopup = null;
+
+    public void HideAllPopups()
+    {
+        foreach (var popupPair in popupsDict)
+        {
+            popupPair.Value.Hide();
+        }    
+    }
+
+    // public void OnPopupClosedExceuteEvent(PopupResultEvent popupResultEvent)
+    // {
+    //     switch (popupResultEvent)
+    //     {
+    //         case PopupResultEvent.None:
+
+    //         break;
+    //         case PopupResultEvent.OnOptionsClosed:
+    //         break;
+    //         default:
+    //         break;
+    //     }
+    // }
 }

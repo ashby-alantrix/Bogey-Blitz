@@ -49,6 +49,7 @@ public class ScreenManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void ShowScreen(ScreenType screenType)
     {
+        Debug.Log($"ShowScreen :: {screenType}");
         activeScreen = screensDict[screenType];
         if (activeScreen != null)
         {
@@ -59,6 +60,7 @@ public class ScreenManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void HideScreen(ScreenType screenType)
     {
+        Debug.Log($"HideScreen :: {screenType}");
         if (screensDict[screenType] != null)
         {
             screenBasesStack.Pop();
@@ -68,15 +70,11 @@ public class ScreenManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
-    // public void OnScreenEventExecute(ScreenResultEvent screenResultEvent)
-    // {
-    //     switch (screenResultEvent)
-    //     {
-    //         case ScreenResultEvent.None:
-
-    //         break;
-    //         case ScreenResultEvent.OnSettingsClicked:
-    //         break;
-    //     }
-    // }
+    public void HideAllScreens()
+    {
+        foreach (var screenPair in screensDict)
+        {
+            screenPair.Value.Hide();
+        }    
+    }
 }

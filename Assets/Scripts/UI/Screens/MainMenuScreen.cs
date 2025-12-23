@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,17 +19,24 @@ public class MainMenuScreen : ScreenBase
 
     private void OnClick_StartButton()
     {
-        base.Hide();
+        screenManager.HideScreen(ScreenType);
         // start the game from the game manager
 
-        gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
+        SetGameManager();
         gameManager.OnGameStateChange(GameState.GameStart);
+    }
 
+    private void SetGameManager()
+    {
+        gameManager = gameManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<GameManager>() : gameManager;
     }
 
     private void OnClick_OptionsButton()
     {
         // show the options popup
+        SetGameManager();
+                
+        screenManager.GameManager.InGameUIManager.PopupManager.ShowPopup(PopupType.Options);
     }
 
     private void OnClick_QuitButton()

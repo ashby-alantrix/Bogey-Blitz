@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum ScreenType
 {
+    MainMenu,
     InGameHUDScreen,
     MenuHUDScreen
 }

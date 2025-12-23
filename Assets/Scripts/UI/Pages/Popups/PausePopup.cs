@@ -27,6 +27,9 @@ public class PausePopup : PopupBase
         /// -> show the options panel which would contain the sound options
         /// 
         /// </summary>
+        
+        popupManager.HidePopupExplicitly(popupType);
+        popupManager.ShowPopup(PopupType.Options);
     }
 
     public void OnClick_Menu()
@@ -37,6 +40,9 @@ public class PausePopup : PopupBase
         /// -> show the main menu screen
         /// 
         /// </summary>
+        
+        popupManager.HidePopup(popupType);
+        popupManager.GameManager.OnGameStateChange(GameState.GameMenu);
     }
 
     private void OnEnable()

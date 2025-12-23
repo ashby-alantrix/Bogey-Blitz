@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
@@ -94,11 +95,20 @@ public class WorldSpawnManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private void SendBlockTowardsEnd()
     {
         passedEnvironmentBlockComp = environmentBlocksQueue.Dequeue();
+        
         Invoke(nameof(UpdatePositionForDequeuedElement), queueEnqueueDelay);
     }
 
     private void UpdatePositionForDequeuedElement()
     {
+        GameManager gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
+        Debug.Log($"SendBlockTowardsEnd :: passedEnvironmentBlockComp: {passedEnvironmentBlockComp.name}");
+        if (!gameManager.IsGameInProgress)
+        {
+            gameManager.OnGameBackInProgress = () => Invoke(nameof(UpdatePositionForDequeuedElement), queueEnqueueDelay);
+            return;
+        }
+
         lastZOffset = environmentBlocksQueue.Last().transform.position.z + blockOffsetZ;
         passedEnvironmentBlockComp.transform.position = new Vector3(passedEnvironmentBlockComp.transform.position.x, passedEnvironmentBlockComp.transform.position.y, lastZOffset);
 

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum GameState
 {
+    GameMenu,
     GameStart,
     GameInProgress,
     GamePaused,
@@ -17,7 +18,11 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private AIController aiController;
     private ObstaclesManager obstaclesManager;
     private CollectiblesManager collectiblesManager;
-    private InGameUIManager inGameUIManager;
+    public InGameUIManager InGameUIManager
+    {
+        get;
+        private set;
+    }
 
     private GameState currentGameState;
     // {
@@ -26,6 +31,8 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     // }
 
     public bool IsGameInProgress => currentGameState == GameState.GameInProgress;
+
+    public Action OnGameBackInProgress;
 
     public void Initialize()
     {
@@ -37,10 +44,15 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
-        inGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
+        InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
 
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
         collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
+
+
+        Debug.Log($"Initializing playerCarController: {playerCarController}");
+
+        OnGameStateChange(GameState.GameMenu);
     }
 
     public void OnGameStateChange(GameState state)
@@ -48,6 +60,12 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         currentGameState = state;
         switch (currentGameState)
         {
+            case GameState.GameMenu:
+                ResetGameplayData();
+                ResetTrackElements();
+                ResetUIPanels();
+                InGameUIManager.ScreenManager.ShowScreen(ScreenType.MainMenu);
+            break;
             case GameState.GameStart:
                 OnGameStart();
             break;
@@ -59,7 +77,7 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
             break;
             case GameState.GamePaused:
                 playerCarController.ResetEnvironmentBaseSpeed();
-                inGameUIManager.PopupManager.ShowPopup(PopupType.Pause);
+                InGameUIManager.PopupManager.ShowPopup(PopupType.Pause);
             break;
             case GameState.GameOver:
                 OnGameOver();
@@ -67,12 +85,29 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
     }
 
+    private void ResetUIPanels()
+    {
+        InGameUIManager.ScreenManager.HideAllScreens();
+        InGameUIManager.PopupManager.HideAllPopups();
+    }
+
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Escape))
+            OnGameStateChange(GameState.GamePaused);
+#endif
+    }
+
     private void OnGameStart()
     {
+        Debug.Log($"Initializing playerCarController :: gamestart : {playerCarController}");
+
         playerCarController.PlayerCollisionHandler.SetupNewCrashModel();
         playerCarController.PlayerCollisionHandler.ActivateCarModel(true);
         playerCarController.FollowCamera.SetCamState(true);
         playerCarController.SetBaseMovementSpeed();
+        ActivatePlayer(true);
         
         aiController.gameObject.SetActive(true);
         aiController.AIPathManager.InitializeTimerSystem();
@@ -83,19 +118,32 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGameProgress()
     {
-        inGameUIManager.ScreenManager.ShowScreen(ScreenType.InGameHUDScreen);
+        Debug.Log($"OnGameProgress :: ShowScreen ScreenType.InGameHUDScreen");
+        InGameUIManager.ScreenManager.ShowScreen(ScreenType.InGameHUDScreen);
+        OnGameBackInProgress?.Invoke();
+        Invoke(nameof(DeallocateProgressEvent), 0.25f);
+    }
+
+    private void DeallocateProgressEvent()
+    {
+        OnGameBackInProgress = null;
     }
 
     private void OnGameOver()
     {
         Debug.Log($":: OnGameOver");
         worldSpawnManager.SetEnvironmentMoveSpeed(0f);
+        ResetGameplayData();
+
+        InGameUIManager.PopupManager.ShowPopup(PopupType.GameOver);
+    }
+
+    private void ResetGameplayData()
+    {
         playerCarController.FollowCamera.SetCamState(false);
         ActivatePlayer(false);
 
         aiController.gameObject.SetActive(false);
-
-        inGameUIManager.PopupManager.ShowPopup(PopupType.GameOver);
     }
 
     public void ActivatePlayer(bool state)
@@ -118,12 +166,17 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         /// -> start path-finding
         /// 
         /// </summary>
-        
+
+        ResetTrackElements();
+
+        OnGameStateChange(GameState.GameStart);
+    }
+
+    private void ResetTrackElements()
+    {
         obstaclesManager.SendAllObjectsToPool();
         collectiblesManager.SendAllObjectToPool();
 
         playerCarController.ResetData();
-
-        OnGameStateChange(GameState.GameStart);
     }
 }
