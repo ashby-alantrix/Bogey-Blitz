@@ -1306,7 +1306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1061856322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2615,6 +2615,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1061856325}
     m_Modifications:
+    - target: {fileID: 154383000524572468, guid: a972eaabc9e7d401383e1e55725246b7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 154383000695375942, guid: a972eaabc9e7d401383e1e55725246b7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000022888184
+      objectReference: {fileID: 0}
+    - target: {fileID: 154383000939691620, guid: a972eaabc9e7d401383e1e55725246b7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8053768441544159556, guid: a972eaabc9e7d401383e1e55725246b7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2705,6 +2717,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8053768441544159559, guid: a972eaabc9e7d401383e1e55725246b7, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8053768442596766686, guid: a972eaabc9e7d401383e1e55725246b7, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3021,45 +3037,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCarController
       objectReference: {fileID: 0}
-    - target: {fileID: 3973004832625103829, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Range
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973004832625103829, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Color.b
-      value: 0.42452818
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973004832625103829, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Color.g
-      value: 0.80679345
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973004832625103829, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973004832625103829, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Intensity
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015406525880180154, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Range
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015406525880180154, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Color.b
-      value: 0.42452818
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015406525880180154, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Color.g
-      value: 0.80679345
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015406525880180154, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015406525880180154, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_Intensity
-      value: 0.25
+    - target: {fileID: 5856259118122983672, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.325
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
@@ -3369,7 +3349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9051155475331269450, guid: 6d765aa9692d44550b5467563bfe788d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9051155475331269453, guid: 6d765aa9692d44550b5467563bfe788d, type: 3}
       propertyPath: m_RootOrder
