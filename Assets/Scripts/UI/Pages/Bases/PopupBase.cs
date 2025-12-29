@@ -8,18 +8,8 @@ public enum PopupType
     Pause,
     GameOver,
     Options,
-    //
-
-    FTUE_Popup, //
-    SettingsPopup, 
-    RestartPopup, //
-    LevelCompletePopup, 
-    GameOverPopup, 
-    LevelFailPopup,
-    GetMoreLivesPopup, //
-    FreeRefillPopup,
-    FeedbackPopup,
-    TargetGoalPopup
+    HighScore,
+    Instruction
 }
 
 public enum PopupScalerType

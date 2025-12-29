@@ -27,6 +27,7 @@ public class CollectibleBase : ObjectBase
         switch (other.gameObject.tag)
         {
             case BogeyBlitz_Constants.Player_Tag:
+                Debug.Log($"#### Collectible collided with player");
                 gameObject.SetActive(false);
                 objectPoolManager.PassObjectToPool($"{TrackCollectibleType.Currency}", PoolType.Currency, this);
                 collectiblesManager.UpdateCoins();

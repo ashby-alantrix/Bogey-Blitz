@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
 {
-    public UserCurrencyData userCurrencyData;
+    private UserCurrencyData userCurrencyData;
     private InGameUIManager inGameUIManager;
     private UserDataBehaviour userDataBehaviour;
     private ScreenManager screenManager;

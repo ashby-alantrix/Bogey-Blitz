@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
 {
-    [SerializeField] private StoreDataBase dataStorer;
+    // [SerializeField] private StoreDataBase dataStorer;
 
     private GameData gameData;
     private UserData userData;
@@ -35,6 +35,7 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
         else
         {
             userData = new UserData();
+            userData.inGameData = new InGameData();
             userData.userCurrencyData = new UserCurrencyData();
             // // userData.timeData = new TimeData();
 
@@ -46,7 +47,10 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
         
         SetFirstUserSessionState(!PlayerPrefs.HasKey(BogeyBlitz_Constants.IsFirstUserSession));
+        SetHasSeenInstructionState(!PlayerPrefs.HasKey(BogeyBlitz_Constants.HasSeenInstruction));
     }
+
+    public InGameData GetInGameData() => userData.inGameData;
 
     public UserCurrencyData GetUserCurrencyData()
     {
@@ -56,6 +60,12 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
     public InGameSFXData GetSoundData()
     {
         return userData.soundData;
+    }
+
+    public void SaveInGameData(InGameData inGameData)
+    {
+        userData.inGameData = inGameData;
+        SaveUserData();
     }
 
     public void SaveUserCurrencyData(UserCurrencyData userCurrencyData)
@@ -77,9 +87,20 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
         return PlayerPrefs.GetInt(BogeyBlitz_Constants.IsFirstUserSession) == BogeyBlitz_Constants.TRUE;
     }
 
+    public bool HasSeenInstruction()
+    {
+        return PlayerPrefs.GetInt(BogeyBlitz_Constants.HasSeenInstruction) == BogeyBlitz_Constants.TRUE;
+    }
+
     public void SetFirstUserSessionState(bool state)
     {
         PlayerPrefs.SetInt(BogeyBlitz_Constants.IsFirstUserSession, state ? BogeyBlitz_Constants.TRUE : BogeyBlitz_Constants.FALSE);
+        PlayerPrefs.Save();
+    }
+
+    public void SetHasSeenInstructionState(bool state)
+    {
+        PlayerPrefs.SetInt(BogeyBlitz_Constants.HasSeenInstruction, state ? BogeyBlitz_Constants.FALSE : BogeyBlitz_Constants.TRUE);
         PlayerPrefs.Save();
     }
 

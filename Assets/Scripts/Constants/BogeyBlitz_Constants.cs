@@ -9,6 +9,7 @@ public class BogeyBlitz_Constants
 
     public const string SaveUserData = "SaveUserData";
     public const string IsFirstUserSession = "IsFirstUserSession";
+    public const string HasSeenInstruction = "HasSeenInstruction";
     public const int TRUE = 1;
     public const int FALSE = 0;
 

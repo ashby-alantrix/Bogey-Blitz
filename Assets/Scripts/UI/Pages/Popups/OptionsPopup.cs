@@ -14,9 +14,11 @@ public class OptionsPopup : PopupBase
 
     private PopupBackHandler popupBackHandler;
     private InGameSFXData inGameSFXData;
+    private SoundManager soundManager;
 
-    public void InitSFXData(InGameSFXData inGameSFXData)
+    public void InitSFXData(InGameSFXData inGameSFXData, SoundManager soundManager)
     {
+        this.soundManager = soundManager;
         this.inGameSFXData = inGameSFXData;
 
         SetMusicView();
@@ -26,11 +28,13 @@ public class OptionsPopup : PopupBase
     private void SetMusicView()
     {
         musicText.text = inGameSFXData.gameMusicToggle ? BogeyBlitz_Constants.Toggle_On : BogeyBlitz_Constants.Toggle_Off;
+        soundManager.SetGameMusic(inGameSFXData.gameMusicToggle);
     }
 
     private void SetSoundView()
     {
         soundText.text = inGameSFXData.gameSoundToggle ? BogeyBlitz_Constants.Toggle_On : BogeyBlitz_Constants.Toggle_Off;
+        soundManager.SetGameSound(inGameSFXData.gameSoundToggle);
     }
 
     private void OnClick_Music()

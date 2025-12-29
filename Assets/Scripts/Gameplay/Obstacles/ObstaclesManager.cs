@@ -25,7 +25,10 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private ObjectPoolManager objectPoolManager;
     private WorldSpawnManager worldSpawnManager;
     private PlayerCarController playerCarController;
-    private GameManager gameManager;
+    public GameManager GameManager
+    {
+        get; private set;
+    }
 
     public ObstaclesPathSO ObstaclesPathSO => obstaclesPathSO;
     public Vector3 ObstacleEndpoint => obstacleEndpoint.position;
@@ -36,7 +39,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     }
 
     public float MovableTrainSpeed => 
-        gameManager.IsGameInProgress ? worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: movableTrainMinSpeed, endVal: movableTrainMaxSpeed, fraction: playerCarController.CurrentEvaluatedSpeed01) : 0;
+        GameManager.IsGameInProgress ? worldSpawnManager.GetResultBasedOnDifficultyProgressiveFormula(startVal: movableTrainMinSpeed, endVal: movableTrainMaxSpeed, fraction: playerCarController.CurrentEvaluatedSpeed01) : 0;
 
     public void Initialize()
     {
@@ -45,7 +48,7 @@ public class ObstaclesManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
-        gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
+        GameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         playerCarController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();

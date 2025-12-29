@@ -66,19 +66,24 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     public void InitializeData()
     {
         inputController = InterfaceManager.Instance?.GetInterfaceInstance<InputController>();
-        gameManager  = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
         difficultyEvaluator  = InterfaceManager.Instance?.GetInterfaceInstance<DifficultyEvaluator>();
+        SetGameManager();
         SetWorldSpawnManager();
 
         worldMoveSpeed = difficultyEvaluator.DifficultyCurveSO.GetDifficultyCurve(DifficultyCurveType.WorldMoveSpeed);
 
         Debug.Log($"initialized input controller: {inputController}");
 
+        OnDataReset();
+
+        Debug.Log($":: DISTANCE TO COVER :: {distanceToRailEndpoint}");
+    }
+
+    public void OnDataReset()
+    {
         distTimer = 0;
         distanceToRailEndpoint = worldSpawnManager.GetFirstEnvironmentBlock().Endpoint.z - transform.position.z;
         timeToRailEndpoint = distanceToRailEndpoint / worldSpawnManager.EnvironmentMoveSpeed;
-
-        Debug.Log($":: DISTANCE TO COVER :: {distanceToRailEndpoint}");
     }
 
     public void SetBaseMovementSpeed()
@@ -93,6 +98,11 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         worldSpawnManager.SetEnvironmentMoveSpeed(0);
     }
 
+    private void SetGameManager()
+    {
+        gameManager  = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
+    }
+
     private void SetWorldSpawnManager()
     {
         worldSpawnManager = worldSpawnManager == null ? InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>() : worldSpawnManager;
@@ -100,7 +110,8 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     public void ResetData()
     {
-        distanceCovered = 0f;
+        distanceCovered = lastCoveredDistance = 0f;
+
         ResetEnvironmentBaseSpeed();
         transform.position = startPoint.position;
     }

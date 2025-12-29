@@ -20,11 +20,13 @@ public class InGameHUDScreen : ScreenBase
 
     public void UpdateDistanceText(string distanceText)
     {
+        Debug.Log($"#### distanceText: {distanceText}");
         this.distanceText.text = distanceText;
     }
 
     public void UpdateCoinsText(string coinsText)
     {
+        Debug.Log($"#### coinsText: {coinsText}");
         this.coinsText.text = coinsText;
     }
 

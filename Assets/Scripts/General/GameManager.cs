@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private AIController aiController;
     private ObstaclesManager obstaclesManager;
     private CollectiblesManager collectiblesManager;
+    private CurrencyManager currencyManager;
+    private UserDataBehaviour userDataBehaviour;
+
+    private InGameData inGameData;
+
     public SoundManager SoundManager
     {
         get;
@@ -30,10 +35,6 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     }
 
     private GameState currentGameState;
-    // {
-    //     get;
-    //     private set;
-    // }
 
     public bool IsGameInProgress => currentGameState == GameState.GameInProgress;
 
@@ -51,13 +52,22 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         aiController = InterfaceManager.Instance?.GetInterfaceInstance<AIController>();
         InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
         SoundManager = InterfaceManager.Instance?.GetInterfaceInstance<SoundManager>();
+        currencyManager = InterfaceManager.Instance?.GetInterfaceInstance<CurrencyManager>();
+        userDataBehaviour = InterfaceManager.Instance?.GetInterfaceInstance<UserDataBehaviour>();
 
         obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
-        collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
+        SetCollectiblesManager();
 
         Debug.Log($"Initializing playerCarController: {playerCarController}");
 
+        inGameData = userDataBehaviour.GetInGameData();
+
         OnGameStateChange(GameState.GameMenu);
+    }
+
+    private void SetCollectiblesManager()
+    {
+        collectiblesManager = InterfaceManager.Instance?.GetInterfaceInstance<CollectiblesManager>();
     }
 
     public void OnGameStateChange(GameState state)
@@ -88,8 +98,9 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGamePaused()
     {
-        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, false);
-        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, false);
+        SoundManager.PlayBGAudio(false);
+        SoundManager.PlayCarAudio(false);
+        SoundManager.SetMultiSourcesState(false);
 
         playerCarController.ResetEnvironmentBaseSpeed();
         InGameUIManager.PopupManager.ShowPopup(PopupType.Pause);
@@ -97,12 +108,17 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGameMenuOpened()
     {
-        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, false);
-        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, false);
+        if (collectiblesManager.CollectibleCoins > 0)
+            currencyManager.AddCurrency(collectiblesManager.CollectibleCoins);
+
+        SoundManager.PlayBGAudio(false);
+        SoundManager.PlayCarAudio(false);
+        SoundManager.SetMultiSourcesState(false);
         
         ResetGameplayData();
-        ResetTrackElements();
+        // ResetTrackElements();
         ResetUIPanels();
+        OnNewSessionOrPlaySessionComplete();
         InGameUIManager.ScreenManager.ShowScreen(ScreenType.MainMenu);
     }
 
@@ -123,6 +139,14 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private void OnGameStart()
     {
         Debug.Log($"Initializing playerCarController :: gamestart : {playerCarController}");
+        Debug.Log($"userDataBehaviour.HasSeenInstruction() : {userDataBehaviour.HasSeenInstruction()}");
+
+        if (!userDataBehaviour.HasSeenInstruction())
+        {
+            userDataBehaviour.SetHasSeenInstructionState(true);
+            InGameUIManager.ShowInstructionPopup();
+            return;
+        }
 
         playerCarController.PlayerCollisionHandler.SetupNewCrashModel();
         playerCarController.PlayerCollisionHandler.ActivateCarModel(true);
@@ -139,8 +163,9 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGameProgress()
     {
-        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, true);
-        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, true);
+        SoundManager.PlayBGAudio(true);
+        SoundManager.PlayCarAudio(true);
+        SoundManager.SetMultiSourcesState(true);
 
         Debug.Log($"OnGameProgress :: ShowScreen ScreenType.InGameHUDScreen");
         InGameUIManager.ScreenManager.ShowScreen(ScreenType.InGameHUDScreen);
@@ -156,15 +181,26 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private void OnGameOver()
     {
         Debug.Log($":: OnGameOver");
-        
+
         SoundManager.PlayPrimaryGameSoundClip(SoundType.CarCrash);
-        SoundManager.PlayMusic(SingleInstAudioSourceType.BG, false);
-        SoundManager.PlayMusic(SingleInstAudioSourceType.CarAccel, false);
+        SoundManager.PlayBGAudio(false);
+        SoundManager.PlayCarAudio(false);
+        SoundManager.SetMultiSourcesState(false);
 
         worldSpawnManager.SetEnvironmentMoveSpeed(0f);
         ResetGameplayData();
 
-        InGameUIManager.PopupManager.ShowPopup(PopupType.GameOver);
+        if (playerCarController.CurrentCoveredDistance > userDataBehaviour.GetInGameData().highestDistanceCovered)
+        {
+            inGameData.highestDistanceCovered = Mathf.FloorToInt(playerCarController.CurrentCoveredDistance);
+            userDataBehaviour.SaveInGameData(inGameData);
+            InGameUIManager.PopupManager.GetPopup<HighScorePopup>(PopupType.HighScore).InitInfo(inGameData.highestDistanceCovered, collectiblesManager.CollectibleCoins);
+            InGameUIManager.PopupManager.ShowPopup(PopupType.HighScore);
+        }
+        else 
+        {
+            InGameUIManager.PopupManager.ShowPopup(PopupType.GameOver);
+        }
     }
 
     private void ResetGameplayData()
@@ -182,8 +218,22 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     private void OnGameRestart()
     {
-        ResetTrackElements();
+        Debug.Log($"#### OnGameRestart Distance Covered: {playerCarController.CurrentCoveredDistance}");
+        Debug.Log($"#### OnGameRestart after resetting Distance Covered: {playerCarController.CurrentCoveredDistance}");
+
+        currencyManager.AddCurrency(collectiblesManager.CollectibleCoins);
+        OnNewSessionOrPlaySessionComplete();
         OnGameStateChange(GameState.GameStart);
+    }
+
+    private void OnNewSessionOrPlaySessionComplete()
+    {
+        ResetTrackElements();
+        InGameUIManager.ResetUIData();
+        playerCarController.OnDataReset();
+
+        SetCollectiblesManager();
+        collectiblesManager.ResetCollectiblesData();
     }
 
     private void ResetTrackElements()

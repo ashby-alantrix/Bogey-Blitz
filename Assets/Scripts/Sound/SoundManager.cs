@@ -3,12 +3,10 @@ using UnityEngine;
 
 public enum SoundType
 {
-    CarAcceleration,
     CarCrash,
     CarGearChange,
     GiftCollectible,
-    MetroTrainMovable, //
-    Button_Click 
+    Button_Click
 }
 
 [System.Serializable]
@@ -22,7 +20,6 @@ public class SoundData
 public enum SingleInstAudioSourceType
 {
     BG,
-    OneShotClip,
     CarAccel
 }
 
@@ -40,24 +37,20 @@ public class AudioSourceData
 
 public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
 {
-    [SerializeField] private AudioSourceData[] singleInstAudioSourceDatas;
+    // [SerializeField] private AudioSourceData[] singleInstAudioSourceDatas;
+    [SerializeField] private AudioSource audioClipSource;
+    [SerializeField] private AudioSource bgAudioSource;
+    [SerializeField] private AudioSource carAccelAudioSource;
 
     [SerializeField] private SoundData[] soundDatas;
 
-    public bool IsGameSoundOn
-    {
-        get;
-        private set;
-    }
-
     private Queue<AudioSource> multiSourcesQueue = new Queue<AudioSource>(); // only a single multiSource right now
     private Dictionary<SoundType, SoundData> soundDataDict = new Dictionary<SoundType, SoundData>();
-    private Dictionary<SingleInstAudioSourceType, AudioSource> singleInstAudioSourcesDict = new Dictionary<SingleInstAudioSourceType, AudioSource>();
-
-    private AudioSource secondaryAudioSource;
+    // private Dictionary<SingleInstAudioSourceType, AudioSource> singleInstAudioSourcesDict = new Dictionary<SingleInstAudioSourceType, AudioSource>();
 
     private UserDataBehaviour userDataBehaviour;
-    private InGameSFXData soundData;
+    private InGameSFXData inGameSFXData;
+    private PopupManager popupManager;
 
     public void Initialize()
     {
@@ -66,8 +59,9 @@ public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
 
     public void InitializeData()
     {
-        // userDataBehaviour = InterfaceManager.Instance?.GetInterfaceInstance<UserDataBehaviour>();
-
+        userDataBehaviour = InterfaceManager.Instance?.GetInterfaceInstance<UserDataBehaviour>();
+        popupManager = InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>();
+        
         for (int idx = 0; idx < soundDatas.Length; idx++)
         {
             if (soundDataDict.ContainsKey(soundDatas[idx].soundType))
@@ -76,58 +70,99 @@ public class SoundManager : MonoBehaviour, IBootLoader, IBase, IDataLoader
                 soundDataDict.Add(soundDatas[idx].soundType, soundDatas[idx]);
         }
 
-        foreach (var data in singleInstAudioSourceDatas)
-        {
-            singleInstAudioSourcesDict.Add(data.sourceType, data.audioSource);
-        }        
+        // foreach (var data in singleInstAudioSourceDatas)
+        // {
+        //     singleInstAudioSourcesDict.Add(data.sourceType, data.audioSource);
+        // }        
 
-        // soundData = userDataBehaviour.GetSoundData();
-        // IsGameSoundOn = soundData.gameSoundToggle;
+        inGameSFXData = userDataBehaviour.GetSoundData();
+
+        SetGameMusic(inGameSFXData.gameMusicToggle);
+        SetGameSound(inGameSFXData.gameSoundToggle);
+
+        Debug.Log($"#### popupManager.GetPopup<OptionsPopup>(PopupType.Options): {popupManager.GetPopup<OptionsPopup>(PopupType.Options)}");
+        popupManager.GetPopup<OptionsPopup>(PopupType.Options).InitSFXData(inGameSFXData, this);
+    }
+
+    public void SetGameMusic(bool state)
+    {
+        inGameSFXData.gameMusicToggle = state;
+        userDataBehaviour.SaveSoundData(inGameSFXData);
     }
 
     public void SetGameSound(bool state)
     {
-        IsGameSoundOn = state;
-        // soundData.gameSoundToggle = state;
-        // userDataBehaviour.SaveSoundData(soundData);
+        inGameSFXData.gameSoundToggle = state;
+        userDataBehaviour.SaveSoundData(inGameSFXData);
     }
 
     public void RegisterToMultiSources(AudioSource audioSource)
     {
+        Debug.Log($"Registering to multisources queue");
         multiSourcesQueue.Enqueue(audioSource);
     }
 
     public void UnregisterFromMultiSources()
     {
+        if (multiSourcesQueue.Count < 1) return;    
+
+        Debug.Log($"Unregistering from multisources queue");
         multiSourcesQueue.Dequeue();
+    }
+
+    public void SetMultiSourcesState(bool state)
+    {
+        Debug.Log($"source :: {multiSourcesQueue.Count}");
+        if (state && inGameSFXData.gameSoundToggle)
+        {
+            foreach (var source in multiSourcesQueue)
+                source.Play();
+        }
+        else
+        {
+            foreach (var source in multiSourcesQueue)
+                source.Stop();
+        }
     }
 
     public void PlayPrimaryGameSoundClip(SoundType soundType)
     {
-        // if (!enabled || !IsGameSoundOn) return;
+        if (!enabled || !inGameSFXData.gameSoundToggle) return;
 
         SoundData soundData = soundDataDict[soundType];
 
-        // singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].priority = soundData.priority;
-        singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].clip = soundData.soundClip;
-        singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].PlayOneShot(soundData.soundClip);
-
-        Debug.Log($"soundData.soundClip: {soundData.soundClip}");
+        audioClipSource.clip = soundData.soundClip;
+        audioClipSource.PlayOneShot(soundData.soundClip);
     }
 
     public void PlayButtonSoundClip(SoundType soundType)
     {
-        SoundData soundData = soundDataDict[soundType];
+        if (!enabled || !inGameSFXData.gameSoundToggle) return;
 
-        // singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].priority = soundData.priority;
-        singleInstAudioSourcesDict[SingleInstAudioSourceType.OneShotClip].PlayOneShot(soundData.soundClip);
+        SoundData soundData = soundDataDict[soundType];
+        audioClipSource.PlayOneShot(soundData.soundClip);
     }
 
-    public void PlayMusic(SingleInstAudioSourceType singleInstAudioSourceType, bool play)
+    public void PlayCarAudio(bool state)
     {
-        if (play)
-            singleInstAudioSourcesDict[singleInstAudioSourceType].Play();
-        else 
-            singleInstAudioSourcesDict[singleInstAudioSourceType].Stop();
+        Debug.Log($"Play car audio");
+        if (!enabled || !inGameSFXData.gameSoundToggle || !state)
+        {
+            carAccelAudioSource.Stop();
+            return;
+        }
+
+        carAccelAudioSource.Play();
+    }
+
+    public void PlayBGAudio(bool state)
+    {
+        if (!enabled || !inGameSFXData.gameMusicToggle || !state)
+        {
+            bgAudioSource.Stop();
+            return;
+        }
+
+        bgAudioSource.Play();
     }
 }

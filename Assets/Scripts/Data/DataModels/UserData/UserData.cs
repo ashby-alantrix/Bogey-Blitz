@@ -12,6 +12,7 @@ public class GameData
 [System.Serializable]
 public class UserData
 {
+    public InGameData inGameData;
     public UserCurrencyData userCurrencyData;
     // // public TimeData timeData;
     public InGameSFXData soundData;
@@ -23,6 +24,12 @@ public class UserData
 // //     public string lastPlayedProgressTime;
 // //     public string lastElapsedSeconds;
 // // }
+
+[System.Serializable]
+public class InGameData
+{
+    public int highestDistanceCovered;
+}
 
 [System.Serializable]
 public class UserCurrencyData

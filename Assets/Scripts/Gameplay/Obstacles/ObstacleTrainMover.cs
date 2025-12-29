@@ -6,12 +6,31 @@ public class ObstacleTrainMover : SpawnableMoverBase
 {
     private ObstaclesManager obstaclesManager;
 
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        SetObstaclesManager();
+        obstaclesManager?.GameManager?.SoundManager?.RegisterToMultiSources(audioSource);
+    }
+
+    private void OnDisable()
+    {
+        SetObstaclesManager();
+        obstaclesManager?.GameManager?.SoundManager?.UnregisterFromMultiSources();
+    }
+
     protected override void Update()
     {
         if (!worldSpawnManager || !obstaclesManager)
         {
             worldSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
-            obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
+            SetObstaclesManager();
         }
         
         if (worldSpawnManager && obstaclesManager)
@@ -21,4 +40,10 @@ public class ObstacleTrainMover : SpawnableMoverBase
             base.Update();
         }
     }
+
+    private void SetObstaclesManager()
+    {
+        obstaclesManager = InterfaceManager.Instance?.GetInterfaceInstance<ObstaclesManager>();
+    }
+    
 }

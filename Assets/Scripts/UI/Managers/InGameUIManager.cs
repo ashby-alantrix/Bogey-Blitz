@@ -6,6 +6,7 @@ using UnityEngine;
 public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
 {
     private InGameHUDScreen inGameHUDScreen;
+    private GameManager gameManager;
 
     public ScreenManager ScreenManager
     {
@@ -26,6 +27,7 @@ public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
 
     public void InitializeData()
     {
+        gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
         ScreenManager = InterfaceManager.Instance?.GetInterfaceInstance<ScreenManager>();
         PopupManager = InterfaceManager.Instance?.GetInterfaceInstance<PopupManager>();
     }
@@ -42,8 +44,28 @@ public class InGameUIManager : MonoBehaviour, IBootLoader,  IBase, IDataLoader
         inGameHUDScreen.UpdateCoinsText(coins);
     }
 
+    public void ResetUIData()
+    {
+        if (!inGameHUDScreen) return;
+        
+        inGameHUDScreen.UpdateDistanceText("0");
+        inGameHUDScreen.UpdateCoinsText("0");
+    }
+
     private void SetInGameHUDScreen()
     {
         inGameHUDScreen = inGameHUDScreen == null ? ScreenManager.GetScreen<InGameHUDScreen>(ScreenType.InGameHUDScreen) : inGameHUDScreen;
+    }
+
+    public void ShowInstructionPopup()
+    {
+        PopupManager.ShowPopup(PopupType.Instruction);
+        Invoke(nameof(HideInstructionPopup), 2f);
+    }
+
+    public void HideInstructionPopup()
+    {
+        PopupManager.HidePopup(PopupType.Instruction);
+        gameManager.OnGameStateChange(GameState.GameStart);
     }
 }

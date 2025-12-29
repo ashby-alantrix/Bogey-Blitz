@@ -30,7 +30,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private TimerSystem stopperTimerSystem;
     private TimerSystem delayTimerSystem;
 
-    private int collectibleCoins = 0;
+    public int CollectibleCoins { get; private set; }
 
     public InGameUIManager InGameUIManager
     {
@@ -57,10 +57,15 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         // powerupsManager = InterfaceManager.Instance?.GetInterfaceInstance<PowerupsManager>();
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
-        InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
         SoundManager = InterfaceManager.Instance?.GetInterfaceInstance<SoundManager>();
 
+        SetInGameUIManager();
         InitializeTimerSystem();
+    }
+
+    private void SetInGameUIManager()
+    {
+        InGameUIManager = InterfaceManager.Instance?.GetInterfaceInstance<InGameUIManager>();
     }
 
     private void InitializeTimerSystem()
@@ -157,7 +162,16 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     public void UpdateCoins()
     {
-        collectibleCoins += 1;
-        InGameUIManager.UpdateHUDCoins($"{collectibleCoins}");
+        Debug.Log($"#### Collectible coins: {CollectibleCoins}");
+        CollectibleCoins += 1;
+        SetInGameUIManager();
+        InGameUIManager.UpdateHUDCoins($"{CollectibleCoins}");
+    }
+
+    public void ResetCollectiblesData()
+    {
+        CollectibleCoins = 0;
+        SetInGameUIManager();
+        InGameUIManager.UpdateHUDCoins($"{CollectibleCoins}");
     }
 }
