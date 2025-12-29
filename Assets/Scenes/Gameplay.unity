@@ -14,18 +14,18 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.01
+  m_Fog: 1
+  m_FogColor: {r: 0.10241771, g: 0.11778037, b: 0.2014215, a: 1}
+  m_FogMode: 2
+  m_FogDensity: 0.075
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.10241771, g: 0.11778037, b: 0.2014215, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.078520246, g: 0.12460822, b: 0.39942905, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 9af23ba5fa5364ff598888460e0e2759, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -1097,8 +1097,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 1
+  far clip plane: 65
   field of view: 92
   orthographic: 0
   orthographic size: 5
@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planesParent: {fileID: 854358680}
   testPrefab: {fileID: 9051155475331269450, guid: 6d765aa9692d44550b5467563bfe788d, type: 3}
-  testPrefabCount: 3
+  testPrefabCount: 2
   prefab: {fileID: 0}
   blockOffsetZ: 80
   environmentMoveSpeed: 0
@@ -3019,10 +3019,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2218386790913872482, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3577736732278104565, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -3074,7 +3070,7 @@ PrefabInstance:
     - target: {fileID: 3577736732278104566, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
       propertyPath: rightLane
       value: 
-      objectReference: {fileID: 3068343165466101745}
+      objectReference: {fileID: 3068343166087009935}
     - target: {fileID: 3577736732278104566, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
       propertyPath: middleLane
       value: 
@@ -3090,10 +3086,6 @@ PrefabInstance:
     - target: {fileID: 3577736732278104569, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
       propertyPath: m_Name
       value: PlayerCarController
-      objectReference: {fileID: 0}
-    - target: {fileID: 8057973556095724566, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771cb1fe0bb0d4d8799ef781550a4d10, type: 3}

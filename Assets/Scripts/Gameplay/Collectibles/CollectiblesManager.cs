@@ -19,6 +19,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private ObjectPoolManager objectPoolManager;
     private WorldSpawnManager environmentSpawnManager;
     private AIPathManager aiPathManager;
+    private GameManager gameManager;
     public SoundManager SoundManager
     {
         get;
@@ -58,6 +59,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
         objectPoolManager = InterfaceManager.Instance?.GetInterfaceInstance<ObjectPoolManager>();
         environmentSpawnManager = InterfaceManager.Instance?.GetInterfaceInstance<WorldSpawnManager>();
         SoundManager = InterfaceManager.Instance?.GetInterfaceInstance<SoundManager>();
+        gameManager = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
 
         SetInGameUIManager();
         InitializeTimerSystem();
@@ -145,7 +147,7 @@ public class CollectiblesManager : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     private void Update()
     {
-        if (spawnerTimerSystem == null) return;
+        if (spawnerTimerSystem == null || !gameManager || !gameManager.IsGameInProgress) return;
 
         stopperTimerSystem.UpdateTimer(Time.deltaTime);
         if (!stopperTimerSystem.IsTimerComplete)
