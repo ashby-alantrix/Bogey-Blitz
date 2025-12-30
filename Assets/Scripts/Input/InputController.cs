@@ -45,6 +45,8 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
         DetectSwipe();
     }
 
+    private bool hasMoved = false;
+
     private void DetectSwipe()
     {
         if (Input.touchCount > 0)
@@ -58,18 +60,24 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
             {
                 case TouchPhase.Began:
                     startTouchPosition = touch.position;
+                    Debug.Log($"##:: after set :: startTouchPosition: {startTouchPosition}");
                     isSwiping = true;
                     break;
                 case TouchPhase.Moved:
                     currentTouchPosition = touch.position;
+                    hasMoved = true;
+                    Debug.Log($"##:: after set :: currentTouchPosition: {currentTouchPosition}");
                     break;
                 case TouchPhase.Ended:
-                    if (isSwiping)
+                    if (isSwiping && hasMoved)
                     {
                         isSwiping = false;
                         Vector2 swipeDelta = currentTouchPosition - startTouchPosition;
-                        Debug.Log($"swipeDelta.x: {swipeDelta.x}");
+                        Debug.Log($"##:: swipeDelta: {swipeDelta}");
+                        Debug.Log($"##:: startTouchPosition: {startTouchPosition}");
+                        Debug.Log($"##:: currentTouchPosition: {currentTouchPosition}");
                         carController.UpdateMovement(swipeDelta);
+                        hasMoved = false;
                     }
                     break;
             }

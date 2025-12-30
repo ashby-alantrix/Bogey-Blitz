@@ -766,14 +766,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4875081552115927840}
     m_Modifications:
-    - target: {fileID: 1570410678388052854, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
-    - target: {fileID: 2391242865129755868, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
     - target: {fileID: 3958368401204931052, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -821,34 +813,6 @@ PrefabInstance:
     - target: {fileID: 3958368401204931053, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
       propertyPath: m_Name
       value: TrainBogeyEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3958368401204931053, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4192739959155766537, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184691879484497044, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 90b4f801901ba477a9879b4392a07b8d, type: 2}
-    - target: {fileID: 5548905298515025707, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5548905298515025707, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7243851512339060169, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8234144904631144489, guid: 301da236890904cc9964da9592aa1c1f, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 301da236890904cc9964da9592aa1c1f, type: 3}

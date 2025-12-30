@@ -123,7 +123,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     public void UpdateMovement(Vector2 swipeDelta)
     {
-        Debug.Log($":: SwipeDelta: {swipeDelta}");
+        Debug.Log($":: SwipeDelta: {swipeDelta.magnitude}");
         if (isChangingLane) 
         {
             Debug.Log($":: isChangingLane early return");
@@ -131,11 +131,11 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         }
         
         GameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
-        if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
+        if (swipeDelta.x > 1f && transform.position.x < rightBound.position.x)
         {
             MoveRight();
         }
-        else if (swipeDelta.x < 0 && transform.position.x > leftBound.position.x)
+        else if (swipeDelta.x < -1f && transform.position.x > leftBound.position.x)
         {
             MoveLeft();
         }

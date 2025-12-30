@@ -318,10 +318,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Electric-City-Engine
       objectReference: {fileID: 0}
-    - target: {fileID: 3110530510341500400, guid: 01f10cabef75649708ed31cef1f93989, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01f10cabef75649708ed31cef1f93989, type: 3}
 --- !u!4 &3616728501312050461 stripped
