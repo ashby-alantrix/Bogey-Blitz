@@ -22,7 +22,7 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
     {
         InitUserData();
 
-        // Debug.unityLogger.logEnabled = false;
+        Debug.unityLogger.logEnabled = false;
     }
 
     private void InitUserData()
@@ -30,7 +30,7 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
         Debug.Log($"HasSavedUserData: {HasSavedUserData()}");
         if (HasSavedUserData())
         {
-            userData = JsonConvert.DeserializeObject<UserData>(PlayerPrefs.GetString(BogeyBlitz_Constants.SaveUserData));
+            userData = JsonConvert.DeserializeObject<UserData>(PlayerPrefs.GetString(ArcticEscape_Constants.SaveUserData));
         }
         else
         {
@@ -46,8 +46,8 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
             SaveUserData();
         }
         
-        SetFirstUserSessionState(!PlayerPrefs.HasKey(BogeyBlitz_Constants.IsFirstUserSession));
-        ToggleHasSeenInstructionState(PlayerPrefs.HasKey(BogeyBlitz_Constants.HasSeenInstruction));
+        SetFirstUserSessionState(!PlayerPrefs.HasKey(ArcticEscape_Constants.IsFirstUserSession));
+        ToggleHasSeenInstructionState(PlayerPrefs.HasKey(ArcticEscape_Constants.HasSeenInstruction));
     }
 
     public InGameData GetInGameData() => userData.inGameData;
@@ -84,42 +84,42 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public bool IsFirstUserSession()
     {
-        return PlayerPrefs.GetInt(BogeyBlitz_Constants.IsFirstUserSession) == BogeyBlitz_Constants.TRUE;
+        return PlayerPrefs.GetInt(ArcticEscape_Constants.IsFirstUserSession) == ArcticEscape_Constants.TRUE;
     }
 
     public bool HasSeenInstruction()
     {
-        return PlayerPrefs.GetInt(BogeyBlitz_Constants.HasSeenInstruction) == BogeyBlitz_Constants.TRUE;
+        return PlayerPrefs.GetInt(ArcticEscape_Constants.HasSeenInstruction) == ArcticEscape_Constants.TRUE;
     }
 
     public void SetFirstUserSessionState(bool state)
     {
-        PlayerPrefs.SetInt(BogeyBlitz_Constants.IsFirstUserSession, state ? BogeyBlitz_Constants.TRUE : BogeyBlitz_Constants.FALSE);
+        PlayerPrefs.SetInt(ArcticEscape_Constants.IsFirstUserSession, state ? ArcticEscape_Constants.TRUE : ArcticEscape_Constants.FALSE);
         PlayerPrefs.Save();
     }
 
     public void ToggleHasSeenInstructionState(bool state)
     {
-        PlayerPrefs.SetInt(BogeyBlitz_Constants.HasSeenInstruction, state ? BogeyBlitz_Constants.TRUE : BogeyBlitz_Constants.FALSE);
+        PlayerPrefs.SetInt(ArcticEscape_Constants.HasSeenInstruction, state ? ArcticEscape_Constants.TRUE : ArcticEscape_Constants.FALSE);
         PlayerPrefs.Save();
     }
 
     public bool HasSavedUserData()
     {
-        return PlayerPrefs.HasKey(BogeyBlitz_Constants.SaveUserData);
+        return PlayerPrefs.HasKey(ArcticEscape_Constants.SaveUserData);
     }
 
     public void SaveUserData()
     {
-        PlayerPrefs.SetString(BogeyBlitz_Constants.SaveUserData, JsonConvert.SerializeObject(userData));
+        PlayerPrefs.SetString(ArcticEscape_Constants.SaveUserData, JsonConvert.SerializeObject(userData));
         PlayerPrefs.Save();
     }
 
     public void ClearUserData()
     {
-        PlayerPrefs.SetString(BogeyBlitz_Constants.SaveUserData, "");
-        PlayerPrefs.DeleteKey(BogeyBlitz_Constants.SaveUserData);
-        PlayerPrefs.DeleteKey(BogeyBlitz_Constants.IsFirstUserSession);
+        PlayerPrefs.SetString(ArcticEscape_Constants.SaveUserData, "");
+        PlayerPrefs.DeleteKey(ArcticEscape_Constants.SaveUserData);
+        PlayerPrefs.DeleteKey(ArcticEscape_Constants.IsFirstUserSession);
         PlayerPrefs.Save();
     }
 

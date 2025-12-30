@@ -35,7 +35,10 @@ public class PopupBase : UIBase, IUIBase
     {
         SetUIScaler();
         if (uiScaler)
+        {
             uiScaler.ApplyEffectOnShow(() => base.Show());
+            uiScaler.ActivateCanvasGroup(true);
+        }
         else
             base.Show();
     }
@@ -48,7 +51,10 @@ public class PopupBase : UIBase, IUIBase
     public override void Hide()
     {
         if (uiScaler)
+        {
             uiScaler.ApplyEffectOnHide(() => base.Hide());
+            uiScaler.ActivateCanvasGroup(false);
+        }
         else 
             base.Hide();
     }

@@ -160,6 +160,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DefaultCompany.BogeyBlitz
     Standalone: com.DefaultCompany.Bogey-Blitz
+    iPhone: com.DefaultCompany.Bogey-Blitz
   buildNumber:
     Standalone: 0
     iPhone: 0

@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
         
         aiController.gameObject.SetActive(true);
         aiController.AIPathManager.InitializeTimerSystem();
-        // aiController.AIPathManager.StartCreatingObstacleElements();
+        aiController.AIPathManager.StartCreatingObstacleElements();
         
         OnGameStateChange(GameState.GameInProgress);
     }

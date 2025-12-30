@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Bogey Blitz.sln"
+    "dotnet.defaultSolution": "Arctic Escape.sln"
 }

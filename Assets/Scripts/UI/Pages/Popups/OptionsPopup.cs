@@ -27,13 +27,13 @@ public class OptionsPopup : PopupBase
 
     private void SetMusicView()
     {
-        musicText.text = inGameSFXData.gameMusicToggle ? BogeyBlitz_Constants.Toggle_On : BogeyBlitz_Constants.Toggle_Off;
+        musicText.text = inGameSFXData.gameMusicToggle ? ArcticEscape_Constants.Toggle_On : ArcticEscape_Constants.Toggle_Off;
         soundManager.SetGameMusic(inGameSFXData.gameMusicToggle);
     }
 
     private void SetSoundView()
     {
-        soundText.text = inGameSFXData.gameSoundToggle ? BogeyBlitz_Constants.Toggle_On : BogeyBlitz_Constants.Toggle_Off;
+        soundText.text = inGameSFXData.gameSoundToggle ? ArcticEscape_Constants.Toggle_On : ArcticEscape_Constants.Toggle_Off;
         soundManager.SetGameSound(inGameSFXData.gameSoundToggle);
     }
 

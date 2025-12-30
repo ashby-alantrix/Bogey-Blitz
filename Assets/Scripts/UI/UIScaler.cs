@@ -40,6 +40,11 @@ public class UIScaler : MonoBehaviour
         }
     }
 
+    public void ActivateCanvasGroup(bool state)
+    {
+        canvasGroup.interactable = state;
+    }
+
     public void ApplyEffectOnHide(Action onComplete)
     {
         switch (popupScalerType)

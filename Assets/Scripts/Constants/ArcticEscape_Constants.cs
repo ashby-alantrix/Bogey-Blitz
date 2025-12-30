@@ -1,5 +1,5 @@
 
-public class BogeyBlitz_Constants
+public class ArcticEscape_Constants
 {
     public const string Straight_Track_Tag = "Straight-Track";  
     public const string Curved_Track_Tag = "Curved-Track";  

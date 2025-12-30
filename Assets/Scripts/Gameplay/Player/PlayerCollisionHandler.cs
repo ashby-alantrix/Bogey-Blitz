@@ -57,10 +57,10 @@ public class PlayerCollisionHandler : MonoBehaviour
 
         switch (other.tag)
         {
-            case BogeyBlitz_Constants.Straight_Track_Tag:
+            case ArcticEscape_Constants.Straight_Track_Tag:
                 playerCarController.WorldSpawnManager.SetEnvironmentBlocks(other.transform);
             break;
-            case BogeyBlitz_Constants.Obstacle_Tag:
+            case ArcticEscape_Constants.Obstacle_Tag:
 
                 gameManager.OnGameStateChange(GameState.GameOver);
 
