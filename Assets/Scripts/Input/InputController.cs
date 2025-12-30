@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 // using UnityEngine.InputSystem.EnhancedTouch;
 
 public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
@@ -14,7 +15,7 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
     private bool isSwiping = false;
     private bool canChangeLane = false;
 
-    private PlayerCarController bogeyController;
+    private PlayerCarController carController;
 
     public void Initialize()
     {
@@ -23,21 +24,21 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
     public void InitializeData()
     {
-        bogeyController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
-        Debug.Log($"initialized bogey controller: {bogeyController}");
+        carController = InterfaceManager.Instance?.GetInterfaceInstance<PlayerCarController>();
+        Debug.Log($"initialized bogey controller: {carController}");
     }
 
     private void Update()
     {
-        if (!bogeyController) return;
+        if (!carController || !carController?.GameManager || !carController.GameManager.IsGameInProgress) return;
 
 #if UNITY_EDITOR
         if (enableKeyboardControl)
         {
             if (Input.GetKeyDown(KeyCode.A))
-                bogeyController.MoveLeft();
+                carController.MoveLeft();
             else if (Input.GetKeyDown(KeyCode.D))
-                bogeyController.MoveRight();
+                carController.MoveRight();
         }
 #endif
 
@@ -49,6 +50,10 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began && EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                return;
+
             switch (touch.phase)
             {
                 case TouchPhase.Began:
@@ -64,7 +69,7 @@ public class InputController : MonoBehaviour, IBase, IBootLoader, IDataLoader
                         isSwiping = false;
                         Vector2 swipeDelta = currentTouchPosition - startTouchPosition;
                         Debug.Log($"swipeDelta.x: {swipeDelta.x}");
-                        bogeyController.UpdateMovement(swipeDelta);
+                        carController.UpdateMovement(swipeDelta);
                     }
                     break;
             }

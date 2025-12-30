@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour, IBase, IBootLoader, IDataLoader
 
         if (!userDataBehaviour.HasSeenInstruction())
         {
-            userDataBehaviour.SetHasSeenInstructionState(true);
+            userDataBehaviour.ToggleHasSeenInstructionState(true);
             InGameUIManager.ShowInstructionPopup();
             return;
         }

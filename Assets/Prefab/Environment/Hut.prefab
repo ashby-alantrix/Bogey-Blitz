@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &2203626261967290500 stripped
@@ -290,6 +294,10 @@ PrefabInstance:
     - target: {fileID: 5236238247125481943, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236238247286498353, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247286498353, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -451,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-c (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a6ac84b60c34d909433712ab13275c, type: 3}
 --- !u!4 &4530738967430544858 stripped
@@ -475,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.2211819
+      value: -1.88
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
       propertyPath: m_LocalPosition.y
@@ -483,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.5701313
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
       propertyPath: m_LocalRotation.w
@@ -520,6 +532,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
       propertyPath: m_Name
       value: tree-decorated-snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64d7e02c8c1da4b7caa4b3ac2a5d7469, type: 3}
@@ -591,6 +607,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree-snow-a
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cf56350ac95154501b9f5d08cd279007, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf56350ac95154501b9f5d08cd279007, type: 3}
 --- !u!4 &8201854445924101303 stripped
@@ -615,7 +635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247125481942, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247125481942, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -627,7 +647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247125481943, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.35
+      value: -2.15
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247125481943, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -635,7 +655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247125481943, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.61
+      value: 3.56
       objectReference: {fileID: 0}
     - target: {fileID: 5236238247125481943, guid: ec76eebcc592a9b4489aa6e2a6bdfaab, type: 3}
       propertyPath: m_LocalRotation.w

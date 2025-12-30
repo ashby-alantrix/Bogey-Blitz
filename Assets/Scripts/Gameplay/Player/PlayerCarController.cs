@@ -18,7 +18,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     [SerializeField] private float laneChangeSpeed;
 
     [SerializeField] private Transform leftBound;
-    [SerializeField] private Transform rightBound;
+    [SerializeField] private Transform rightBound;  
     [SerializeField] private Transform middleLane;
     [SerializeField] private Transform rightLane;
 
@@ -34,7 +34,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
     private Vector3 targetPosition = Vector3.zero;
     private AnimationCurve worldMoveSpeed;
 
-    private GameManager gameManager;
+    public GameManager GameManager { get; private set; }
     private InputController inputController;
     private WorldSpawnManager worldSpawnManager;
     private DifficultyEvaluator difficultyEvaluator;
@@ -100,7 +100,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     private void SetGameManager()
     {
-        gameManager  = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
+        GameManager  = InterfaceManager.Instance?.GetInterfaceInstance<GameManager>();
     }
 
     private void SetWorldSpawnManager()
@@ -130,7 +130,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
             return;
         }
         
-        gameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
+        GameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
         if (swipeDelta.x > 0 && transform.position.x < rightBound.position.x)
         {
             MoveRight();
@@ -151,7 +151,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         targetPosition = transform.position + (Vector3.left * laneWidth);// + (Vector3.forward * 3f);
         
         #if UNITY_EDITOR
-        gameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
+        GameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
         #endif
 
         transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
@@ -170,7 +170,7 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
         targetPosition = transform.position + (Vector3.right * laneWidth);// + (Vector3.forward * 3f);
 
         #if UNITY_EDITOR
-        gameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
+        GameManager.SoundManager.PlayPrimaryGameSoundClip(SoundType.CarGearChange);
         #endif
 
         transform.DOMove(targetPosition, laneChangeTime).OnComplete(() => 
@@ -195,14 +195,14 @@ public class PlayerCarController : MonoBehaviour, IBase, IBootLoader, IDataLoade
 
     private void Update()
     {
-        if (!gameManager || !gameManager.IsGameInProgress) return;
+        if (!GameManager || !GameManager.IsGameInProgress) return;
 
         Debug.Log($"#### PlayerCarController Update");
 
         if (distanceCovered > 0)
         {
             Debug.Log($"#### Has distance covered: {distanceCovered}");
-            gameManager.InGameUIManager.UpdateHUDDistance($"{Mathf.FloorToInt(distanceCovered)}");
+            GameManager.InGameUIManager.UpdateHUDDistance($"{Mathf.FloorToInt(distanceCovered)}");
 
             CurrentEvaluatedSpeed01 = worldMoveSpeed.Evaluate(distanceCovered / totalDistanceToCover);
             worldSpawnManager.SetEnvironmentMoveSpeed(

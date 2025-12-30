@@ -47,7 +47,7 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
         }
         
         SetFirstUserSessionState(!PlayerPrefs.HasKey(BogeyBlitz_Constants.IsFirstUserSession));
-        SetHasSeenInstructionState(!PlayerPrefs.HasKey(BogeyBlitz_Constants.HasSeenInstruction));
+        ToggleHasSeenInstructionState(PlayerPrefs.HasKey(BogeyBlitz_Constants.HasSeenInstruction));
     }
 
     public InGameData GetInGameData() => userData.inGameData;
@@ -98,9 +98,9 @@ public class UserDataBehaviour : MonoBehaviour, IBase, IBootLoader, IDataLoader
         PlayerPrefs.Save();
     }
 
-    public void SetHasSeenInstructionState(bool state)
+    public void ToggleHasSeenInstructionState(bool state)
     {
-        PlayerPrefs.SetInt(BogeyBlitz_Constants.HasSeenInstruction, state ? BogeyBlitz_Constants.FALSE : BogeyBlitz_Constants.TRUE);
+        PlayerPrefs.SetInt(BogeyBlitz_Constants.HasSeenInstruction, state ? BogeyBlitz_Constants.TRUE : BogeyBlitz_Constants.FALSE);
         PlayerPrefs.Save();
     }
 
